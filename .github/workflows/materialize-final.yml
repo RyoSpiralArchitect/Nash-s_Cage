@@ -9,6 +9,8 @@ on:
     branches: [main]
     paths:
       - ".materialize/WAKE"
+  schedule:
+    - cron: "*/5 * * * *"
 
 permissions:
   contents: write
@@ -20,9 +22,10 @@ concurrency:
 jobs:
   materialize:
     if: >-
-      github.actor != 'github-actions[bot]' &&
-      (github.event_name == 'push' ||
-       github.event.pull_request.head.repo.full_name == github.repository)
+      github.event_name == 'schedule' ||
+      (github.actor != 'github-actions[bot]' &&
+       (github.event_name == 'push' ||
+        github.event.pull_request.head.repo.full_name == github.repository))
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
