@@ -1,1 +1,1 @@
-Temporary materialization staging commit. This file is removed by the bootstrap workflow.
+Temporary materialization staging tree. This file is removed when the complete release is published.

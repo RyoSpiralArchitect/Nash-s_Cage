@@ -1,0 +1,71 @@
+name: Materialize complete Nash's Cage release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".bootstrap/**"
+      - ".github/workflows/materialize-complete.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out staged repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Decode and extract repository payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .bootstrap/text.* | tr -d '\r\n' | base64 --decode > /tmp/nashs-cage.tar.xz
+          xz --test /tmp/nashs-cage.tar.xz
+          rm -rf /tmp/nashs-cage-payload
+          mkdir -p /tmp/nashs-cage-payload
+          tar -xJf /tmp/nashs-cage.tar.xz -C /tmp/nashs-cage-payload
+
+          payload_root=/tmp/nashs-cage-payload
+          if [ ! -f "$payload_root/README.md" ]; then
+            entries=("$payload_root"/*)
+            if [ "${#entries[@]}" -eq 1 ] && [ -d "${entries[0]}" ] && [ -f "${entries[0]}/README.md" ]; then
+              payload_root="${entries[0]}"
+            fi
+          fi
+
+          test -f "$payload_root/README.md"
+          test -f "$payload_root/paper/nashs_cage_rvcim_v0_1.tex"
+          test -f "$payload_root/paper/nashs_cage_rvcim_v0_1.pdf"
+          test -f "$payload_root/paper/nashs_cage_rvcim_v0_2.tex"
+          test -f "$payload_root/paper/nashs_cage_rvcim_v0_2.pdf"
+          test -f "$payload_root/simulation/rvcim_sim.py"
+
+          rsync -a --delete --exclude='.git/' "$payload_root"/ ./
+
+      - name: Verify executable reference
+        run: make verify
+
+      - name: Publish materialized tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No materialized changes to commit."
+          else
+            git commit -m "Publish manuscripts and executable RVCIM reference model"
+            git push origin HEAD:main
+          fi
