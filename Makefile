@@ -5,21 +5,23 @@ SMOKE_DIR ?= .tmp/smoke
 EPISODES ?= 64
 SEED ?= 7
 
-.PHONY: help explain compile test smoke experiment verify-artifact verify paper paper-clean clean
+.PHONY: help materialize explain compile test smoke experiment verify-artifact verify paper paper-clean clean
 
 help:
 	@printf '%s\n' \
 	  'Nashs Cage / RVCIM commands' \
 	  '' \
+	  '  make verify           Compile-check, test, and run a verified smoke experiment' \
+	  '  make experiment       Generate the complete four-arm reference experiment' \
+	  '  make materialize      Expand hash-verified Python, TeX, and bibliography sources' \
 	  '  make explain          Print the F0 claim boundary and paper-to-code map' \
-	  '  make compile          Compile-check the Python sources' \
 	  '  make test             Run the standard-library unit tests' \
-	  '  make smoke            Run and verify a fast four-arm experiment' \
-	  '  make experiment       Regenerate the committed reference experiment' \
-	  '  make verify-artifact  Verify the committed SHA-256 receipt' \
-	  '  make verify           Run compile, tests, smoke, and receipt checks' \
-	  '  make paper            Build manuscript v0.2 with latexmk and Biber' \
+	  '  make paper            Materialize and build manuscript v0.2' \
+	  '  make verify-artifact  Verify a generated reference receipt when present' \
 	  '  make clean            Remove local smoke and TeX build products'
+
+materialize:
+	$(PYTHON) .bootstrap/assemble.py
 
 explain:
 	$(PYTHON) -m simulation explain
@@ -40,15 +42,21 @@ experiment:
 	$(PYTHON) -m simulation verify --receipt $(REFERENCE_DIR)/receipt.json
 
 verify-artifact:
-	$(PYTHON) -m simulation verify --receipt $(REFERENCE_DIR)/receipt.json
+	@if [ -f "$(REFERENCE_DIR)/receipt.json" ]; then \
+	  $(PYTHON) -m simulation verify --receipt "$(REFERENCE_DIR)/receipt.json"; \
+	else \
+	  printf '%s\n' 'No committed reference receipt yet; run `make experiment` to create one.'; \
+	fi
 
-verify: compile test smoke verify-artifact
+verify: compile test smoke
 
-paper:
+paper: materialize
 	cd paper && latexmk -pdf -interaction=nonstopmode -halt-on-error nashs_cage_rvcim_v0_2.tex
 
 paper-clean:
-	cd paper && latexmk -c nashs_cage_rvcim_v0_1.tex && latexmk -c nashs_cage_rvcim_v0_2.tex && rm -f *.bbl
+	@if command -v latexmk >/dev/null 2>&1 && [ -f paper/nashs_cage_rvcim_v0_1.tex ]; then \
+	  cd paper && latexmk -c nashs_cage_rvcim_v0_1.tex && latexmk -c nashs_cage_rvcim_v0_2.tex && rm -f *.bbl; \
+	fi
 
 clean: paper-clean
 	rm -rf .tmp
