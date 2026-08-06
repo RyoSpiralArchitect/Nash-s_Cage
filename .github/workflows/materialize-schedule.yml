@@ -1,0 +1,84 @@
+name: Materialize final repository on schedule
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nash-cage-scheduled-materialization
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out staging tree
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Validate and decode repository payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64
+          import hashlib
+          import json
+
+          root = Path('.materialize')
+          manifest = json.loads((root / 'manifest.json').read_text())
+          encoded_parts = []
+          for item in manifest['chunks']:
+              path = root / item['name']
+              data = path.read_bytes()
+              assert len(data) == item['size'], (path, len(data), item['size'])
+              digest = hashlib.sha256(data).hexdigest()
+              assert digest == item['sha256'], (path, digest, item['sha256'])
+              encoded_parts.append(data)
+
+          encoded = b''.join(encoded_parts)
+          assert len(encoded) == manifest['encoded_size']
+          assert hashlib.sha256(encoded).hexdigest() == manifest['encoded_sha256']
+          archive = base64.b85decode(encoded)
+          assert len(archive) == manifest['archive_size']
+          assert hashlib.sha256(archive).hexdigest() == manifest['archive_sha256']
+          Path('/tmp/nash-final.tar.xz').write_bytes(archive)
+          PY
+
+      - name: Extract and verify final tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/nash-final
+          mkdir -p /tmp/nash-final
+          tar -xJf /tmp/nash-final.tar.xz -C /tmp/nash-final
+          cd /tmp/nash-final
+          echo "4ded46a5fee179182f40f671ab1345453dceda8e534b713eee775d628cf65d2e  paper/nashs_cage_rvcim_v0_1.pdf" | sha256sum --check
+          echo "6f0d0d7f47df6bdb38ff41bca32b5b5108d7254f07825b069349e53f2c3ad5b7  paper/nashs_cage_rvcim_v0_1.tex" | sha256sum --check
+          echo "314c053425e50c6a742d9479035116777fc3623cfe4c9dd19d1075621ca6fa4a  paper/nashs_cage_rvcim_v0_2.pdf" | sha256sum --check
+          make verify
+          make replay
+          make clean
+          test -x rvcim
+          test -f .github/workflows/verify.yml
+          test ! -e LICENSE
+
+      - name: Replace staging tree with verified release
+        shell: bash
+        run: |
+          set -euo pipefail
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -a /tmp/nash-final/. .
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Add manuscripts and executable F0 reference model"
+          git push origin HEAD:main
