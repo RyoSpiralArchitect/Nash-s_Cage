@@ -1,5 +1,6 @@
 name: Build papers and reference artifact
 
+# Explicit one-shot materialization trigger: 2026-08-07
 on:
   workflow_dispatch:
   schedule:
