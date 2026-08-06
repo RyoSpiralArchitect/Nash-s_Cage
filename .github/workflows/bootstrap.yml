@@ -37,6 +37,8 @@ jobs:
             echo "Expected 38 chunks, found $count."
             exit 0
           fi
+          test -f .bootstrap/chunks.sha256
+          (cd .bootstrap && sha256sum --check chunks.sha256)
           echo "ready=true" >> "$GITHUB_OUTPUT"
 
       - name: Expand validated repository snapshot
