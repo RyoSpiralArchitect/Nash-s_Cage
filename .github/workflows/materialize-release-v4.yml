@@ -1,0 +1,72 @@
+name: Materialize executable release v4
+
+on:
+  push:
+    branches:
+      - feat/executable-v0.2
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Receive sealed bundle through wormhole
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected='8a2c7b8f9819f88d4cd46a9ad2b53704f4479410bee74e8adaf30529ca8c83ff'
+          target='/tmp/Nash-s_Cage_executable_v0.2.zip'
+          rm -f "${target}"
+          python3 -m pip install --disable-pip-version-check --quiet magic-wormhole
+          timeout 420 wormhole receive --accept-file --output-file "${target}" \
+            7943-nash-cage-rvcim-0807 || true
+          if [[ -f "${target}" ]]; then
+            actual="$(sha256sum "${target}" | awk '{print $1}')"
+            if [[ "${actual}" == "${expected}" ]]; then
+              echo 'Verified release bundle through magic-wormhole.'
+              exit 0
+            fi
+            rm -f "${target}"
+          fi
+          echo 'Wormhole transfer did not produce the sealed bundle.' >&2
+          exit 1
+
+      - name: Materialize repository tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/nashs-cage-release
+          mkdir -p /tmp/nashs-cage-release
+          unzip -q /tmp/Nash-s_Cage_executable_v0.2.zip -d /tmp/nashs-cage-release
+          test -f /tmp/nashs-cage-release/Nash-s_Cage/run.py
+          rsync -a --delete --exclude='.git/' /tmp/nashs-cage-release/Nash-s_Cage/ ./
+          chmod +x run.py
+
+      - name: Verify before commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s simulation/tests -v
+          python3 run.py --verify-receipt artifacts/reference_run/receipt.json
+
+      - name: Commit materialized release
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m 'Materialize executable RVCIM v0.2 release'
+          git push origin HEAD:feat/executable-v0.2
