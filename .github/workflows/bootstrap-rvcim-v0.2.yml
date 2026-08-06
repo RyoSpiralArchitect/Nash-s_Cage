@@ -1,0 +1,58 @@
+name: Bootstrap executable RVCIM package
+
+on:
+  push:
+    branches:
+      - rvcim-v0.2-executable
+
+permissions:
+  contents: write
+
+jobs:
+  unpack-and-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out bootstrap branch
+        uses: actions/checkout@v4
+        with:
+          ref: rvcim-v0.2-executable
+          fetch-depth: 0
+
+      - name: Download the sealed package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/nashs-cage-bootstrap
+          cd /tmp/nashs-cage-bootstrap
+          curl --fail --location --retry 5 --retry-all-errors \
+            --output Nash-s_Cage-v0.2-executable-final.zip \
+            https://filebin.net/nashs-cage-rvcim-v02-20260807-ryospiral/Nash-s_Cage-v0.2-executable-final.zip
+          curl --fail --location --retry 5 --retry-all-errors \
+            --output Nash-s_Cage-v0.2-executable-final.zip.sha256 \
+            https://filebin.net/nashs-cage-rvcim-v02-20260807-ryospiral/Nash-s_Cage-v0.2-executable-final.zip.sha256
+          sha256sum --check Nash-s_Cage-v0.2-executable-final.zip.sha256
+
+      - name: Replace bootstrap tree with the reviewed package
+        shell: bash
+        run: |
+          set -euo pipefail
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          unzip -q /tmp/nashs-cage-bootstrap/Nash-s_Cage-v0.2-executable-final.zip -d .
+          chmod +x run.py scripts/build_papers.sh simulation/rvcim_sim.py
+          rm -f .github/workflows/bootstrap-rvcim-v0.2.yml
+
+      - name: Commit package contents
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo "Package already present."
+            exit 0
+          fi
+          git commit -m "Add executable RVCIM v0.2 reference implementation"
+          git push origin HEAD:rvcim-v0.2-executable
