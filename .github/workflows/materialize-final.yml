@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - ".materialize/READY"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".materialize/WAKE"
 
 permissions:
   contents: write
@@ -15,7 +19,10 @@ concurrency:
 
 jobs:
   materialize:
-    if: github.actor != 'github-actions[bot]'
+    if: >-
+      github.actor != 'github-actions[bot]' &&
+      (github.event_name == 'push' ||
+       github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
