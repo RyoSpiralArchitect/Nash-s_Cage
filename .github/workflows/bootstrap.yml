@@ -5,7 +5,7 @@ on:
     branches:
       - feat/rvcim-executable-v0.2
     paths:
-      - ".bootstrap/**"
+      - ".bootstrap/READY"
       - ".github/workflows/bootstrap.yml"
 
 permissions:
@@ -21,24 +21,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Wait until all archive chunks exist
+      - name: Check archive readiness
         id: chunks
         shell: bash
         run: |
           set -euo pipefail
-          expected=(
-            .bootstrap/repo.tar.gz.b64.part-00
-            .bootstrap/repo.tar.gz.b64.part-01
-            .bootstrap/repo.tar.gz.b64.part-02
-            .bootstrap/repo.tar.gz.b64.part-03
-          )
-          for file in "${expected[@]}"; do
-            if [[ ! -f "$file" ]]; then
-              echo "ready=false" >> "$GITHUB_OUTPUT"
-              echo "Waiting for $file"
-              exit 0
-            fi
-          done
+          if [[ ! -f .bootstrap/READY ]]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "READY marker is not present yet."
+            exit 0
+          fi
+          count=$(find .bootstrap -maxdepth 1 -type f -name 'repo.tar.gz.b64.part-*' | wc -l | tr -d ' ')
+          if [[ "$count" != "38" ]]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "Expected 38 chunks, found $count."
+            exit 0
+          fi
           echo "ready=true" >> "$GITHUB_OUTPUT"
 
       - name: Expand validated repository snapshot
@@ -46,16 +44,47 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat .bootstrap/repo.tar.gz.b64.part-* | base64 --decode > /tmp/nash-final-repo.tar.gz
-          echo "d73b9049c2d837fa81859cf8b5e85cccbb0d403f5df0f8b0aa16155277f0acc2  /tmp/nash-final-repo.tar.gz" | sha256sum --check
+          cat $(find .bootstrap -maxdepth 1 -type f -name 'repo.tar.gz.b64.part-*' | sort) \
+            | base64 --decode > /tmp/nash-bootstrap-payload.tar.gz
+          echo "2bf8a95e8a0c2c2d32230155223326601fc036941d779a96665252553b9e91aa  /tmp/nash-bootstrap-payload.tar.gz" \
+            | sha256sum --check
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
-          tar -xzf /tmp/nash-final-repo.tar.gz -C .
+          tar -xzf /tmp/nash-bootstrap-payload.tar.gz -C .
+
+      - name: Compile manuscript v0.2
+        if: steps.chunks.outputs.ready == 'true'
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: nashs_cage_rvcim_v0_2.tex
+          working_directory: paper
+          args: -pdf -interaction=nonstopmode -halt-on-error
+
+      - name: Generate reference artifacts and verify
+        if: steps.chunks.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 run.py \
+            --config simulation/configs/minimal.json \
+            --episodes 64 --seed 7 \
+            --out artifacts/reference_run \
+            --repo-root .
+          make verify
+          make clean
+          find paper -maxdepth 1 -type f \
+            \( -name '*.aux' -o -name '*.bbl' -o -name '*.bcf' -o -name '*.blg' \
+               -o -name '*.fdb_latexmk' -o -name '*.fls' -o -name '*.log' \
+               -o -name '*.out' -o -name '*.run.xml' -o -name '*.toc' \) -delete
 
       - name: Commit expanded repository
         if: steps.chunks.outputs.ready == 'true'
         shell: bash
         run: |
           set -euo pipefail
+          test -f paper/nashs_cage_rvcim_v0_1.pdf
+          test -f paper/nashs_cage_rvcim_v0_1.tex
+          test -f paper/nashs_cage_rvcim_v0_2.pdf
+          test -f artifacts/reference_run/receipt.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
