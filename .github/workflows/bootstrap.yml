@@ -31,3 +31,5 @@ jobs:
           git add --all
           git commit -m "Add manuscripts and executable RVCIM reference"
           git push origin HEAD
+
+# Triggered for verified materialization on 2026-08-07.
