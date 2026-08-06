@@ -6,6 +6,12 @@ on:
       - feat/executable-rvcim-v0-2
     paths:
       - ".github/workflows/bootstrap.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/bootstrap.yml"
+      - ".bootstrap/**"
   workflow_dispatch:
 
 permissions:
@@ -16,6 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+          fetch-depth: 0
+          persist-credentials: true
 
       - name: Install project tree
         shell: bash
@@ -30,6 +40,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add --all
           git commit -m "Add manuscripts and executable RVCIM reference"
-          git push origin HEAD
-
-# Triggered for verified materialization on 2026-08-07.
+          target_branch="${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}"
+          git push origin "HEAD:${target_branch}"
