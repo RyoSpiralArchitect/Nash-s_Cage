@@ -1,0 +1,50 @@
+{
+  "encoding": "base85",
+  "archive": "tar.xz",
+  "archive_size": 574776,
+  "archive_sha256": "be89a759fccb2d55600e99c32290faf6480c69590cf7652ef9fecc0ef36af6aa",
+  "encoded_size": 718470,
+  "encoded_sha256": "ec3f689c936f789533998eb40b4d17482dd630109a85ed8feb2ee2d5b56452f0",
+  "chunks": [
+    {
+      "name": "payload.part-00",
+      "size": 100000,
+      "sha256": "5b5a5792a25b805cd347676152b816f4e6648b941e105f89046201f8d872e2ba"
+    },
+    {
+      "name": "payload.part-01",
+      "size": 100000,
+      "sha256": "b7bf8516b5d0daf1a3c528f1c5716bd1e000ee289ab8086b8e6cbb76ec5972a3"
+    },
+    {
+      "name": "payload.part-02",
+      "size": 100000,
+      "sha256": "5a334133dca645d82a000d23461e5c80055f4b8741c1d43df3a613bcd9851cb8"
+    },
+    {
+      "name": "payload.part-03",
+      "size": 100000,
+      "sha256": "9a5a68858c91a5eb2bac223871d8576f993c5d60788a60b09290fe61891dee33"
+    },
+    {
+      "name": "payload.part-04",
+      "size": 100000,
+      "sha256": "e76d79722a2243c99a5cc08f4b15898acabd35fc1f2316372193460646ac8051"
+    },
+    {
+      "name": "payload.part-05",
+      "size": 100000,
+      "sha256": "2daf3f14cc5963f73b9faff92455a89969747a4b65ebb493d86ed7ee67cba407"
+    },
+    {
+      "name": "payload.part-06",
+      "size": 100000,
+      "sha256": "fef888758e59b1c5d245578f860e638acff521d7f7cd455b5b1789c8504d83f8"
+    },
+    {
+      "name": "payload.part-07",
+      "size": 18470,
+      "sha256": "973375069ab9827902616a81055b6e587a8b0935c5f7e3c7778a3a77291d8adf"
+    }
+  ]
+}
