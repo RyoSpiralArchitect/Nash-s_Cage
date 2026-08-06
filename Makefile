@@ -5,7 +5,7 @@ SMOKE_DIR ?= .tmp/smoke
 EPISODES ?= 64
 SEED ?= 7
 
-.PHONY: help materialize explain compile test smoke experiment verify-artifact verify paper paper-clean clean
+.PHONY: help materialize restore-release explain compile test smoke experiment verify-artifact verify paper paper-clean clean
 
 help:
 	@printf '%s\n' \
@@ -14,6 +14,7 @@ help:
 	  '  make verify           Compile-check, test, and run a verified smoke experiment' \
 	  '  make experiment       Generate the complete four-arm reference experiment' \
 	  '  make materialize      Expand hash-verified Python, TeX, and bibliography sources' \
+	  '  make restore-release  Restore exact PDFs, sources, and reference artifacts' \
 	  '  make explain          Print the F0 claim boundary and paper-to-code map' \
 	  '  make test             Run the standard-library unit tests' \
 	  '  make paper            Materialize and build manuscript v0.2' \
@@ -22,6 +23,9 @@ help:
 
 materialize:
 	$(PYTHON) .bootstrap/assemble.py
+
+restore-release:
+	$(PYTHON) tools/restore_release.py --overwrite
 
 explain:
 	$(PYTHON) -m simulation explain
@@ -45,7 +49,7 @@ verify-artifact:
 	@if [ -f "$(REFERENCE_DIR)/receipt.json" ]; then \
 	  $(PYTHON) -m simulation verify --receipt "$(REFERENCE_DIR)/receipt.json"; \
 	else \
-	  printf '%s\n' 'No committed reference receipt yet; run `make experiment` to create one.'; \
+	  printf '%s\n' 'No local reference receipt yet; run `make experiment` or `make restore-release`.'; \
 	fi
 
 verify: compile test smoke
