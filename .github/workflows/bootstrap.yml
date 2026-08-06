@@ -1,0 +1,63 @@
+name: Bootstrap executable repository tree
+
+on:
+  push:
+    branches:
+      - feat/rvcim-executable-v0.2
+    paths:
+      - ".bootstrap/**"
+      - ".github/workflows/bootstrap.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  expand:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out bootstrap branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Wait until all archive chunks exist
+        id: chunks
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected=(
+            .bootstrap/repo.tar.gz.b64.part-00
+            .bootstrap/repo.tar.gz.b64.part-01
+            .bootstrap/repo.tar.gz.b64.part-02
+            .bootstrap/repo.tar.gz.b64.part-03
+          )
+          for file in "${expected[@]}"; do
+            if [[ ! -f "$file" ]]; then
+              echo "ready=false" >> "$GITHUB_OUTPUT"
+              echo "Waiting for $file"
+              exit 0
+            fi
+          done
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+
+      - name: Expand validated repository snapshot
+        if: steps.chunks.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .bootstrap/repo.tar.gz.b64.part-* | base64 --decode > /tmp/nash-final-repo.tar.gz
+          echo "d73b9049c2d837fa81859cf8b5e85cccbb0d403f5df0f8b0aa16155277f0acc2  /tmp/nash-final-repo.tar.gz" | sha256sum --check
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          tar -xzf /tmp/nash-final-repo.tar.gz -C .
+
+      - name: Commit expanded repository
+        if: steps.chunks.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Add executable RVCIM reference model and manuscript v0.2"
+          git push origin HEAD:feat/rvcim-executable-v0.2
