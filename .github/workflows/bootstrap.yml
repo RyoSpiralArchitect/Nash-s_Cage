@@ -1,0 +1,33 @@
+name: Bootstrap executable RVCIM repository
+
+on:
+  push:
+    branches:
+      - feat/executable-rvcim-v0-2
+    paths:
+      - ".github/workflows/bootstrap.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install project tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .bootstrap/text.* | tr -d '\n\r ' | base64 --decode > /tmp/nash-payload.tar.xz
+          echo "c1f21cea9f7e48ae4b1546ddf34e4744e00ec244fe4f987e4f2466657b607d8d  /tmp/nash-payload.tar.xz" | sha256sum --check -
+          xz --decompress --stdout /tmp/nash-payload.tar.xz | tar --extract --file=- --directory=.
+          rm -rf .bootstrap
+          rm -f .github/workflows/bootstrap.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          git commit -m "Add manuscripts and executable RVCIM reference"
+          git push origin HEAD
