@@ -6,6 +6,11 @@ on:
       - main
     paths:
       - ".github/workflows/bootstrap.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".bootstrap/WAKE"
   workflow_dispatch:
 
 permissions:
@@ -13,11 +18,14 @@ permissions:
 
 jobs:
   bootstrap:
+    if: >-
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || 'main' }}
           fetch-depth: 0
           persist-credentials: true
 
@@ -34,4 +42,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add --all
           git commit -m "Add manuscripts and executable RVCIM reference"
-          git push origin HEAD:main
+          target_branch="${GITHUB_HEAD_REF:-main}"
+          git push origin "HEAD:${target_branch}"
