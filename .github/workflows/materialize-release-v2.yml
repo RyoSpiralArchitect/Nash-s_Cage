@@ -1,0 +1,100 @@
+name: Materialize executable release v2
+
+on:
+  push:
+    branches:
+      - feat/executable-v0.2
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out bootstrap branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Receive sealed release bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected='8a2c7b8f9819f88d4cd46a9ad2b53704f4479410bee74e8adaf30529ca8c83ff'
+          target='/tmp/Nash-s_Cage_executable_v0.2.zip'
+          rm -f "${target}"
+
+          mkdir -p /tmp/croc
+          if curl --fail --location --silent --show-error --retry 2 --max-time 90 \
+            'https://github.com/schollz/croc/releases/download/v9.6.15/croc_v9.6.15_Linux-64bit.tar.gz' \
+            -o /tmp/croc.tar.gz; then
+            tar -xzf /tmp/croc.tar.gz -C /tmp/croc
+            chmod +x /tmp/croc/croc
+            timeout 240 /tmp/croc/croc --yes --overwrite --out /tmp nash-cage-rvcim-release-0807 || true
+          fi
+
+          if [[ -f "${target}" ]]; then
+            actual="$(sha256sum "${target}" | awk '{print $1}')"
+            if [[ "${actual}" == "${expected}" ]]; then
+              echo 'Verified release bundle through croc relay.'
+              exit 0
+            fi
+            rm -f "${target}"
+          fi
+
+          urls=(
+            'https://nashs-cage-rvcim-0807.serveo.net/Nash-s_Cage_executable_v0.2.zip'
+            'http://bore.pub:47987/Nash-s_Cage_executable_v0.2.zip'
+            'https://nashs-cage-rvcim-0807.lhr.life/Nash-s_Cage_executable_v0.2.zip'
+            'https://nashs-cage-rvcim-0807.localhost.run/Nash-s_Cage_executable_v0.2.zip'
+          )
+          for url in "${urls[@]}"; do
+            echo "Trying ${url}"
+            if curl --fail --location --silent --show-error --retry 2 --connect-timeout 15 --max-time 120 \
+              "${url}" -o "${target}"; then
+              actual="$(sha256sum "${target}" | awk '{print $1}')"
+              if [[ "${actual}" == "${expected}" ]]; then
+                echo "Verified release bundle from ${url}"
+                exit 0
+              fi
+              echo "Checksum mismatch from ${url}: ${actual}"
+            fi
+          done
+
+          echo 'No transfer path returned the sealed release bundle.' >&2
+          exit 1
+
+      - name: Replace bootstrap tree with release
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/nashs-cage-release
+          mkdir -p /tmp/nashs-cage-release
+          unzip -q /tmp/Nash-s_Cage_executable_v0.2.zip -d /tmp/nashs-cage-release
+          test -f /tmp/nashs-cage-release/Nash-s_Cage/run.py
+          rsync -a --delete --exclude='.git/' /tmp/nashs-cage-release/Nash-s_Cage/ ./
+          chmod +x run.py
+
+      - name: Verify executable receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s simulation/tests -v
+          python3 run.py --verify-receipt artifacts/reference_run/receipt.json
+
+      - name: Commit materialized release
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No materialization changes detected.'
+            exit 0
+          fi
+          git commit -m 'Materialize executable RVCIM v0.2 release'
+          git push origin HEAD:feat/executable-v0.2
