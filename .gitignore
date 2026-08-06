@@ -1,8 +1,14 @@
+# Python
 __pycache__/
 *.py[cod]
-.DS_Store
-artifacts/_smoke/
-artifacts/_tune/
+*.egg-info/
+.venv/
+venv/
+
+# Local experiment scratch
+.tmp/
+
+# LaTeX build products
 paper/*.aux
 paper/*.bbl
 paper/*.bcf
@@ -14,3 +20,8 @@ paper/*.out
 paper/*.run.xml
 paper/*.toc
 paper/*.synctex.gz
+
+# Editors and operating systems
+.DS_Store
+.vscode/
+.idea/
