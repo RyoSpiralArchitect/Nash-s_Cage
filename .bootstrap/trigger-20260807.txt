@@ -1,0 +1,1 @@
+Trigger repository snapshot expansion after transport verification.
