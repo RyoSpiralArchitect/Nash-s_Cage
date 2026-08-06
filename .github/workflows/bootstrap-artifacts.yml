@@ -1,8 +1,10 @@
 name: Build papers and reference artifact
 
-# Explicit one-shot materialization trigger: 2026-08-07
+# Observable one-shot path for PR-triggered verification.
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
   schedule:
     - cron: "*/5 * * * *"
   push:
