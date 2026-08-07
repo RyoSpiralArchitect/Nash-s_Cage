@@ -4,7 +4,7 @@
 
 ## 1. 最短で動かす
 
-必要なのは Python 3.10 以上だけです。
+必要なのは Python 3.10 以上と Make です。Python verifier と simulator 自体に third-party package はありません。
 
 ```bash
 git clone https://github.com/RyoSpiralArchitect/Nash-s_Cage.git
@@ -14,20 +14,28 @@ make verify
 
 `make verify` は次をまとめて行います。
 
-1. Python ソースの compile check
-2. 標準ライブラリだけで動く unit test
-3. 4 arm の小規模 smoke experiment
-4. 生成物の SHA-256 receipt 検証
+1. release manifest と全必須ファイルの hash / provenance 検証
+2. Python ソースの compile check
+3. simulator と release verifier の unit test
+4. 4 arm の小規模 smoke experiment と receipt 検証
+5. commit 済み reference receipt の検証
+6. 64 episode reference command の再実行と deterministic output 5 ファイルの byte 比較
 
-`make` がない環境では、次でも確認できます。
+`make` がない環境では、同じ full verification を次で実行できます。
 
 ```bash
+python3 tools/verify_release.py --root . --manifest RELEASE_MANIFEST.json
 python3 -m py_compile simulation/__init__.py simulation/__main__.py simulation/rvcim_sim.py
+python3 -m py_compile tools/verify_release.py tools/verify_reference_replay.py
 python3 -m unittest discover -s simulation/tests -v
+python3 -m unittest discover -s tools/tests -v
 python3 -m simulation smoke \
   --config simulation/configs/minimal.json \
   --episodes 4 --seed 101 --out .tmp/smoke
 python3 -m simulation verify --receipt .tmp/smoke/receipt.json
+python3 -m simulation verify --receipt artifacts/reference_run/receipt.json
+python3 tools/verify_reference_replay.py \
+  --root . --reference-dir artifacts/reference_run
 ```
 
 ## 2. モデル境界を先に読む
@@ -70,49 +78,34 @@ python3 -m simulation run \
 - `resolved_config.json`: 実際に使われた設定
 - `receipt.json`: command、環境情報、claim boundary、ファイル hash
 
-## 4. 原稿ソースを通常ファイルへ展開する
+## 4. 原稿と provenance
 
-軽量な main branch では、大きな Python / TeX ソースを hash 付き payload として保持しています。編集可能な通常ファイルへ展開するには:
+Python、TeX、bibliography、PDF、reference artifact はすべて通常ファイルとして同梱されています。展開処理や別 branch からの復元は不要です。
 
-```bash
-make materialize
-```
+保存された v0.1 の原本 identity:
 
-この処理は payload のサイズと SHA-256 を検証してから展開します。
+- `paper/nashs_cage_rvcim_v0_1.tex`: `6f0d0d7f47df6bdb38ff41bca32b5b5108d7254f07825b069349e53f2c3ad5b7`
+- `paper/nashs_cage_rvcim_v0_1.pdf`: `4ded46a5fee179182f40f671ab1345453dceda8e534b713eee775d628cf65d2e`
 
-## 5. アップロード原本 PDF と完全版を復元する
+v0.2 は、壊れた bootstrap 表現から過去のバイト列を復元したものではありません。保存された v0.1 と現在の executable contract から 2026-08-07 に再生成した版であり、過去に存在した可能性のある別の v0.2 とのバイト一致は主張しません。この境界と全必須ファイルの SHA-256 / size は `RELEASE_MANIFEST.json` に記録されています。
 
-```bash
-make restore-release
-```
-
-これで次が作業ツリーへ復元されます。
-
-- アップロードされた v0.1 PDF と TeX
-- 実行可能性・容易性を補強した v0.2 PDF と TeX
-- `references.bib`
-- 完全な simulator source
-- 64 episode の reference artifact
-
-復元処理は同じ GitHub リポジトリ内の archive branch を読み、圧縮 archive の SHA-256、path traversal、アップロード原本 PDF / TeX の SHA-256 を検証します。GitHub Actions や TeX 環境は不要です。
-
-`make` を使わない場合:
+manifest だけを検証する場合:
 
 ```bash
-python3 tools/restore_release.py --overwrite
+make verify-release
 ```
 
-## 6. PDF を自分で再ビルドする
+## 5. PDF を自分で再ビルドする
 
-`latexmk`、Biber、必要な TeX package がある環境では:
+`latexmk`、XeLaTeX、BibTeX、必要な TeX package がある環境では:
 
 ```bash
 make paper
 ```
 
-既存 PDF を読むだけなら `make restore-release` のほうが速いです。
+既存 PDF はそのまま読めます。`make paper` の出力先は `.tmp/paper/nashs_cage_rvcim_v0_2.pdf` で、commit 済みの v0.1 / v0.2 PDF を上書きしません。manifest の hash は検証済み PDF の identity です。TeX engine、package、font、生成時 metadata が異なるローカル再 build に同一 hash は要求しません。
 
-## 7. Windows
+## 6. Windows
 
 Command Prompt / PowerShell では:
 
@@ -121,13 +114,7 @@ rvcim.cmd explain
 rvcim.cmd smoke --config simulation\configs\minimal.json --episodes 4 --seed 101 --out .tmp\smoke
 ```
 
-完全版の復元:
-
-```bat
-py tools\restore_release.py --overwrite
-```
-
-## 8. 数字の読み方
+## 7. 数字の読み方
 
 `irreversible_entry_rate` が低い、`min_hidden_cr` が高い、`false_negative_trigger_rate` が低い、といった差は、現在の正規化された toy assumptions の内部での差です。現実の気候リスク、制度効果、政策順位を推定してはいません。
 

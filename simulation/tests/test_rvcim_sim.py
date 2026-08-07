@@ -45,6 +45,19 @@ class ConfigTests(unittest.TestCase):
             self.assertEqual(resolved["horizon"], 12)
             self.assertEqual(resolved["actors"], 6)
 
+    def test_wrong_type_override_is_rejected(self) -> None:
+        with self.assertRaisesRegex(sim.ConfigError, "horizon must be an integer"):
+            sim.load_config(CONFIG, ('horizon="not-an-integer"',))
+
+    def test_non_numeric_model_offset_is_rejected(self) -> None:
+        payload = json.loads(CONFIG.read_text(encoding="utf-8"))
+        payload["model_boundary_offsets"] = ["not-a-number"]
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "bad-offset.json"
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(sim.ConfigError, "must contain finite numbers"):
+                sim.load_config(path)
+
 
 class MechanismTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -145,6 +158,93 @@ class ExperimentTests(unittest.TestCase):
                 handle.write("tamper\n")
             failures = sim.verify_receipt(receipt_path)
             self.assertTrue(any("episodes.csv" in failure for failure in failures))
+
+    def test_receipt_rejects_empty_hash_map(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            receipt_path = Path(tmp) / "receipt.json"
+            receipt_path.write_text('{"sha256": {}}\n', encoding="utf-8")
+            failures = sim.verify_receipt(receipt_path)
+            self.assertTrue(failures)
+            self.assertTrue(
+                any("missing keys" in failure for failure in failures), failures
+            )
+
+    def test_receipt_rejects_missing_required_hash(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "run"
+            self._run(out)
+            receipt_path = out / "receipt.json"
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            del receipt["sha256"]["trace.csv"]
+            receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+            failures = sim.verify_receipt(receipt_path)
+            self.assertTrue(
+                any("trace.csv" in failure for failure in failures), failures
+            )
+
+    def test_receipt_rejects_output_alias_as_input(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "run"
+            self._run(out)
+            receipt_path = out / "receipt.json"
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            source_key = receipt["inputs"]["source"]
+            del receipt["sha256"][source_key]
+            receipt["inputs"]["source"] = "summary.csv"
+            receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+            failures = sim.verify_receipt(receipt_path)
+            self.assertTrue(
+                any("must not alias" in failure for failure in failures), failures
+            )
+
+    def test_receipt_rejects_different_model_version(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "run"
+            self._run(out)
+            receipt_path = out / "receipt.json"
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            receipt["model_version"] = "999"
+            receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+            failures = sim.verify_receipt(receipt_path)
+            self.assertTrue(
+                any("model_version" in failure for failure in failures), failures
+            )
+
+    def test_receipt_reports_malformed_input_config(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            out = root / "run"
+            self._run(out)
+            bad_config = root / "bad.json"
+            payload = json.loads(CONFIG.read_text(encoding="utf-8"))
+            payload["model_boundary_offsets"] = ["not-a-number"]
+            bad_config.write_text(json.dumps(payload), encoding="utf-8")
+            receipt_path = out / "receipt.json"
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            old_config = receipt["inputs"]["config"]
+            del receipt["sha256"][old_config]
+            receipt["inputs"]["config"] = "../bad.json"
+            receipt["sha256"]["../bad.json"] = sim.sha256_file(bad_config)
+            receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+            failures = sim.verify_receipt(receipt_path)
+            self.assertTrue(
+                any("not a valid model config" in failure for failure in failures),
+                failures,
+            )
+
+    def test_overwrite_refuses_unmarked_directory(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "unrelated"
+            out.mkdir()
+            keep = out / "keep.txt"
+            keep.write_text("must survive\n", encoding="utf-8")
+            with self.assertRaises(FileExistsError):
+                self._run(out)
+            self.assertEqual(keep.read_text(encoding="utf-8"), "must survive\n")
+
+    def test_overwrite_refuses_protected_repository_root(self) -> None:
+        with self.assertRaises(FileExistsError):
+            sim.prepare_output(ROOT, overwrite=True)
 
     def test_result_rows_are_dataclass_serializable(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

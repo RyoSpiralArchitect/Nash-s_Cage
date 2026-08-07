@@ -1,0 +1,36 @@
+{
+  "claim_boundary": "Structural toy only; not calibrated, predictive, empirically validating, or a policy recommendation.",
+  "claim_level": "F0",
+  "command": {
+    "arms": [
+      "weak_coupling",
+      "nominal_trigger",
+      "robust_reserve",
+      "full_rvcim"
+    ],
+    "episodes": 64,
+    "overrides": [],
+    "seed": 7
+  },
+  "environment": {
+    "implementation": "CPython",
+    "platform": "macOS-26.2-arm64-arm-64bit-Mach-O",
+    "python": "3.13.13"
+  },
+  "inputs": {
+    "config": "../../simulation/configs/minimal.json",
+    "source": "../../simulation/rvcim_sim.py"
+  },
+  "model_version": "0.2.0",
+  "receipt_version": 2,
+  "schema_version": 1,
+  "sha256": {
+    "../../simulation/configs/minimal.json": "42774c526c924397dafc19ca8c0050e7837115eb913bd3494efb3e3f6ff400ea",
+    "../../simulation/rvcim_sim.py": "0d2063e8d7e7011e88d578e9a222a7cf94d50f061b514d28fd272ce73b5d2781",
+    "comparison.md": "afc932eeba44e68daffb0f8dec8895e885d87e7ead141f1b7c9030a687b1693d",
+    "episodes.csv": "67bf454055f31f4e1d1c2fb708ef10a25eae9ef052f9ec0dd4e42351ab497933",
+    "resolved_config.json": "43fd649b0062f5de19d6c1a67ce86ff401676c6f68913fdd0c209bd315026cb1",
+    "summary.csv": "bbed84e0f608c33c8e38fcfa571fdea35b372536ddb697948964aeb5b2209c02",
+    "trace.csv": "b212838ba29969d212952eb10dd6f975f8b6feedf25db2bb21a689371105566f"
+  }
+}

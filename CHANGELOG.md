@@ -18,5 +18,13 @@
 ### Preserved
 
 - uploaded v0.1 TeX source
-- v0.1 PDF rendering
+- uploaded v0.1 PDF
 - the manuscript's explicit boundary between formal proposal and empirical validation
+
+### Recovered
+
+- replaced incomplete encoded bootstrap payloads with ordinary checked-in release files
+- regenerated manuscript v0.2 from the exact preserved v0.1 source and executable contract, without claiming historical byte identity
+- added a fail-closed release manifest and committed reference receipt
+- removed the scheduled self-modifying workflow and archive restorer
+- made CI fail when a required source, paper, PDF, reference artifact, or receipt is absent or modified

@@ -15,7 +15,13 @@ Verify it from the repository root:
 make verify-artifact
 ```
 
-The artifact is a reproducibility fixture and an example of the output contract. It is not a calibrated result, benchmark score, or empirical policy comparison.
+Regenerate the declared run in a temporary directory and byte-compare all five deterministic outputs:
+
+```bash
+make verify-reference-replay
+```
+
+The artifact is a reproducibility fixture and an example of the output contract. It is also covered by `RELEASE_MANIFEST.json`. It is not a calibrated result, benchmark score, or empirical policy comparison.
 
 To regenerate after an intentional model or configuration change:
 

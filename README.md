@@ -8,7 +8,7 @@ The repository now places the manuscript beside a deliberately small executable 
 
 ## Start in one minute
 
-Requirements: Python 3.10 or newer. The simulator has no third-party runtime dependencies.
+Requirements: Python 3.10 or newer and Make. The simulator and verification tools have no third-party Python runtime dependencies.
 
 ```bash
 git clone https://github.com/RyoSpiralArchitect/Nash-s_Cage.git
@@ -16,30 +16,16 @@ cd Nash-s_Cage
 make verify
 ```
 
-`make verify` compile-checks the package, runs deterministic standard-library tests, executes a four-arm smoke experiment, and verifies its SHA-256 receipt.
+`make verify` checks every required release file against `RELEASE_MANIFEST.json`, compile-checks the package, runs deterministic standard-library tests, executes and verifies a four-arm smoke experiment, verifies the committed reference receipt, and replays the declared 64-episode reference command for byte comparison of its five deterministic outputs. Missing files and replay mismatches are failures; there is no assembly or download step.
 
-The simulator is directly runnable from the checked-in, hash-verified source payload. To expand the ordinary Python, TeX, and bibliography files for inspection or editing:
+## Release files and provenance
 
-```bash
-make materialize
-```
-
-## Restore the exact manuscript package
-
-The repository history also contains the complete verified release archive, including the exact uploaded v0.1 PDF and TeX source, the feasibility-focused v0.2 revision, bibliography, full simulator source, and reference artifacts.
-
-Restore all of them into the working tree with one command:
-
-```bash
-make restore-release
-```
-
-The restorer uses only Python and Git. It fetches eight archive chunks from this repository, verifies the archive SHA-256, rejects unsafe archive paths, restores the expected files, and verifies the uploaded inputs:
+The readable Python, TeX, bibliography, PDFs, and reference results are ordinary checked-in files. In particular:
 
 - `nashs_cage_rvcim_v0_1.pdf`: `4ded46a5fee179182f40f671ab1345453dceda8e534b713eee775d628cf65d2e`
 - `nashs_cage_rvcim_v0_1.tex`: `6f0d0d7f47df6bdb38ff41bca32b5b5108d7254f07825b069349e53f2c3ad5b7`
 
-This path does not depend on GitHub Actions or a TeX installation.
+Those two v0.1 files are exact preserved uploads. The v0.2 source and PDF in this tree were regenerated on 7 August 2026 from the preserved v0.1 manuscript and the executable-companion contract after an earlier bootstrap representation proved incomplete. They are deliberately **not** claimed to be byte-identical to an unavailable earlier v0.2 build. `RELEASE_MANIFEST.json` records this boundary and the identity of every required release file.
 
 ## Run the complete experiment
 
@@ -114,20 +100,22 @@ This repository is currently at **F0**. Cleaner execution makes assumptions easi
 
 ```text
 simulation/
-  rvcim_sim.py                   transparent zero-dependency loader / materialized source
+  rvcim_sim.py                   transparent zero-dependency implementation
   configs/minimal.json           declared normalized reference configuration
   tests/test_rvcim_sim.py        deterministic standard-library tests
 tools/
-  restore_release.py             checksum-verified exact release restorer
-paper/                            ordinary files appear after make materialize/restore-release
+  verify_release.py              fail-closed release-manifest verifier
+  verify_reference_replay.py     64-episode deterministic replay verifier
+paper/
   nashs_cage_rvcim_v0_1.tex     exact uploaded source
   nashs_cage_rvcim_v0_1.pdf     exact uploaded PDF
-  nashs_cage_rvcim_v0_2.tex     feasibility and executability revision
+  nashs_cage_rvcim_v0_2.tex     regenerated feasibility/executability revision
   nashs_cage_rvcim_v0_2.pdf
   references.bib
-artifacts/reference_run/          restored or regenerated reference package
+artifacts/reference_run/          committed reproducibility fixture
 rvcim / rvcim.cmd                no-install POSIX and Windows launchers
 .github/workflows/verify.yml      portable verification workflow
+RELEASE_MANIFEST.json             hashes, sizes, and provenance boundary
 ```
 
 ## Paper revision
@@ -140,13 +128,13 @@ Version 0.2 preserves the conceptual architecture and adds:
 - an implementation contract for seeds, outputs, trigger errors, and receipts
 - a stronger boundary between executability and validation
 
-After `make materialize`, build it when `latexmk`, Biber, and the required TeX packages are installed:
+Build v0.2 when `latexmk`, XeLaTeX, BibTeX, and the required TeX packages are installed:
 
 ```bash
 make paper
 ```
 
-`make restore-release` is the faster route when the prebuilt PDFs are sufficient.
+The build is written to `.tmp/paper/nashs_cage_rvcim_v0_2.pdf`; it does not overwrite either committed PDF. The manifest hash identifies the qualified committed rendering. A local rebuild checks source buildability but is not expected to be byte-identical across TeX engines, package sets, fonts, or embedded creation metadata.
 
 ## No-install launchers
 
@@ -163,9 +151,9 @@ They delegate directly to `python -m simulation`; the Python module remains the 
 make help
 make verify
 make experiment
-make materialize
-make restore-release
 make explain
+make verify-release
+make verify-reference-replay
 make compile
 make test
 make smoke
@@ -178,4 +166,4 @@ See [`simulation/README.md`](simulation/README.md) for mechanics and metric defi
 
 ---
 
-**日本語クイックスタート:** Python 3.10+ だけで `make verify` が動きます。完全な原稿・PDF・reference artifact は `make restore-release`、四つの統治アームの再実験は `make experiment` です。現段階は F0 の構造実験であり、現実の気候予測や政策効果の推定ではありません。
+**日本語クイックスタート:** Python 3.10+ と Make で `make verify` が動きます。Python verifier と simulator 自体には third-party package は不要です。原稿・PDF・reference artifact は通常ファイルとして同梱され、四つの統治アームの再実験は `make experiment` です。v0.1 は原本一致、v0.2 は出自を明示した再生成版です。現段階は F0 の構造実験であり、現実の気候予測や政策効果の推定ではありません。

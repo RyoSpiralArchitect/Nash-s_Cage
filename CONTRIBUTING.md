@@ -30,6 +30,8 @@ make experiment
 make verify
 ```
 
+Any intentional change to a release-tracked file must update `RELEASE_MANIFEST.json`. Never weaken verification by treating an absent required file as a skipped success.
+
 ## Design expectations
 
 - Preserve common episode environments across arms unless the experiment explicitly studies unpaired designs.
