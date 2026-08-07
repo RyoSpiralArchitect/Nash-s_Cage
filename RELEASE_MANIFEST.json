@@ -1,0 +1,86 @@
+{
+  "format": "nashs-cage-release-manifest/v1",
+  "release": "v0.2.0",
+  "release_status": "recovery",
+  "release_date": "2026-08-07",
+  "claim_level": "F0",
+  "claim_boundary": "Structural toy only; not calibrated, predictive, empirically validating, or a policy recommendation.",
+  "provenance": {
+    "v0_1": "exact-preserved-upload",
+    "v0_2": "regenerated-from-preserved-v0.1",
+    "historical_v0_2_byte_identity": "not-claimed",
+    "note": "The v0.2 source and PDF were regenerated from the exact preserved v0.1 manuscript and the checked-in executable contract after the encoded bootstrap representation proved incomplete."
+  },
+  "files": {
+    "artifacts/reference_run/comparison.md": {
+      "bytes": 695,
+      "role": "human-readable reference comparison",
+      "sha256": "afc932eeba44e68daffb0f8dec8895e885d87e7ead141f1b7c9030a687b1693d"
+    },
+    "artifacts/reference_run/episodes.csv": {
+      "bytes": 69598,
+      "role": "episode-level reference outcomes",
+      "sha256": "67bf454055f31f4e1d1c2fb708ef10a25eae9ef052f9ec0dd4e42351ab497933"
+    },
+    "artifacts/reference_run/receipt.json": {
+      "bytes": 1347,
+      "role": "reference artifact verification receipt",
+      "sha256": "b700d0cf14a00de4937250c711adb291535d02a5bfcd79338f68621f94e89428"
+    },
+    "artifacts/reference_run/resolved_config.json": {
+      "bytes": 1492,
+      "role": "resolved reference configuration",
+      "sha256": "43fd649b0062f5de19d6c1a67ce86ff401676c6f68913fdd0c209bd315026cb1"
+    },
+    "artifacts/reference_run/summary.csv": {
+      "bytes": 5552,
+      "role": "arm-level reference summary",
+      "sha256": "bbed84e0f608c33c8e38fcfa571fdea35b372536ddb697948964aeb5b2209c02"
+    },
+    "artifacts/reference_run/trace.csv": {
+      "bytes": 79343,
+      "role": "step-level reference trace",
+      "sha256": "b212838ba29969d212952eb10dd6f975f8b6feedf25db2bb21a689371105566f"
+    },
+    "paper/nashs_cage_rvcim_v0_1.pdf": {
+      "bytes": 389459,
+      "provenance": "exact-preserved-upload",
+      "role": "preserved manuscript v0.1 PDF",
+      "sha256": "4ded46a5fee179182f40f671ab1345453dceda8e534b713eee775d628cf65d2e"
+    },
+    "paper/nashs_cage_rvcim_v0_1.tex": {
+      "bytes": 66713,
+      "provenance": "exact-preserved-upload",
+      "role": "preserved manuscript v0.1 TeX",
+      "sha256": "6f0d0d7f47df6bdb38ff41bca32b5b5108d7254f07825b069349e53f2c3ad5b7"
+    },
+    "paper/nashs_cage_rvcim_v0_2.pdf": {
+      "bytes": 204271,
+      "pages": 24,
+      "provenance": "regenerated-from-preserved-v0.1",
+      "role": "regenerated manuscript v0.2 PDF",
+      "sha256": "a1518f51be7a7ee2b818f1b59e8eaca0bf566738efaaafb100cbe6d40c3be1ca"
+    },
+    "paper/nashs_cage_rvcim_v0_2.tex": {
+      "bytes": 74594,
+      "provenance": "regenerated-from-preserved-v0.1",
+      "role": "regenerated manuscript v0.2 TeX",
+      "sha256": "c72860fbbdaa37bea9881e1afe634fedab3a97cabc57f4a77fb42c78681e7c57"
+    },
+    "paper/references.bib": {
+      "bytes": 10636,
+      "role": "bibliography for manuscript sources",
+      "sha256": "99a0c194f5698d5b8a0c655b8bccb8e5970d616b994a213b3443c3499022e08b"
+    },
+    "simulation/configs/minimal.json": {
+      "bytes": 1490,
+      "role": "declared normalized reference configuration",
+      "sha256": "42774c526c924397dafc19ca8c0050e7837115eb913bd3494efb3e3f6ff400ea"
+    },
+    "simulation/rvcim_sim.py": {
+      "bytes": 58099,
+      "role": "zero-dependency executable reference source",
+      "sha256": "0d2063e8d7e7011e88d578e9a222a7cf94d50f061b514d28fd272ce73b5d2781"
+    }
+  }
+}
