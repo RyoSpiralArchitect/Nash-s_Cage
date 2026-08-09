@@ -104,7 +104,11 @@ The order is explicit because moving even one operation can change the mechanism
 - Python implementation and platform metadata
 - SHA-256 hashes for results, source, original config, and resolved config
 
-Verification resolves every path relative to the receipt location:
+Input paths are recorded relative to the receipt location when the filesystem can
+represent that relationship. On Windows, an input on a different volume is
+recorded as a resolved absolute path instead; that receipt is path-bound and is
+not portable to another checkout. The committed reference receipt keeps relative
+paths. Verification resolves either representation explicitly:
 
 ```bash
 python3 -m simulation verify --receipt PATH/receipt.json

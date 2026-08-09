@@ -43,7 +43,7 @@
     "artifacts/reference_run/receipt.json": {
       "bytes": 1347,
       "role": "reference artifact verification receipt",
-      "sha256": "716a3be6662c7db2db2ed64f7f0c6ec6b14b7d8c493bd668616ead0e425ba0ad"
+      "sha256": "735797a6252eed0200c69c21233eae84a3db3af456209aecec3ddb20a44f3833"
     },
     "artifacts/reference_run/resolved_config.json": {
       "bytes": 1492,
@@ -116,14 +116,14 @@
       "sha256": "42774c526c924397dafc19ca8c0050e7837115eb913bd3494efb3e3f6ff400ea"
     },
     "simulation/rvcim_sim.py": {
-      "bytes": 63194,
+      "bytes": 63479,
       "role": "zero-dependency executable reference source",
-      "sha256": "b2df72aaa05efcc63c797457f01f9c867dcf26a6766ef955ae1078998e565578"
+      "sha256": "cdfc09b60658b637f01bb241175591ecd55ef57005119b61d47118b5d7fc6b76"
     },
     "simulation/tests/test_rvcim_sim.py": {
-      "bytes": 16000,
+      "bytes": 16625,
       "role": "deterministic simulator contract tests",
-      "sha256": "4ea48db0570f4123781bc1cdb3a96d60d5f67f49976da52ba4198e7cabb9e007"
+      "sha256": "28b140b5199754d6724b5af932c6cc3fada79dbde66582d67f53aace6ed69e2d"
     },
     "tools/tests/test_verify_release.py": {
       "bytes": 14316,
@@ -131,9 +131,9 @@
       "sha256": "30f95f6a521c4c19bc3b5d0ea004f4ab599763cbe66c977829a597f59cdbeb71"
     },
     "tools/verify_reference_replay.py": {
-      "bytes": 6097,
+      "bytes": 6147,
       "role": "deterministic reference replay verifier",
-      "sha256": "990c833307a4559f2da55a688adb129cabe5970b78af424229f131ca6b874d1b"
+      "sha256": "167666f529876d1d52a5ec3b9641790d8aa4a7d1155e3d22fbf03b98aed1bb7e"
     },
     "tools/verify_release.py": {
       "bytes": 20619,

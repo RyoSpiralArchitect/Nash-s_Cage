@@ -122,7 +122,10 @@ def verify_replay(root: Path, reference_dir: Path) -> list[str]:
     command = receipt["command"]
     config_path = (reference_dir / inputs["config"]).resolve()
 
-    with tempfile.TemporaryDirectory(prefix="nash-cage-reference-replay-") as tmp:
+    with tempfile.TemporaryDirectory(
+        prefix=".nash-cage-reference-replay-",
+        dir=reference_dir.parent,
+    ) as tmp:
         replay_dir = Path(tmp) / "reference_run"
         sim.run_experiment(
             cfg_path=config_path,

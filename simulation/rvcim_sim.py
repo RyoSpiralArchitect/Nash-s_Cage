@@ -1438,6 +1438,14 @@ def prepare_output(path: Path, overwrite: bool) -> Path:
     return resolved
 
 
+def _receipt_input_reference(path: Path, output_dir: Path) -> str:
+    """Record an input path without assuming both paths share a Windows drive."""
+    try:
+        return os.path.relpath(path, output_dir)
+    except ValueError:
+        return str(path.resolve())
+
+
 def run_experiment(
     cfg_path: Path,
     episodes: int,
@@ -1497,8 +1505,8 @@ def run_experiment(
             json.dumps(config.to_mapping(), indent=2, sort_keys=True) + "\n",
         )
         input_paths = {
-            "config": os.path.relpath(config_path, target_dir),
-            "source": os.path.relpath(source_path, target_dir),
+            "config": _receipt_input_reference(config_path, target_dir),
+            "source": _receipt_input_reference(source_path, target_dir),
         }
         receipt = {
             "receipt_version": RECEIPT_VERSION,

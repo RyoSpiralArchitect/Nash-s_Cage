@@ -215,6 +215,20 @@ class ExperimentTests(unittest.TestCase):
             failures = sim.verify_receipt(receipt_path)
             self.assertTrue(any("episodes.csv" in failure for failure in failures))
 
+    def test_receipt_uses_absolute_inputs_when_relpath_is_unavailable(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "run"
+            with mock.patch.object(
+                sim.os.path,
+                "relpath",
+                side_effect=ValueError("different Windows drives"),
+            ):
+                _, _, receipt = self._run(out)
+
+            self.assertTrue(Path(receipt["inputs"]["config"]).is_absolute())
+            self.assertTrue(Path(receipt["inputs"]["source"]).is_absolute())
+            self.assertEqual(sim.verify_receipt(out / "receipt.json"), [])
+
     def test_receipt_rejects_empty_hash_map(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             receipt_path = Path(tmp) / "receipt.json"
