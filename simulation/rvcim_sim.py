@@ -10,7 +10,9 @@ from __future__ import annotations
 
 import argparse
 import csv
+import ctypes
 import dataclasses
+import errno
 import hashlib
 import json
 import math
@@ -349,7 +351,7 @@ class EpisodeAccumulator:
     defective_sum: float = 0.0
     false_positive: int = 0
     false_negative: int = 0
-    emergency_steps: int = 0
+    emergency_requests: int = 0
     response_delays: list[int] = field(default_factory=list)
     estimation_error: float = 0.0
     steps: int = 0
@@ -376,7 +378,7 @@ class EpisodeResult:
     defective_action_rate: float
     false_positive_rate: float
     false_negative_rate: float
-    emergency_trigger_rate: float
+    emergency_request_rate: float
     mean_response_delay: float
     mean_estimation_error: float
     final_mode: int
@@ -400,8 +402,13 @@ class StepTrace:
     policy: float
     support: float
     audit: float
-    mode: int
-    mode_name: str
+    requested_mode: int
+    requested_mode_name: str
+    active_mode: int
+    active_mode_name: str
+    pending_mode: int | None
+    pending_mode_name: str
+    pending_delay: int
     estimated_cr: float
     hidden_cr: float
     attempted_capture: float
@@ -1087,7 +1094,7 @@ def run_episode(
         acc.defective_sum += actions["defective_rate"]
         acc.false_positive += int(false_positive)
         acc.false_negative += int(false_negative)
-        acc.emergency_steps += int(selected_mode >= 2)
+        acc.emergency_requests += int(selected_mode >= 2)
         acc.estimation_error += abs(estimated_cr - hidden_cr)
         acc.steps += 1
 
@@ -1107,8 +1114,17 @@ def run_episode(
                     policy=state.policy,
                     support=state.support,
                     audit=state.audit,
-                    mode=selected_mode,
-                    mode_name=MODE_NAMES[selected_mode],
+                    requested_mode=selected_mode,
+                    requested_mode_name=MODE_NAMES[selected_mode],
+                    active_mode=state.mode,
+                    active_mode_name=MODE_NAMES[state.mode],
+                    pending_mode=state.pending_mode,
+                    pending_mode_name=(
+                        ""
+                        if state.pending_mode is None
+                        else MODE_NAMES[state.pending_mode]
+                    ),
+                    pending_delay=state.pending_delay,
                     estimated_cr=estimated_cr,
                     hidden_cr=hidden_cr,
                     attempted_capture=attempted_capture,
@@ -1152,7 +1168,7 @@ def run_episode(
         defective_action_rate=acc.defective_sum / acc.steps,
         false_positive_rate=acc.false_positive / acc.steps,
         false_negative_rate=acc.false_negative / acc.steps,
-        emergency_trigger_rate=acc.emergency_steps / acc.steps,
+        emergency_request_rate=acc.emergency_requests / acc.steps,
         mean_response_delay=fmean(acc.response_delays) if acc.response_delays else 0.0,
         mean_estimation_error=acc.estimation_error / acc.steps,
         final_mode=state.mode,
@@ -1178,7 +1194,7 @@ BASE_SUMMARY_METRICS = (
     "defective_action_rate",
     "false_positive_rate",
     "false_negative_rate",
-    "emergency_trigger_rate",
+    "emergency_request_rate",
     "mean_response_delay",
     "mean_estimation_error",
 )
@@ -1197,6 +1213,12 @@ def normalized_row(row: Mapping[str, Any]) -> dict[str, Any]:
         else:
             normalized[key] = value
     return normalized
+
+
+def write_text_lf(path: Path, text: str) -> None:
+    """Write UTF-8 text without platform newline translation."""
+    with path.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(text)
 
 
 def write_csv(path: Path, fieldnames: Sequence[str], rows: Iterable[Mapping[str, Any]]) -> None:
@@ -1260,22 +1282,141 @@ def render_comparison(summary_rows: Sequence[Mapping[str, Any]]) -> str:
     return "\n".join(lines)
 
 
-def _has_rvcim_receipt(path: Path) -> bool:
-    receipt_path = path / "receipt.json"
-    try:
-        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+def _verify_owned_output_directory(
+    path: Path,
+    *,
+    allow_stale_inputs: bool = False,
+) -> None:
+    if path.is_symlink() or not path.is_dir():
+        raise FileExistsError(f"refusing non-directory or symlink output: {path}")
+    entries = list(path.iterdir())
+    entry_names = {entry.name for entry in entries}
+    unexpected = sorted(entry_names - OUTPUT_DIRECTORY_FILES)
+    missing = sorted(OUTPUT_DIRECTORY_FILES - entry_names)
+    unsafe = sorted(
+        entry.name for entry in entries if entry.is_symlink() or not entry.is_file()
+    )
+    if unexpected or missing or unsafe:
+        details = []
+        if unexpected:
+            details.append("unexpected entries: " + ", ".join(unexpected))
+        if missing:
+            details.append("missing entries: " + ", ".join(missing))
+        if unsafe:
+            details.append("non-regular entries: " + ", ".join(unsafe))
+        raise FileExistsError(
+            f"refusing unverified output directory {path}: " + "; ".join(details)
+        )
+    failures = verify_receipt(
+        path / "receipt.json",
+        verify_inputs=not allow_stale_inputs,
+    )
+    if failures:
+        raise FileExistsError(
+            f"refusing output directory with invalid receipt {path}: "
+            + "; ".join(failures)
+        )
+
+
+def _remove_known_output_directory(path: Path, *, require_complete: bool) -> None:
+    """Remove only known regular output files, never a directory tree."""
+    if path.is_symlink() or not path.is_dir():
+        raise OSError(f"refusing to clean non-directory or symlink: {path}")
+    entries = list(path.iterdir())
+    names = {entry.name for entry in entries}
+    if not names <= OUTPUT_DIRECTORY_FILES:
+        raise OSError(f"refusing to clean directory with unexpected entries: {path}")
+    if require_complete and names != OUTPUT_DIRECTORY_FILES:
+        raise OSError(f"refusing to clean incomplete output directory: {path}")
+    if any(entry.is_symlink() or not entry.is_file() for entry in entries):
+        raise OSError(f"refusing to clean directory with non-regular entries: {path}")
+    for name in sorted(names):
+        (path / name).unlink()
+    path.rmdir()
+
+
+def _atomic_exchange_directories(left: Path, right: Path) -> bool:
+    """Atomically swap two directories where the host OS exposes that primitive."""
+    if not (sys.platform.startswith("linux") or sys.platform == "darwin"):
         return False
-    hashes = receipt.get("sha256") if isinstance(receipt, Mapping) else None
-    return (
-        isinstance(receipt, Mapping)
-        and receipt.get("claim_level") == CLAIM_LEVEL
-        and isinstance(hashes, Mapping)
-        and OUTPUT_HASH_FILES <= set(hashes)
+    libc = ctypes.CDLL(None, use_errno=True)
+    unsupported = {
+        errno.EINVAL,
+        errno.ENOSYS,
+        errno.ENOTSUP,
+        getattr(errno, "EOPNOTSUPP", errno.ENOTSUP),
+    }
+    if sys.platform.startswith("linux"):
+        rename = getattr(libc, "renameat2", None)
+        if rename is None:
+            return False
+        rename.argtypes = (
+            ctypes.c_int,
+            ctypes.c_char_p,
+            ctypes.c_int,
+            ctypes.c_char_p,
+            ctypes.c_uint,
+        )
+        rename.restype = ctypes.c_int
+        result = rename(
+            -100,
+            os.fsencode(left),
+            -100,
+            os.fsencode(right),
+            2,
+        )
+    elif sys.platform == "darwin":
+        rename = getattr(libc, "renameatx_np", None)
+        if rename is None:
+            return False
+        rename.argtypes = (
+            ctypes.c_int,
+            ctypes.c_char_p,
+            ctypes.c_int,
+            ctypes.c_char_p,
+            ctypes.c_uint,
+        )
+        rename.restype = ctypes.c_int
+        result = rename(
+            -2,
+            os.fsencode(left),
+            -2,
+            os.fsencode(right),
+            2,
+        )
+    if result == 0:
+        return True
+    error_number = ctypes.get_errno()
+    if error_number in unsupported:
+        return False
+    raise OSError(
+        error_number,
+        os.strerror(error_number),
+        f"{left} <-> {right}",
     )
 
 
-def prepare_output(path: Path, overwrite: bool) -> None:
+def _publish_staged_output(staged: Path, target: Path, overwrite: bool) -> None:
+    _verify_owned_output_directory(staged)
+    if not target.exists():
+        os.replace(staged, target)
+        return
+    if not overwrite:
+        raise FileExistsError(f"output directory exists: {target}; pass --overwrite")
+    _verify_owned_output_directory(target, allow_stale_inputs=True)
+
+    if _atomic_exchange_directories(staged, target):
+        _verify_owned_output_directory(staged, allow_stale_inputs=True)
+        _remove_known_output_directory(staged, require_complete=True)
+        return
+    raise OSError(
+        "atomic directory overwrite is unavailable on this platform or filesystem; "
+        f"the existing verified output remains unchanged at {target}; choose a new "
+        "output path"
+    )
+
+
+def prepare_output(path: Path, overwrite: bool) -> Path:
     if path.is_symlink():
         raise FileExistsError(f"refusing symlink output directory: {path}")
     resolved = path.resolve()
@@ -1291,29 +1432,10 @@ def prepare_output(path: Path, overwrite: bool) -> None:
     if resolved.exists():
         if not overwrite:
             raise FileExistsError(f"output directory exists: {path}; pass --overwrite")
-        if not resolved.is_dir():
-            raise FileExistsError(f"refusing non-directory output path: {path}")
-        entries = list(resolved.iterdir())
-        unexpected = [
-            entry.name
-            for entry in entries
-            if entry.is_symlink()
-            or not entry.is_file()
-            or entry.name not in OUTPUT_DIRECTORY_FILES
-        ]
-        if unexpected:
-            raise FileExistsError(
-                "refusing to overwrite directory with unexpected entries: "
-                + ", ".join(sorted(unexpected))
-            )
-        if entries and not _has_rvcim_receipt(resolved):
-            raise FileExistsError(
-                f"refusing unmarked non-empty output directory: {path}"
-            )
-        for entry in entries:
-            entry.unlink()
+        _verify_owned_output_directory(resolved, allow_stale_inputs=True)
     else:
-        resolved.mkdir(parents=True, exist_ok=False)
+        resolved.parent.mkdir(parents=True, exist_ok=True)
+    return resolved
 
 
 def run_experiment(
@@ -1331,7 +1453,7 @@ def run_experiment(
     if unknown_arms:
         raise ConfigError(f"unknown arms: {', '.join(unknown_arms)}")
     config = load_config(cfg_path, overrides)
-    prepare_output(out_dir, overwrite)
+    target_dir = prepare_output(out_dir, overwrite)
     results: list[EpisodeResult] = []
     traces: list[StepTrace] = []
     for episode in range(episodes):
@@ -1348,61 +1470,84 @@ def run_experiment(
             traces.extend(arm_trace)
 
     summary_rows = summarize(results)
-    episodes_path = out_dir / "episodes.csv"
-    summary_path = out_dir / "summary.csv"
-    trace_path = out_dir / "trace.csv"
-    comparison_path = out_dir / "comparison.md"
-    write_csv(episodes_path, EPISODE_FIELDS, (result.as_row() for result in results))
-    write_csv(summary_path, SUMMARY_FIELDS, summary_rows)
-    write_csv(trace_path, TRACE_FIELDS, (trace.as_row() for trace in traces))
-    comparison_path.write_text(render_comparison(summary_rows), encoding="utf-8")
+    staged_dir = Path(
+        tempfile.mkdtemp(
+            prefix=f".{target_dir.name}.staging-", dir=str(target_dir.parent)
+        )
+    )
+    try:
+        episodes_path = staged_dir / "episodes.csv"
+        summary_path = staged_dir / "summary.csv"
+        trace_path = staged_dir / "trace.csv"
+        comparison_path = staged_dir / "comparison.md"
+        write_csv(
+            episodes_path,
+            EPISODE_FIELDS,
+            (result.as_row() for result in results),
+        )
+        write_csv(summary_path, SUMMARY_FIELDS, summary_rows)
+        write_csv(trace_path, TRACE_FIELDS, (trace.as_row() for trace in traces))
+        write_text_lf(comparison_path, render_comparison(summary_rows))
 
-    source_path = Path(__file__).resolve()
-    config_path = cfg_path.resolve()
-    resolved_config_path = out_dir / "resolved_config.json"
-    resolved_config_path.write_text(
-        json.dumps(config.to_mapping(), indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
-    input_paths = {
-        "config": os.path.relpath(config_path, out_dir.resolve()),
-        "source": os.path.relpath(source_path, out_dir.resolve()),
-    }
-    receipt = {
-        "receipt_version": RECEIPT_VERSION,
-        "claim_level": CLAIM_LEVEL,
-        "claim_boundary": CLAIM_BOUNDARY,
-        "model_version": VERSION,
-        "schema_version": SCHEMA_VERSION,
-        "command": {
-            "episodes": episodes,
-            "seed": seed,
-            "arms": list(arms),
-            "overrides": list(overrides),
-        },
-        "environment": {
-            "python": platform.python_version(),
-            "implementation": platform.python_implementation(),
-            "platform": platform.platform(),
-        },
-        "inputs": input_paths,
-        "sha256": {
-            "episodes.csv": sha256_file(episodes_path),
-            "summary.csv": sha256_file(summary_path),
-            "trace.csv": sha256_file(trace_path),
-            "comparison.md": sha256_file(comparison_path),
-            "resolved_config.json": sha256_file(resolved_config_path),
-            input_paths["config"]: sha256_file(config_path),
-            input_paths["source"]: sha256_file(source_path),
-        },
-    }
-    (out_dir / "receipt.json").write_text(
-        json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+        source_path = Path(__file__).resolve()
+        config_path = cfg_path.resolve()
+        resolved_config_path = staged_dir / "resolved_config.json"
+        write_text_lf(
+            resolved_config_path,
+            json.dumps(config.to_mapping(), indent=2, sort_keys=True) + "\n",
+        )
+        input_paths = {
+            "config": os.path.relpath(config_path, target_dir),
+            "source": os.path.relpath(source_path, target_dir),
+        }
+        receipt = {
+            "receipt_version": RECEIPT_VERSION,
+            "claim_level": CLAIM_LEVEL,
+            "claim_boundary": CLAIM_BOUNDARY,
+            "model_version": VERSION,
+            "schema_version": SCHEMA_VERSION,
+            "command": {
+                "episodes": episodes,
+                "seed": seed,
+                "arms": list(arms),
+                "overrides": list(overrides),
+            },
+            "environment": {
+                "python": platform.python_version(),
+                "implementation": platform.python_implementation(),
+                "platform": platform.platform(),
+            },
+            "inputs": input_paths,
+            "sha256": {
+                "episodes.csv": sha256_file(episodes_path),
+                "summary.csv": sha256_file(summary_path),
+                "trace.csv": sha256_file(trace_path),
+                "comparison.md": sha256_file(comparison_path),
+                "resolved_config.json": sha256_file(resolved_config_path),
+                input_paths["config"]: sha256_file(config_path),
+                input_paths["source"]: sha256_file(source_path),
+            },
+        }
+        write_text_lf(
+            staged_dir / "receipt.json",
+            json.dumps(receipt, indent=2, sort_keys=True) + "\n",
+        )
+        _publish_staged_output(staged_dir, target_dir, overwrite)
+    except BaseException:
+        if staged_dir.exists():
+            try:
+                _remove_known_output_directory(staged_dir, require_complete=False)
+            except OSError:
+                pass
+        raise
     return results, summary_rows, receipt
 
 
-def verify_receipt(receipt_path: Path) -> list[str]:
+def verify_receipt(
+    receipt_path: Path,
+    *,
+    verify_inputs: bool = True,
+) -> list[str]:
     try:
         receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
     except OSError as exc:
@@ -1507,6 +1652,8 @@ def verify_receipt(receipt_path: Path) -> list[str]:
             or any(character not in "0123456789abcdef" for character in expected)
         ):
             failures.append(f"invalid SHA-256 for {relative}")
+            continue
+        if not verify_inputs and relative in input_paths:
             continue
         target = (receipt_path.parent / str(relative)).resolve()
         if not target.is_file():

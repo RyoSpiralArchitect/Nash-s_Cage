@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any, Mapping
@@ -19,6 +20,9 @@ CLAIM_LEVEL = "F0"
 CLAIM_BOUNDARY = (
     "Structural toy only; not calibrated, predictive, empirically validating, "
     "or a policy recommendation."
+)
+TRUST_MODEL = (
+    "manifest-checks-internal-consistency; reviewed-git-commit-is-external-anchor"
 )
 REFERENCE_COMMAND = {
     "arms": [
@@ -37,37 +41,76 @@ REFERENCE_INPUTS = {
 }
 REQUIRED_FILES = frozenset(
     {
+        ".gitattributes",
+        ".github/workflows/verify.yml",
+        "Makefile",
+        "rvcim",
+        "rvcim.cmd",
         "paper/nashs_cage_rvcim_v0_1.tex",
         "paper/nashs_cage_rvcim_v0_1.pdf",
         "paper/nashs_cage_rvcim_v0_2.tex",
         "paper/nashs_cage_rvcim_v0_2.pdf",
         "paper/references.bib",
+        "simulation/__init__.py",
+        "simulation/__main__.py",
         "simulation/rvcim_sim.py",
         "simulation/configs/minimal.json",
+        "simulation/tests/test_rvcim_sim.py",
         "artifacts/reference_run/summary.csv",
         "artifacts/reference_run/episodes.csv",
         "artifacts/reference_run/trace.csv",
         "artifacts/reference_run/comparison.md",
         "artifacts/reference_run/resolved_config.json",
         "artifacts/reference_run/receipt.json",
+        "tools/verify_release.py",
+        "tools/verify_reference_replay.py",
+        "tools/tests/test_verify_release.py",
     }
 )
-PRESERVED_V0_1 = {
-    "paper/nashs_cage_rvcim_v0_1.tex": (
-        66_713,
-        "6f0d0d7f47df6bdb38ff41bca32b5b5108d7254f07825b069349e53f2c3ad5b7",
-    ),
-    "paper/nashs_cage_rvcim_v0_1.pdf": (
-        389_459,
-        "4ded46a5fee179182f40f671ab1345453dceda8e534b713eee775d628cf65d2e",
-    ),
+EXPECTED_ROLES = {
+    ".gitattributes": "cross-platform LF checkout policy",
+    ".github/workflows/verify.yml": "read-only cross-platform verification workflow",
+    "Makefile": "verification and experiment orchestration",
+    "rvcim": "POSIX no-install launcher",
+    "rvcim.cmd": "Windows no-install launcher",
+    "paper/nashs_cage_rvcim_v0_1.tex": "preserved manuscript v0.1 TeX",
+    "paper/nashs_cage_rvcim_v0_1.pdf": "preserved manuscript v0.1 PDF",
+    "paper/nashs_cage_rvcim_v0_2.tex": "regenerated manuscript v0.2 TeX",
+    "paper/nashs_cage_rvcim_v0_2.pdf": "regenerated manuscript v0.2 PDF",
+    "paper/references.bib": "bibliography for manuscript sources",
+    "simulation/__init__.py": "simulation package API entrypoint",
+    "simulation/__main__.py": "python -m simulation CLI entrypoint",
+    "simulation/rvcim_sim.py": "zero-dependency executable reference source",
+    "simulation/configs/minimal.json": "declared normalized reference configuration",
+    "simulation/tests/test_rvcim_sim.py": "deterministic simulator contract tests",
+    "artifacts/reference_run/summary.csv": "arm-level reference summary",
+    "artifacts/reference_run/episodes.csv": "episode-level reference outcomes",
+    "artifacts/reference_run/trace.csv": "step-level reference trace",
+    "artifacts/reference_run/comparison.md": "human-readable reference comparison",
+    "artifacts/reference_run/resolved_config.json": "resolved reference configuration",
+    "artifacts/reference_run/receipt.json": "reference artifact verification receipt",
+    "tools/verify_release.py": "fail-closed release-tree verifier",
+    "tools/verify_reference_replay.py": "deterministic reference replay verifier",
+    "tools/tests/test_verify_release.py": "release-verifier contract tests",
 }
 EXPECTED_FILE_PROVENANCE = {
-    "paper/nashs_cage_rvcim_v0_1.tex": "exact-preserved-upload",
-    "paper/nashs_cage_rvcim_v0_1.pdf": "exact-preserved-upload",
-    "paper/nashs_cage_rvcim_v0_2.tex": "regenerated-from-preserved-v0.1",
-    "paper/nashs_cage_rvcim_v0_2.pdf": "regenerated-from-preserved-v0.1",
+    "paper/nashs_cage_rvcim_v0_1.tex": "operator-attested-preserved-upload",
+    "paper/nashs_cage_rvcim_v0_1.pdf": "operator-attested-preserved-upload",
+    "paper/nashs_cage_rvcim_v0_2.tex": "operator-attested-regeneration-from-v0.1",
+    "paper/nashs_cage_rvcim_v0_2.pdf": "operator-attested-regeneration-from-v0.1",
 }
+PDF_FILES = frozenset(relative for relative in REQUIRED_FILES if relative.endswith(".pdf"))
+TEXT_FILES = REQUIRED_FILES - PDF_FILES
+EXECUTABLE_GLOBS = (
+    "simulation/**/*.py",
+    "tools/**/*.py",
+    ".github/workflows/*.yml",
+    ".github/workflows/*.yaml",
+)
+OFFICIAL_ACTION_PATTERN = re.compile(
+    r"^\s*-\s+uses:\s+(actions/[A-Za-z0-9_.-]+)@([^\s#]+)",
+    re.MULTILINE,
+)
 
 
 def sha256_file(path: Path) -> str:
@@ -81,12 +124,199 @@ def sha256_file(path: Path) -> str:
 def load_json(path: Path) -> Mapping[str, Any]:
     value = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(value, Mapping):
-        raise ValueError("manifest root must be an object")
+        raise ValueError("JSON root must be an object")
     return value
+
+
+def has_symlink_component(root: Path, relative: str | Path) -> bool:
+    """Return true when a path at or below root traverses a symlink."""
+
+    current = root
+    for part in Path(relative).parts:
+        current = current / part
+        if current.is_symlink():
+            return True
+    return False
+
+
+def read_required_text(root: Path, relative: str, failures: list[str]) -> str | None:
+    path = root / relative
+    if has_symlink_component(root, relative):
+        return None
+    try:
+        payload = path.read_bytes()
+        text = payload.decode("utf-8")
+    except (OSError, UnicodeDecodeError) as exc:
+        failures.append(f"{relative}: cannot read UTF-8 text: {exc}")
+        return None
+    if b"\r" in payload:
+        failures.append(f"{relative}: text checkout must use LF without CR bytes")
+    return text
+
+
+def make_recipe(makefile: str, target: str) -> str | None:
+    lines = makefile.splitlines()
+    header = f"{target}:"
+    for index, line in enumerate(lines):
+        if line == header or line.startswith(header + " "):
+            body: list[str] = []
+            for following in lines[index + 1 :]:
+                if following.startswith(("\t", " ")) or not following:
+                    body.append(following)
+                    continue
+                break
+            return "\n".join(body)
+    return None
+
+
+def verify_executable_surface(root: Path) -> list[str]:
+    """Reject executable files that are outside the declared release closure."""
+
+    observed: set[str] = set()
+    for pattern in EXECUTABLE_GLOBS:
+        for path in root.glob(pattern):
+            if path.is_file() or path.is_symlink():
+                observed.add(path.relative_to(root).as_posix())
+    unexpected = sorted(observed - REQUIRED_FILES)
+    if unexpected:
+        return [
+            "unmanifested executable files: " + ", ".join(unexpected)
+        ]
+    return []
+
+
+def verify_operational_semantics(root: Path) -> list[str]:
+    """Check high-risk operational invariants in addition to manifest hashes."""
+
+    failures: list[str] = []
+    texts = {
+        relative: read_required_text(root, relative, failures)
+        for relative in sorted(TEXT_FILES)
+    }
+
+    attributes = texts.get(".gitattributes")
+    if attributes is not None:
+        rules = {
+            line.strip()
+            for line in attributes.splitlines()
+            if line.strip() and not line.lstrip().startswith("#")
+        }
+        if "* text=auto eol=lf" not in rules:
+            failures.append(".gitattributes: must pin automatic text checkout to LF")
+        if "*.pdf -text" not in rules:
+            failures.append(".gitattributes: PDFs must be declared binary")
+        if "eol=crlf" in attributes.lower():
+            failures.append(".gitattributes: CRLF checkout overrides are not allowed")
+
+    workflow = texts.get(".github/workflows/verify.yml")
+    if workflow is not None:
+        if "permissions:\n  contents: read" not in workflow:
+            failures.append("verification workflow must declare contents: read")
+        if "runs-on: windows-latest" not in workflow:
+            failures.append("verification workflow must cover windows-latest")
+        if "./rvcim explain" not in workflow:
+            failures.append("verification workflow must exercise the POSIX launcher")
+        if ".\\rvcim.cmd explain" not in workflow:
+            failures.append("verification workflow must exercise the Windows launcher")
+        if workflow.count("timeout-minutes:") < workflow.count("runs-on:"):
+            failures.append("every verification workflow job must declare a timeout")
+        lowered = workflow.lower()
+        for forbidden in (
+            "contents: write",
+            "permissions: write-all",
+            "git push",
+            "pull_request_target:",
+            "schedule:",
+        ):
+            if forbidden in lowered:
+                failures.append(f"verification workflow contains forbidden token: {forbidden}")
+        actions = OFFICIAL_ACTION_PATTERN.findall(workflow)
+        action_names = {name for name, _ in actions}
+        if not {"actions/checkout", "actions/setup-python"} <= action_names:
+            failures.append("verification workflow must use checkout and setup-python")
+        for name, revision in actions:
+            if not re.fullmatch(r"[0-9a-f]{40}", revision):
+                failures.append(f"verification workflow must SHA-pin {name}")
+        checkout_count = sum(name == "actions/checkout" for name, _ in actions)
+        if workflow.count("persist-credentials: false") < checkout_count:
+            failures.append("every checkout step must disable persisted credentials")
+        if "unittest discover" in workflow:
+            failures.append("verification workflow must not auto-discover tests")
+
+    makefile = texts.get("Makefile")
+    if makefile is not None:
+        experiment = make_recipe(makefile, "experiment")
+        if experiment is None:
+            failures.append("Makefile must define experiment")
+        else:
+            if "--out .tmp/experiment" not in experiment:
+                failures.append("make experiment must write to fixed .tmp/experiment")
+            if "artifacts/reference_run" in experiment or "REFERENCE_DIR" in experiment:
+                failures.append("make experiment must not write the committed fixture")
+        smoke = make_recipe(makefile, "smoke")
+        if smoke is None or "--out .tmp/smoke" not in smoke:
+            failures.append("make smoke must write to fixed .tmp/smoke")
+        elif "artifacts/reference_run" in smoke or "SMOKE_DIR" in smoke:
+            failures.append("make smoke must not accept a tracked output destination")
+        refresh = make_recipe(makefile, "refresh-reference")
+        if refresh is None or "artifacts/reference_run" not in refresh:
+            failures.append("Makefile must reserve fixture writes for refresh-reference")
+        tests = make_recipe(makefile, "test")
+        if tests is None:
+            failures.append("Makefile must define test")
+        else:
+            for module in (
+                "simulation.tests.test_rvcim_sim",
+                "tools.tests.test_verify_release",
+            ):
+                if f"-m unittest -v {module}" not in tests:
+                    failures.append(f"make test must explicitly run {module}")
+            if "discover" in tests:
+                failures.append("make test must not auto-discover unmanifested tests")
+
+    posix_launcher = texts.get("rvcim")
+    if posix_launcher is not None:
+        if not posix_launcher.startswith("#!/usr/bin/env sh\nset -eu\n"):
+            failures.append("rvcim: launcher must use fail-fast POSIX sh")
+        if 'exec "${PYTHON:-python3}" -m simulation "$@"' not in posix_launcher:
+            failures.append("rvcim: launcher must delegate to python -m simulation")
+
+    windows_launcher = texts.get("rvcim.cmd")
+    if windows_launcher is not None and "python -m simulation %*" not in windows_launcher:
+        failures.append("rvcim.cmd: launcher must delegate to python -m simulation")
+
+    module_entrypoint = texts.get("simulation/__main__.py")
+    if module_entrypoint is not None:
+        if "from .rvcim_sim import main" not in module_entrypoint:
+            failures.append("simulation/__main__.py must import the simulator main")
+        if "raise SystemExit(main())" not in module_entrypoint:
+            failures.append("simulation/__main__.py must propagate the CLI exit status")
+
+    return failures
 
 
 def verify(root: Path, manifest_path: Path) -> list[str]:
     failures: list[str] = []
+    lexical_root = root.absolute()
+    root = root.resolve()
+    if manifest_path.is_absolute():
+        manifest_absolute = manifest_path.absolute()
+        manifest_relative: Path | None = None
+        for candidate_root in (lexical_root, root):
+            try:
+                manifest_relative = manifest_absolute.relative_to(candidate_root)
+                break
+            except ValueError:
+                continue
+        if manifest_relative is None or ".." in manifest_relative.parts:
+            return ["manifest path escapes repository root"]
+    else:
+        manifest_relative = manifest_path
+        if ".." in manifest_relative.parts:
+            return ["manifest path escapes repository root"]
+    manifest_path = root / manifest_relative
+    if has_symlink_component(root, manifest_relative):
+        return ["manifest path must not contain symlinks"]
     try:
         manifest = load_json(manifest_path)
     except (OSError, json.JSONDecodeError, ValueError) as exc:
@@ -110,16 +340,24 @@ def verify(root: Path, manifest_path: Path) -> list[str]:
     if not isinstance(provenance, Mapping):
         failures.append("provenance must be an object")
     else:
-        if provenance.get("v0_1") != "exact-preserved-upload":
-            failures.append("provenance.v0_1 must be exact-preserved-upload")
-        if provenance.get("v0_2") != "regenerated-from-preserved-v0.1":
+        if provenance.get("v0_1") != "operator-attested-preserved-upload":
             failures.append(
-                "provenance.v0_2 must be regenerated-from-preserved-v0.1"
+                "provenance.v0_1 must be operator-attested-preserved-upload"
+            )
+        if provenance.get("v0_2") != "operator-attested-regeneration-from-v0.1":
+            failures.append(
+                "provenance.v0_2 must be operator-attested-regeneration-from-v0.1"
             )
         if provenance.get("historical_v0_2_byte_identity") != "not-claimed":
             failures.append(
                 "provenance.historical_v0_2_byte_identity must be not-claimed"
             )
+        if provenance.get("trust_model") != TRUST_MODEL:
+            failures.append(f"provenance.trust_model must be {TRUST_MODEL!r}")
+        if provenance.get("v0_1_tex_history_anchor") != "present":
+            failures.append("provenance.v0_1_tex_history_anchor must be present")
+        if provenance.get("v0_1_pdf_history_anchor") != "unavailable":
+            failures.append("provenance.v0_1_pdf_history_anchor must be unavailable")
         if not isinstance(provenance.get("note"), str) or not provenance.get(
             "note"
         ):
@@ -137,15 +375,18 @@ def verify(root: Path, manifest_path: Path) -> list[str]:
     if extra_records:
         failures.append("manifest has unexpected records: " + ", ".join(extra_records))
 
-    root = root.resolve()
     for relative in sorted(REQUIRED_FILES & recorded):
         entry = files[relative]
         if not isinstance(entry, Mapping):
             failures.append(f"{relative}: record must be an object")
             continue
-        target = (root / relative).resolve()
+        if has_symlink_component(root, relative):
+            failures.append(f"{relative}: path must not contain symlinks")
+            continue
+        target = root / relative
+        resolved_target = target.resolve()
         try:
-            target.relative_to(root)
+            resolved_target.relative_to(root)
         except ValueError:
             failures.append(f"{relative}: path escapes repository root")
             continue
@@ -166,8 +407,9 @@ def verify(root: Path, manifest_path: Path) -> list[str]:
             or any(character not in "0123456789abcdef" for character in expected_sha)
         ):
             failures.append(f"{relative}: sha256 must be lowercase hexadecimal")
-        if not isinstance(entry.get("role"), str) or not entry.get("role"):
-            failures.append(f"{relative}: role must be a non-empty string")
+        expected_role = EXPECTED_ROLES[relative]
+        if entry.get("role") != expected_role:
+            failures.append(f"{relative}: role must be {expected_role!r}")
         actual_bytes = target.stat().st_size
         actual_sha = sha256_file(target)
         if expected_bytes != actual_bytes:
@@ -179,24 +421,23 @@ def verify(root: Path, manifest_path: Path) -> list[str]:
                 f"{relative}: hash mismatch expected={expected_sha} actual={actual_sha}"
             )
 
-    for relative, (expected_bytes, expected_sha) in PRESERVED_V0_1.items():
-        entry = files.get(relative)
-        if not isinstance(entry, Mapping):
-            continue
-        if entry.get("bytes") != expected_bytes or entry.get("sha256") != expected_sha:
-            failures.append(f"{relative}: preserved v0.1 identity changed")
-
     for relative, expected in EXPECTED_FILE_PROVENANCE.items():
         entry = files.get(relative)
         if isinstance(entry, Mapping) and entry.get("provenance") != expected:
             failures.append(f"{relative}: provenance must be {expected}")
 
-    receipt_path = root / "artifacts/reference_run/receipt.json"
-    try:
-        receipt = load_json(receipt_path)
-    except (OSError, json.JSONDecodeError, ValueError) as exc:
-        failures.append(f"cannot inspect reference receipt: {exc}")
+    receipt_relative = "artifacts/reference_run/receipt.json"
+    receipt_path = root / receipt_relative
+    receipt: Mapping[str, Any] | None = None
+    if has_symlink_component(root, receipt_relative):
+        failures.append("cannot inspect reference receipt through a symlink")
     else:
+        try:
+            receipt = load_json(receipt_path)
+        except (OSError, json.JSONDecodeError, ValueError) as exc:
+            failures.append(f"cannot inspect reference receipt: {exc}")
+            receipt = None
+    if receipt is not None:
         if receipt.get("receipt_version") != 2:
             failures.append("reference receipt_version must be 2")
         if receipt.get("model_version") != "0.2.0":
@@ -211,6 +452,9 @@ def verify(root: Path, manifest_path: Path) -> list[str]:
             failures.append("reference command does not match the release contract")
         if receipt.get("inputs") != REFERENCE_INPUTS:
             failures.append("reference inputs do not match the release contract")
+
+    failures.extend(verify_executable_surface(root))
+    failures.extend(verify_operational_semantics(root))
 
     return failures
 
@@ -233,7 +477,11 @@ def main() -> int:
         for failure in failures:
             print(f"release verification error: {failure}", file=sys.stderr)
         return 1
-    print(f"OK: verified {len(REQUIRED_FILES)} committed release files")
+    print(
+        "OK: verified internal consistency and operational semantics for "
+        f"{len(REQUIRED_FILES)} committed release files; external provenance "
+        "depends on the reviewed Git commit"
+    )
     return 0
 
 

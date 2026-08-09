@@ -6,12 +6,30 @@
   "claim_level": "F0",
   "claim_boundary": "Structural toy only; not calibrated, predictive, empirically validating, or a policy recommendation.",
   "provenance": {
-    "v0_1": "exact-preserved-upload",
-    "v0_2": "regenerated-from-preserved-v0.1",
+    "v0_1": "operator-attested-preserved-upload",
+    "v0_2": "operator-attested-regeneration-from-v0.1",
     "historical_v0_2_byte_identity": "not-claimed",
-    "note": "The v0.2 source and PDF were regenerated from the exact preserved v0.1 manuscript and the checked-in executable contract after the encoded bootstrap representation proved incomplete."
+    "trust_model": "manifest-checks-internal-consistency; reviewed-git-commit-is-external-anchor",
+    "v0_1_tex_history_anchor": "present",
+    "v0_1_pdf_history_anchor": "unavailable",
+    "note": "The operator attests that v0.1 preserves the upload and that v0.2 was regenerated from it after the encoded bootstrap proved incomplete. Earlier repository payload history independently anchors the v0.1 TeX hash, but no earlier in-repository anchor is available for the v0.1 PDF. This same-tree manifest checks internal consistency only; authenticity and lineage depend on the reviewed Git commit or another independently distributed anchor."
   },
   "files": {
+    ".gitattributes": {
+      "bytes": 32,
+      "role": "cross-platform LF checkout policy",
+      "sha256": "74daf9b09ec7baad35e92b8f1ad725c69e85b9e56f1212ae3ae33778bf7c00c5"
+    },
+    ".github/workflows/verify.yml": {
+      "bytes": 1993,
+      "role": "read-only cross-platform verification workflow",
+      "sha256": "1d26caa9a7ecd7af9acf4c78584a77e174c4f570ee3a273ff75ff188a120c267"
+    },
+    "Makefile": {
+      "bytes": 2835,
+      "role": "verification and experiment orchestration",
+      "sha256": "165ff1412efa6f20d19296137bc2eabc513ca81ab804499d575716fac37b8216"
+    },
     "artifacts/reference_run/comparison.md": {
       "bytes": 695,
       "role": "human-readable reference comparison",
@@ -20,12 +38,12 @@
     "artifacts/reference_run/episodes.csv": {
       "bytes": 69598,
       "role": "episode-level reference outcomes",
-      "sha256": "67bf454055f31f4e1d1c2fb708ef10a25eae9ef052f9ec0dd4e42351ab497933"
+      "sha256": "4fa4defa5d3b1a7d76c2e94b2879384323170414dc8347c55d157c380a2c0df3"
     },
     "artifacts/reference_run/receipt.json": {
       "bytes": 1347,
       "role": "reference artifact verification receipt",
-      "sha256": "b700d0cf14a00de4937250c711adb291535d02a5bfcd79338f68621f94e89428"
+      "sha256": "716a3be6662c7db2db2ed64f7f0c6ec6b14b7d8c493bd668616ead0e425ba0ad"
     },
     "artifacts/reference_run/resolved_config.json": {
       "bytes": 1492,
@@ -35,42 +53,62 @@
     "artifacts/reference_run/summary.csv": {
       "bytes": 5552,
       "role": "arm-level reference summary",
-      "sha256": "bbed84e0f608c33c8e38fcfa571fdea35b372536ddb697948964aeb5b2209c02"
+      "sha256": "a7841ace764ecc13fcd37eaee87fab0e7856933d42ced34df0c649b67b5535e4"
     },
     "artifacts/reference_run/trace.csv": {
-      "bytes": 79343,
+      "bytes": 86410,
       "role": "step-level reference trace",
-      "sha256": "b212838ba29969d212952eb10dd6f975f8b6feedf25db2bb21a689371105566f"
+      "sha256": "ea9c2e0b11c6b34cf52a18140bb5e20afd5f77ae4d2e1a537f82fe169696b970"
     },
     "paper/nashs_cage_rvcim_v0_1.pdf": {
       "bytes": 389459,
-      "provenance": "exact-preserved-upload",
       "role": "preserved manuscript v0.1 PDF",
-      "sha256": "4ded46a5fee179182f40f671ab1345453dceda8e534b713eee775d628cf65d2e"
+      "sha256": "4ded46a5fee179182f40f671ab1345453dceda8e534b713eee775d628cf65d2e",
+      "provenance": "operator-attested-preserved-upload"
     },
     "paper/nashs_cage_rvcim_v0_1.tex": {
       "bytes": 66713,
-      "provenance": "exact-preserved-upload",
       "role": "preserved manuscript v0.1 TeX",
-      "sha256": "6f0d0d7f47df6bdb38ff41bca32b5b5108d7254f07825b069349e53f2c3ad5b7"
+      "sha256": "6f0d0d7f47df6bdb38ff41bca32b5b5108d7254f07825b069349e53f2c3ad5b7",
+      "provenance": "operator-attested-preserved-upload"
     },
     "paper/nashs_cage_rvcim_v0_2.pdf": {
-      "bytes": 204271,
-      "pages": 24,
-      "provenance": "regenerated-from-preserved-v0.1",
+      "bytes": 207882,
       "role": "regenerated manuscript v0.2 PDF",
-      "sha256": "a1518f51be7a7ee2b818f1b59e8eaca0bf566738efaaafb100cbe6d40c3be1ca"
+      "sha256": "12d97fd220d136c166c3dd28632700db1ec9ccdcf219e02635174a275c5abd67",
+      "provenance": "operator-attested-regeneration-from-v0.1",
+      "pages": 26
     },
     "paper/nashs_cage_rvcim_v0_2.tex": {
-      "bytes": 74594,
-      "provenance": "regenerated-from-preserved-v0.1",
+      "bytes": 76617,
       "role": "regenerated manuscript v0.2 TeX",
-      "sha256": "c72860fbbdaa37bea9881e1afe634fedab3a97cabc57f4a77fb42c78681e7c57"
+      "sha256": "2f3c11ea0a9b98eef7597513ca8725dfb18afa942e767f0ad83d63cd7342d586",
+      "provenance": "operator-attested-regeneration-from-v0.1"
     },
     "paper/references.bib": {
       "bytes": 10636,
       "role": "bibliography for manuscript sources",
       "sha256": "99a0c194f5698d5b8a0c655b8bccb8e5970d616b994a213b3443c3499022e08b"
+    },
+    "rvcim": {
+      "bytes": 71,
+      "role": "POSIX no-install launcher",
+      "sha256": "5d13f4ea55ffa7cb37ba0aacf6148fe9adbade21fee795ef38da30ea5d2a8dc6"
+    },
+    "rvcim.cmd": {
+      "bytes": 34,
+      "role": "Windows no-install launcher",
+      "sha256": "df5088f420f9edff7412f3226dc46d9804602503443614a738883a7863117c97"
+    },
+    "simulation/__init__.py": {
+      "bytes": 110,
+      "role": "simulation package API entrypoint",
+      "sha256": "45c0871e053a36b3b0e1c1d9a06b21446ff40cca0c4396765672e2f6fd262204"
+    },
+    "simulation/__main__.py": {
+      "bytes": 54,
+      "role": "python -m simulation CLI entrypoint",
+      "sha256": "a37b56bff0aec5873db9bff258064b294846f8cd63678668ac9f30cbc2bb20ae"
     },
     "simulation/configs/minimal.json": {
       "bytes": 1490,
@@ -78,9 +116,29 @@
       "sha256": "42774c526c924397dafc19ca8c0050e7837115eb913bd3494efb3e3f6ff400ea"
     },
     "simulation/rvcim_sim.py": {
-      "bytes": 58099,
+      "bytes": 63194,
       "role": "zero-dependency executable reference source",
-      "sha256": "0d2063e8d7e7011e88d578e9a222a7cf94d50f061b514d28fd272ce73b5d2781"
+      "sha256": "b2df72aaa05efcc63c797457f01f9c867dcf26a6766ef955ae1078998e565578"
+    },
+    "simulation/tests/test_rvcim_sim.py": {
+      "bytes": 16000,
+      "role": "deterministic simulator contract tests",
+      "sha256": "4ea48db0570f4123781bc1cdb3a96d60d5f67f49976da52ba4198e7cabb9e007"
+    },
+    "tools/tests/test_verify_release.py": {
+      "bytes": 14316,
+      "role": "release-verifier contract tests",
+      "sha256": "30f95f6a521c4c19bc3b5d0ea004f4ab599763cbe66c977829a597f59cdbeb71"
+    },
+    "tools/verify_reference_replay.py": {
+      "bytes": 6097,
+      "role": "deterministic reference replay verifier",
+      "sha256": "990c833307a4559f2da55a688adb129cabe5970b78af424229f131ca6b874d1b"
+    },
+    "tools/verify_release.py": {
+      "bytes": 20619,
+      "role": "fail-closed release-tree verifier",
+      "sha256": "069edffd260cf81ab30c2efeef686188c2bbab01caea5bfc2dd56fcf18b03717"
     }
   }
 }

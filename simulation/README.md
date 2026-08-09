@@ -90,7 +90,7 @@ The order is explicit because moving even one operation can change the mechanism
 - `defective_action_rate`: power-weighted defective action over time.
 - `false_positive_rate`: trigger escalation while the hidden toy state remains in normal mode.
 - `false_negative_rate`: no escalation while the hidden toy state warrants precaution or emergency response.
-- `emergency_trigger_rate`: fraction of steps selecting emergency or loss-minimization mode.
+- `emergency_request_rate`: fraction of steps requesting emergency or loss-minimization mode; this is not active-mode duration.
 - `mean_response_delay`: mean scheduled institutional delay.
 - `mean_estimation_error`: absolute difference between estimated and hidden controllability reserve.
 
@@ -115,10 +115,10 @@ A modified or missing file makes verification fail with a non-zero exit status.
 ## Tests
 
 ```bash
-python3 -m unittest discover -s simulation/tests -v
+python3 -m unittest -v simulation.tests.test_rvcim_sim
 ```
 
-The tests cover configuration validation, arm ordering, emergency selection, capture defenses, deterministic environment sampling, common episode environments, byte-reproducible outputs, and receipt tamper detection.
+The tests cover configuration validation, arm ordering, requested versus delayed active modes, capture defenses, deterministic environment sampling, common episode environments, byte-reproducible LF outputs, receipt tamper detection, forged overwrite markers, atomic publication, and safe refusal when atomic directory exchange is unavailable.
 
 ## Claim boundary
 

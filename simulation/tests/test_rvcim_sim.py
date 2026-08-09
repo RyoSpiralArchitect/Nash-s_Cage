@@ -5,6 +5,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from simulation import rvcim_sim as sim
 
@@ -108,6 +109,52 @@ class MechanismTests(unittest.TestCase):
         right = sim.sample_environment(self.config, seed, episode=2)
         self.assertEqual(left, right)
 
+    def test_requested_mode_is_not_reported_as_active_during_delay(self) -> None:
+        config = dataclasses.replace(self.config, horizon=1, policy_base_delay=5.0)
+        arm = sim.ARM_SPECS["robust_reserve"]
+        environment = sim.sample_environment(config, seed=23, episode=0)
+        with mock.patch.object(sim, "select_mode", return_value=2):
+            result, traces = sim.run_episode(
+                config,
+                arm,
+                environment,
+                collect_trace=True,
+            )
+        self.assertEqual(len(traces), 1)
+        trace = traces[0]
+        self.assertEqual(trace.requested_mode, 2)
+        self.assertEqual(trace.active_mode, 0)
+        self.assertEqual(trace.pending_mode, 2)
+        self.assertGreater(trace.pending_delay, 0)
+        self.assertEqual(result.emergency_request_rate, 1.0)
+        self.assertEqual(result.final_mode, 0)
+
+    def test_pending_mode_activates_only_after_declared_delay(self) -> None:
+        config = dataclasses.replace(self.config, policy_base_delay=5.0)
+        arm = sim.ARM_SPECS["robust_reserve"]
+        state = sim.initial_state(config, arm)
+        delays: list[int] = []
+        sim.schedule_policy(
+            state,
+            selected_mode=2,
+            estimated_cr=-0.1,
+            effective_capture=0.0,
+            backlash=0.0,
+            arm=arm,
+            config=config,
+            delays=delays,
+        )
+        self.assertEqual(state.mode, 0)
+        self.assertEqual(state.pending_mode, 2)
+        self.assertGreater(state.pending_delay, 0)
+        declared_delay = state.pending_delay
+        for _ in range(declared_delay):
+            sim.advance_policy(state, arm, 0.0, 0.0, config)
+            self.assertEqual(state.mode, 0)
+        sim.advance_policy(state, arm, 0.0, 0.0, config)
+        self.assertEqual(state.mode, 2)
+        self.assertIsNone(state.pending_mode)
+
 
 class ExperimentTests(unittest.TestCase):
     @staticmethod
@@ -146,6 +193,15 @@ class ExperimentTests(unittest.TestCase):
                 "resolved_config.json",
             ):
                 self.assertEqual((left / name).read_bytes(), (right / name).read_bytes(), name)
+
+    def test_deterministic_text_outputs_use_lf_bytes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "run"
+            self._run(out)
+            for name in sim.OUTPUT_HASH_FILES:
+                payload = (out / name).read_bytes()
+                self.assertNotIn(b"\r", payload, name)
+                self.assertTrue(payload.endswith(b"\n"), name)
 
     def test_receipt_verifies_and_detects_tampering(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -241,6 +297,77 @@ class ExperimentTests(unittest.TestCase):
             with self.assertRaises(FileExistsError):
                 self._run(out)
             self.assertEqual(keep.read_text(encoding="utf-8"), "must survive\n")
+
+    def test_overwrite_refuses_forged_receipt_without_deleting_files(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "forged"
+            out.mkdir()
+            for name in sim.OUTPUT_HASH_FILES:
+                (out / name).write_bytes(f"valuable:{name}\n".encode("utf-8"))
+            forged = {
+                "claim_level": sim.CLAIM_LEVEL,
+                "sha256": {name: "0" * 64 for name in sim.OUTPUT_HASH_FILES},
+            }
+            (out / "receipt.json").write_text(
+                json.dumps(forged) + "\n", encoding="utf-8"
+            )
+            before = {
+                path.name: path.read_bytes() for path in sorted(out.iterdir())
+            }
+            with self.assertRaises(FileExistsError):
+                self._run(out)
+            after = {
+                path.name: path.read_bytes() for path in sorted(out.iterdir())
+            }
+            self.assertEqual(after, before)
+
+    def test_overwrite_accepts_owned_output_with_stale_input_hash(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "run"
+            self._run(out)
+            receipt_path = out / "receipt.json"
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            source_key = receipt["inputs"]["source"]
+            receipt["sha256"][source_key] = "0" * 64
+            receipt_path.write_text(
+                json.dumps(receipt, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+                newline="\n",
+            )
+            self.assertTrue(sim.verify_receipt(receipt_path))
+
+            self._run(out)
+
+            self.assertEqual(sim.verify_receipt(receipt_path), [])
+
+    def test_overwrite_refuses_without_atomic_directory_exchange(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            out = root / "run"
+            self._run(out)
+            before = {
+                path.name: path.read_bytes() for path in sorted(out.iterdir())
+            }
+            with mock.patch.object(
+                sim, "_atomic_exchange_directories", return_value=False
+            ):
+                with self.assertRaisesRegex(
+                    OSError,
+                    "atomic directory overwrite is unavailable",
+                ):
+                    self._run(out)
+
+            after = {
+                path.name: path.read_bytes() for path in sorted(out.iterdir())
+            }
+            self.assertEqual(after, before)
+            self.assertEqual(sim.verify_receipt(out / "receipt.json"), [])
+            leftovers = [
+                path.name
+                for path in root.iterdir()
+                if path.name.startswith(".run.staging-")
+            ]
+            self.assertEqual(leftovers, [])
 
     def test_overwrite_refuses_protected_repository_root(self) -> None:
         with self.assertRaises(FileExistsError):
