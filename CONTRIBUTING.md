@@ -30,6 +30,17 @@ make experiment
 make verify
 ```
 
+`make experiment` writes only to `.tmp/experiment`; use it to review the prospective behavior without modifying the committed fixture. Only after that change has been reviewed should a maintainer run the explicit fixture update:
+
+```bash
+make refresh-reference
+make verify
+```
+
+Review every changed reference output and receipt. Any intentional change to a release-tracked file must update `RELEASE_MANIFEST.json`. The manifest must cover the complete executable closure, including launchers, package entrypoints, simulator, configuration, verifiers, tests, Makefile, CI workflow, and `.gitattributes`. Never weaken verification by treating an absent required file or a symlink as a skipped success.
+
+The manifest and verifier establish consistency inside one checkout; they do not independently authenticate one another or prove historical provenance. Describe provenance as an operator attestation where that is the available evidence, and treat the reviewed Git commit or an external signature/archive as the external anchor.
+
 ## Design expectations
 
 - Preserve common episode environments across arms unless the experiment explicitly studies unpaired designs.
