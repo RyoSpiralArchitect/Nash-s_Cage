@@ -1,0 +1,31 @@
+{
+  "baseline_model_version": "0.3.0-experimental",
+  "claim_boundary": "F0 synthetic experiment; not an empirical digital twin, deployment controller, safety certificate, or authority to act.",
+  "claim_level": "F0",
+  "format": "nash-sustained-experiment/v1",
+  "input_sha256": {
+    "artifacts/feasibility_v03/receipt.json": "0a67b8638d6b4562b85f9e6285a216d57d6be917cb100548663f17e91cb2549b",
+    "docs/SUSTAINED_V04_CONTRACT.md": "c28e0dd777395fe7e43cbda859e946bff89e3495bd0a38630d7a952a0e763826",
+    "simulation/__init__.py": "45c0871e053a36b3b0e1c1d9a06b21446ff40cca0c4396765672e2f6fd262204",
+    "simulation/configs/feasibility_v03.json": "f6e92d1982c155788de422141207807bbc570fe2f7d120f1a8936252ff66e303",
+    "simulation/configs/minimal.json": "42774c526c924397dafc19ca8c0050e7837115eb913bd3494efb3e3f6ff400ea",
+    "simulation/configs/sustained_stress_plan.json": "7d55fa88b26f3ea8806dbe4e3c3d79d6bfcb8641559297878df4d841c57cc0b4",
+    "simulation/configs/sustained_v04.json": "5e757afe67250a68d63fb154d30bf8194cca16db353609cd85db7b1cc2e79df7",
+    "simulation/feasibility.py": "609056a45bbc74cabffad658dc3388360c20eea1ea18c190f8d5a2e2377dc0a9",
+    "simulation/rvcim_sim.py": "cdfc09b60658b637f01bb241175591ecd55ef57005119b61d47118b5d7fc6b76",
+    "simulation/sustained.py": "90c511e87ddb50f71f6e93be0119d8b5dbe8c80afd5eae491541a4f3d53e1418",
+    "tools/run_sustained.py": "6f4497e191ef97e4d0059f0858bc88df1fddc721f4c4005d350a760a9a8a5fb9"
+  },
+  "model_version": "0.4.0-experimental",
+  "numeric_encoding": "finite floats rounded to 9 decimal places; missing values preserved",
+  "output_sha256": {
+    "comparison.md": "914a43569c0b71286d9d09ddaa37f5c35f2f83ce1e6b34641ce78739d7e251a6",
+    "episodes.csv": "99641399f639fc5362433f156bb38802ee281bd3ee5ce4706ab0cf474e55f6a4",
+    "resolved_plan.json": "4e64d8a6335355bd25dad37dfbfccef6b93e62f6bda1ba0340ba8fd59e6d1454",
+    "summary.json": "7d4d68230c3d69e28f4bcc488a5b6e890fd494f601c9d07a83d2e7243cf71678",
+    "trace.csv": "ed3715fcf1a4ec0dc9930cc0f7564b24310eae66fb29945541c702f7961d2643"
+  },
+  "phase": "evaluation",
+  "study_id": "sustained-v04-first-path-2026-09-04",
+  "trust_model": "internal consistency only; no external attestation, empirical validity, or authorization"
+}

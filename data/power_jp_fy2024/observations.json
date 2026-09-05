@@ -1,0 +1,287 @@
+{
+  "diesel_biomass_diagnostic": {
+    "cell": "CEF!AR43",
+    "code": null,
+    "coefficient_tc_per_tj_hhv": "18.769632758435726"
+  },
+  "format": "nashs-cage-power-carbon-extract/v1",
+  "parent_totals": [
+    {
+      "balance_cell": "G58",
+      "carbon_ktc_signed": "-61768.966301861074",
+      "fuel_code": "$0100",
+      "input_tj_signed": "-2494789.8958199993"
+    },
+    {
+      "balance_cell": "R58",
+      "carbon_ktc_signed": "-2537.3827448035818",
+      "fuel_code": "$0200",
+      "input_tj_signed": "-107310.12786819701"
+    },
+    {
+      "balance_cell": "AD58",
+      "carbon_ktc_signed": "-17.621664313154618",
+      "fuel_code": "$0300",
+      "input_tj_signed": "-944.08512895413537"
+    },
+    {
+      "balance_cell": "AO58",
+      "carbon_ktc_signed": "-2599.3270055610824",
+      "fuel_code": "$0400",
+      "input_tj_signed": "-137745.41672330533"
+    },
+    {
+      "balance_cell": "BX58",
+      "carbon_ktc_signed": "-29032.219643112989",
+      "fuel_code": "$0500",
+      "input_tj_signed": "-2097678.0174957756"
+    },
+    {
+      "balance_cell": "CD58",
+      "carbon_ktc_signed": "-2209.8928707047703",
+      "fuel_code": "$0600",
+      "input_tj_signed": "-158043.9773578278"
+    }
+  ],
+  "rows": [
+    {
+      "balance_cell": "N58",
+      "carbon_ktc_signed": "-61768.966301861074",
+      "cef_cell": "AR12",
+      "coefficient_tc_per_tj_hhv": "24.75918569549864",
+      "family": "coal",
+      "fuel_code": "$0123",
+      "input_tj_signed": "-2494789.8958199993",
+      "name_ja": "発電用一般炭"
+    },
+    {
+      "balance_cell": "T58",
+      "carbon_ktc_signed": "-10.48617938888626",
+      "cef_cell": "AR16",
+      "coefficient_tc_per_tj_hhv": "29.71292020644999",
+      "family": "coal_product",
+      "fuel_code": "$0211",
+      "input_tj_signed": "-352.91648602785097",
+      "name_ja": "コークス"
+    },
+    {
+      "balance_cell": "X58",
+      "carbon_ktc_signed": "-235.12242819193568",
+      "cef_cell": "AR19",
+      "coefficient_tc_per_tj_hhv": "10.793764520176145",
+      "family": "coal_product",
+      "fuel_code": "$0221",
+      "input_tj_signed": "-21783.17191860497",
+      "name_ja": "コークス炉ガス"
+    },
+    {
+      "balance_cell": "AA58",
+      "carbon_ktc_signed": "-2102.0595981239244",
+      "cef_cell": null,
+      "coefficient_tc_per_tj_hhv": null,
+      "family": "coal_product",
+      "fuel_code": "$0224",
+      "input_tj_signed": "-80649.389460431994",
+      "name_ja": "発電用高炉ガス"
+    },
+    {
+      "balance_cell": "AB58",
+      "carbon_ktc_signed": "-189.71453909883544",
+      "cef_cell": "AR21",
+      "coefficient_tc_per_tj_hhv": "41.92910810062773",
+      "family": "coal_product",
+      "fuel_code": "$0225",
+      "input_tj_signed": "-4524.6500031321957",
+      "name_ja": "転炉ガス"
+    },
+    {
+      "balance_cell": "AH58",
+      "carbon_ktc_signed": "-8.4717517449337265",
+      "cef_cell": "AR27",
+      "coefficient_tc_per_tj_hhv": "19.147303343405913",
+      "family": "oil",
+      "fuel_code": "$0320",
+      "input_tj_signed": "-442.45143000000002",
+      "name_ja": "発電用原油"
+    },
+    {
+      "balance_cell": "AI58",
+      "carbon_ktc_signed": "-3.1353167999739291E-3",
+      "cef_cell": "AR28",
+      "coefficient_tc_per_tj_hhv": "19.96",
+      "family": "oil",
+      "fuel_code": "$0321",
+      "input_tj_signed": "-0.15707999999869382",
+      "name_ja": "瀝青質混合物"
+    },
+    {
+      "balance_cell": "AL58",
+      "carbon_ktc_signed": "-9.1467772514209198",
+      "cef_cell": "AR31",
+      "coefficient_tc_per_tj_hhv": "18.239688363730977",
+      "family": "oil",
+      "fuel_code": "$0332",
+      "input_tj_signed": "-501.47661895413665",
+      "name_ja": "発電用NGLコンデンセート"
+    },
+    {
+      "balance_cell": "BA58",
+      "carbon_ktc_signed": "-0.21937977246544321",
+      "cef_cell": "AR36",
+      "coefficient_tc_per_tj_hhv": "19.225519038571292",
+      "family": "oil_product",
+      "fuel_code": "$0421",
+      "input_tj_signed": "-11.410863447967852",
+      "name_ja": "改質生成油"
+    },
+    {
+      "balance_cell": "BE58",
+      "carbon_ktc_signed": "-28.257518268898657",
+      "cef_cell": "AR41",
+      "coefficient_tc_per_tj_hhv": "18.671635078651775",
+      "family": "oil_product",
+      "fuel_code": "$0433",
+      "input_tj_signed": "-1513.3928094603191",
+      "name_ja": "灯油"
+    },
+    {
+      "balance_cell": "BF58",
+      "carbon_ktc_signed": "-61.932365985056421",
+      "cef_cell": "AR42",
+      "coefficient_tc_per_tj_hhv": "18.775335415509293",
+      "family": "oil_product",
+      "fuel_code": "$0434",
+      "input_tj_signed": "-3299.6045677676811",
+      "name_ja": "軽油"
+    },
+    {
+      "balance_cell": "BH58",
+      "carbon_ktc_signed": "-343.22559010620336",
+      "cef_cell": "AR44",
+      "coefficient_tc_per_tj_hhv": "19.182580639603295",
+      "family": "oil_product",
+      "fuel_code": "$0436",
+      "input_tj_signed": "-17892.565998007525",
+      "name_ja": "A重油"
+    },
+    {
+      "balance_cell": "BL58",
+      "carbon_ktc_signed": "-1105.9923918362119",
+      "cef_cell": "AR47",
+      "coefficient_tc_per_tj_hhv": "19.880831846758095",
+      "family": "oil_product",
+      "fuel_code": "$0440",
+      "input_tj_signed": "-55631.092318532072",
+      "name_ja": "発電用C重油"
+    },
+    {
+      "balance_cell": "BP58",
+      "carbon_ktc_signed": "-313.09787607154556",
+      "cef_cell": null,
+      "coefficient_tc_per_tj_hhv": null,
+      "family": "oil_product",
+      "fuel_code": "$0453",
+      "input_tj_signed": "-15073.784030815967",
+      "name_ja": "アスファルト"
+    },
+    {
+      "balance_cell": "BQ58",
+      "carbon_ktc_signed": "-0.22081935858604523",
+      "cef_cell": null,
+      "coefficient_tc_per_tj_hhv": null,
+      "family": "oil_product",
+      "fuel_code": "$0454",
+      "input_tj_signed": "-10.631127118820647",
+      "name_ja": "他重質石油製品"
+    },
+    {
+      "balance_cell": "BR58",
+      "carbon_ktc_signed": "-250.48068033994517",
+      "cef_cell": "AR51",
+      "coefficient_tc_per_tj_hhv": "24.798422413099921",
+      "family": "oil_product",
+      "fuel_code": "$0455",
+      "input_tj_signed": "-10100.669960667627",
+      "name_ja": "オイルコークス"
+    },
+    {
+      "balance_cell": "BT58",
+      "carbon_ktc_signed": "-479.93653419873556",
+      "cef_cell": "AR53",
+      "coefficient_tc_per_tj_hhv": "14.4406461475757",
+      "family": "oil_product",
+      "fuel_code": "$0457",
+      "input_tj_signed": "-33235.114917576415",
+      "name_ja": "製油所ガス"
+    },
+    {
+      "balance_cell": "BU58",
+      "carbon_ktc_signed": "-15.963849623434298",
+      "cef_cell": "AR54",
+      "coefficient_tc_per_tj_hhv": "16.337151410796324",
+      "family": "oil_product",
+      "fuel_code": "$0458",
+      "input_tj_signed": "-977.1501299109384",
+      "name_ja": "LPG"
+    },
+    {
+      "balance_cell": "BY58",
+      "carbon_ktc_signed": "-28996.113210900079",
+      "cef_cell": "AR57",
+      "coefficient_tc_per_tj_hhv": "13.840090612572233",
+      "family": "natural_gas",
+      "fuel_code": "$0510",
+      "input_tj_signed": "-2095081.1683675128",
+      "name_ja": "輸入天然ガス"
+    },
+    {
+      "balance_cell": "CA58",
+      "carbon_ktc_signed": "-36.106432212908977",
+      "cef_cell": "AR59",
+      "coefficient_tc_per_tj_hhv": "13.903939131443446",
+      "family": "natural_gas",
+      "fuel_code": "$0521",
+      "input_tj_signed": "-2596.8491282628743",
+      "name_ja": "ガス田随伴ガス"
+    },
+    {
+      "balance_cell": "CE58",
+      "carbon_ktc_signed": "-2209.8928707047703",
+      "cef_cell": "AR63",
+      "coefficient_tc_per_tj_hhv": "13.982771805985024",
+      "family": "city_gas",
+      "fuel_code": "$0610",
+      "input_tj_signed": "-158043.9773578278",
+      "name_ja": "一般ガス"
+    }
+  ],
+  "scope": "JP/FY2024/#241000/business-generation-excluding-pumped-storage",
+  "sheets": {
+    "carbon": "（詳細表）炭素単位表",
+    "coefficient": "CEF",
+    "energy": "（詳細表）ｴﾈﾙｷﾞｰ単位表（本表）"
+  },
+  "sources": {
+    "energy_balance": {
+      "download_url": "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040445052&fileKind=0",
+      "filename": "nash-energybalance-2024-detail.xlsx",
+      "landing_url": "https://www.enecho.meti.go.jp/statistics/total_energy/results.html",
+      "publisher": "METI / Agency for Natural Resources and Energy / e-Stat",
+      "release_date": "2026-04-14",
+      "sha256": "fa243caf7ecfccb0c091aaaa45415aee804553d28fbbb6f5cd53ec24403376b8"
+    },
+    "nid_coefficients": {
+      "download_url": "https://www.nies.go.jp/gio/archive/nirdata/qu9bd600001b3pi9-att/L5-NID-Ch3-Energy-2026_web.xlsx",
+      "filename": "nash-nid-ch3-2026.xlsx",
+      "landing_url": "https://www.nies.go.jp/gio/archive/nirdata/2026.html",
+      "publisher": "NIES / Greenhouse Gas Inventory Office of Japan (GIO)",
+      "release_date": "2026-05-29",
+      "sha256": "67db62abf7e09388705a1cf88565779daa0c4bbf2f037a421c06ebae0600f5c4"
+    }
+  },
+  "units": {
+    "carbon": "10^3 tC",
+    "coefficient": "tC/TJ-HHV",
+    "input": "TJ-HHV"
+  }
+}

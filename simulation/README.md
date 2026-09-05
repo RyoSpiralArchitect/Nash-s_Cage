@@ -2,6 +2,21 @@
 
 `simulation/rvcim_sim.py` is a dependency-free F0 implementation of the paper's minimal research program. It is intentionally small enough to read as one auditable file.
 
+This page documents the **preserved v0.2 model**. Its truth-fed feedback and unequal
+arm capabilities are known limitations, not a clean test of trigger superiority.
+The separate `simulation/feasibility.py` v0.3 experiment uses public-only decisions
+and actor/social feedback, real queues and a finite paid-delivery ledger. Run
+`make feasibility`; verify its committed fixture with `make verify-feasibility`.
+See the [v0.3 contract](../docs/FEASIBILITY_V03_CONTRACT.md) and
+[results](../docs/FEASIBILITY_V03_RESULTS.ja.md) for exact assumptions and failures.
+
+`simulation/sustained.py` adds the separate v0.4 finite-plan screen. It projects
+the complete public actuator ledger for 24 steps, tests a strict public boundary,
+a six-step braking tail and terminal resource reserve, then issues only the first
+receding-horizon request. Its constant-gain pressure model is an uncalibrated F0
+assumption. See the [v0.4 contract](../docs/SUSTAINED_V04_CONTRACT.md) and
+[results](../docs/SUSTAINED_V04_RESULTS.ja.md).
+
 ## Quick run
 
 From the repository root:

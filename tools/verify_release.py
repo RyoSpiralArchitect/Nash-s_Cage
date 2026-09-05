@@ -54,17 +54,43 @@ REQUIRED_FILES = frozenset(
         "simulation/__init__.py",
         "simulation/__main__.py",
         "simulation/rvcim_sim.py",
+        "simulation/feasibility.py",
+        "simulation/sustained.py",
         "simulation/configs/minimal.json",
+        "simulation/configs/feasibility_v03.json",
+        "simulation/configs/feasibility_stress_plan.json",
+        "simulation/configs/sustained_v04.json",
+        "simulation/configs/sustained_stress_plan.json",
         "simulation/tests/test_rvcim_sim.py",
+        "simulation/tests/test_feasibility.py",
+        "simulation/tests/test_sustained.py",
+        "docs/FEASIBILITY_V03_CONTRACT.md",
+        "docs/SUSTAINED_V04_CONTRACT.md",
         "artifacts/reference_run/summary.csv",
         "artifacts/reference_run/episodes.csv",
         "artifacts/reference_run/trace.csv",
         "artifacts/reference_run/comparison.md",
         "artifacts/reference_run/resolved_config.json",
         "artifacts/reference_run/receipt.json",
+        "artifacts/feasibility_v03/episodes.csv",
+        "artifacts/feasibility_v03/summary.json",
+        "artifacts/feasibility_v03/trace.csv",
+        "artifacts/feasibility_v03/resolved_plan.json",
+        "artifacts/feasibility_v03/receipt.json",
+        "artifacts/feasibility_v03/comparison.md",
+        "artifacts/sustained_v04/episodes.csv",
+        "artifacts/sustained_v04/summary.json",
+        "artifacts/sustained_v04/trace.csv",
+        "artifacts/sustained_v04/resolved_plan.json",
+        "artifacts/sustained_v04/receipt.json",
+        "artifacts/sustained_v04/comparison.md",
         "tools/verify_release.py",
         "tools/verify_reference_replay.py",
+        "tools/run_feasibility.py",
+        "tools/run_sustained.py",
         "tools/tests/test_verify_release.py",
+        "tools/tests/test_feasibility_runner.py",
+        "tools/tests/test_sustained_runner.py",
     }
 )
 EXPECTED_ROLES = {
@@ -81,17 +107,43 @@ EXPECTED_ROLES = {
     "simulation/__init__.py": "simulation package API entrypoint",
     "simulation/__main__.py": "python -m simulation CLI entrypoint",
     "simulation/rvcim_sim.py": "zero-dependency executable reference source",
+    "simulation/feasibility.py": "experimental v0.3 structural feasibility engine",
+    "simulation/sustained.py": "experimental v0.4 sustained-response engine",
     "simulation/configs/minimal.json": "declared normalized reference configuration",
+    "simulation/configs/feasibility_v03.json": "experimental v0.3 feasibility configuration",
+    "simulation/configs/feasibility_stress_plan.json": "fixed experimental feasibility stress plan",
+    "simulation/configs/sustained_v04.json": "experimental v0.4 sustained-response configuration",
+    "simulation/configs/sustained_stress_plan.json": "fixed experimental sustained-response stress plan",
     "simulation/tests/test_rvcim_sim.py": "deterministic simulator contract tests",
+    "simulation/tests/test_feasibility.py": "experimental feasibility engine contract tests",
+    "simulation/tests/test_sustained.py": "experimental sustained-response engine contract tests",
+    "docs/FEASIBILITY_V03_CONTRACT.md": "experimental v0.3 feasibility contract and claim boundary",
+    "docs/SUSTAINED_V04_CONTRACT.md": "experimental v0.4 sustained-response contract and claim boundary",
     "artifacts/reference_run/summary.csv": "arm-level reference summary",
     "artifacts/reference_run/episodes.csv": "episode-level reference outcomes",
     "artifacts/reference_run/trace.csv": "step-level reference trace",
     "artifacts/reference_run/comparison.md": "human-readable reference comparison",
     "artifacts/reference_run/resolved_config.json": "resolved reference configuration",
     "artifacts/reference_run/receipt.json": "reference artifact verification receipt",
+    "artifacts/feasibility_v03/episodes.csv": "experimental feasibility episode outcomes",
+    "artifacts/feasibility_v03/summary.json": "experimental feasibility aggregate summary",
+    "artifacts/feasibility_v03/trace.csv": "experimental feasibility step trace",
+    "artifacts/feasibility_v03/resolved_plan.json": "resolved experimental feasibility stress plan",
+    "artifacts/feasibility_v03/receipt.json": "experimental feasibility verification receipt",
+    "artifacts/feasibility_v03/comparison.md": "human-readable experimental feasibility comparison",
+    "artifacts/sustained_v04/episodes.csv": "experimental sustained-response episode outcomes",
+    "artifacts/sustained_v04/summary.json": "experimental sustained-response aggregate summary",
+    "artifacts/sustained_v04/trace.csv": "experimental sustained-response step trace",
+    "artifacts/sustained_v04/resolved_plan.json": "resolved experimental sustained-response stress plan",
+    "artifacts/sustained_v04/receipt.json": "experimental sustained-response verification receipt",
+    "artifacts/sustained_v04/comparison.md": "human-readable experimental sustained-response comparison",
     "tools/verify_release.py": "fail-closed release-tree verifier",
     "tools/verify_reference_replay.py": "deterministic reference replay verifier",
+    "tools/run_feasibility.py": "experimental feasibility runner and replay verifier",
+    "tools/run_sustained.py": "experimental sustained-response runner and replay verifier",
     "tools/tests/test_verify_release.py": "release-verifier contract tests",
+    "tools/tests/test_feasibility_runner.py": "experimental feasibility runner contract tests",
+    "tools/tests/test_sustained_runner.py": "experimental sustained-response runner contract tests",
 }
 EXPECTED_FILE_PROVENANCE = {
     "paper/nashs_cage_rvcim_v0_1.tex": "operator-attested-preserved-upload",
@@ -99,6 +151,21 @@ EXPECTED_FILE_PROVENANCE = {
     "paper/nashs_cage_rvcim_v0_2.tex": "operator-attested-regeneration-from-v0.1",
     "paper/nashs_cage_rvcim_v0_2.pdf": "operator-attested-regeneration-from-v0.1",
 }
+POWER_ROLES = {
+    "tools/run_power_accounting.py": "bounded empirical fuel-carbon extractor and replay runner",
+    "tools/tests/test_power_accounting.py": "fuel-carbon input and replay contract tests",
+    "data/power_jp_fy2024/observations.json": "frozen official fuel-carbon factual extract",
+    "data/power_jp_fy2024/README.md": "fuel-carbon source attribution and extraction contract",
+    "docs/EMPIRICAL_POWER_INPUT_CONTRACT.ja.md": "initial empirical power-input design contract",
+    "docs/empirical_power_case.jp_fy2024.draft.json": "initial empirical power-input draft with unknown gates",
+    "docs/POWER_ACCOUNTING_RESULTS.ja.md": "empirical accounting results and oil resource boundary",
+    "artifacts/power_jp_fy2024/rows.csv": "all empirical fuel-carbon row outcomes including rejections",
+    "artifacts/power_jp_fy2024/summary.json": "empirical fuel-carbon summary and unresolved gates",
+    "artifacts/power_jp_fy2024/comparison.md": "human-readable empirical fuel-carbon comparison",
+    "artifacts/power_jp_fy2024/receipt.json": "deterministic empirical fuel-carbon replay receipt",
+}
+REQUIRED_FILES = REQUIRED_FILES | frozenset(POWER_ROLES)
+EXPECTED_ROLES.update(POWER_ROLES)
 PDF_FILES = frozenset(relative for relative in REQUIRED_FILES if relative.endswith(".pdf"))
 TEXT_FILES = REQUIRED_FILES - PDF_FILES
 EXECUTABLE_GLOBS = (
@@ -110,6 +177,71 @@ EXECUTABLE_GLOBS = (
 OFFICIAL_ACTION_PATTERN = re.compile(
     r"^\s*-\s+uses:\s+(actions/[A-Za-z0-9_.-]+)@([^\s#]+)",
     re.MULTILINE,
+)
+TEST_MODULES = (
+    "simulation.tests.test_rvcim_sim",
+    "simulation.tests.test_feasibility",
+    "simulation.tests.test_sustained",
+    "tools.tests.test_verify_release",
+    "tools.tests.test_feasibility_runner",
+    "tools.tests.test_sustained_runner",
+    "tools.tests.test_power_accounting",
+)
+COMPILE_FILES = tuple(
+    sorted(relative for relative in REQUIRED_FILES if relative.endswith(".py"))
+)
+WINDOWS_NATIVE_COMMAND = re.compile(
+    r"^(?:run:\s*)?(?:python(?:[0-9.]+)?|\.\\rvcim\.cmd)(?:\s|$)",
+    re.IGNORECASE,
+)
+WINDOWS_EXIT_CHECK = "if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }"
+WINDOWS_REQUIRED_NATIVE_COMMANDS = (
+    ".\\rvcim.cmd explain",
+    "python tools/verify_release.py --root . --manifest RELEASE_MANIFEST.json",
+    (
+        "python -m py_compile simulation/__init__.py simulation/__main__.py "
+        "simulation/rvcim_sim.py simulation/feasibility.py simulation/sustained.py"
+    ),
+    (
+        "python -m py_compile tools/verify_release.py "
+        "tools/verify_reference_replay.py tools/run_feasibility.py "
+        "tools/run_sustained.py tools/run_power_accounting.py"
+    ),
+    (
+        "python -m py_compile simulation/tests/test_rvcim_sim.py "
+        "simulation/tests/test_feasibility.py simulation/tests/test_sustained.py "
+        "tools/tests/test_verify_release.py tools/tests/test_feasibility_runner.py "
+        "tools/tests/test_sustained_runner.py tools/tests/test_power_accounting.py"
+    ),
+    "python -m unittest -v simulation.tests.test_rvcim_sim",
+    "python -m unittest -v simulation.tests.test_feasibility",
+    "python -m unittest -v simulation.tests.test_sustained",
+    "python -m unittest -v tools.tests.test_verify_release",
+    "python -m unittest -v tools.tests.test_feasibility_runner",
+    "python -m unittest -v tools.tests.test_sustained_runner",
+    "python -m unittest -v tools.tests.test_power_accounting",
+    (
+        ".\\rvcim.cmd smoke --config simulation\\configs\\minimal.json "
+        "--episodes 4 --seed 101 --out .tmp\\smoke-windows"
+    ),
+    ".\\rvcim.cmd verify --receipt .tmp\\smoke-windows\\receipt.json",
+    "python -m simulation verify --receipt artifacts\\reference_run\\receipt.json",
+    (
+        "python tools/verify_reference_replay.py --root . "
+        "--reference-dir artifacts\\reference_run"
+    ),
+    (
+        "python tools/run_feasibility.py verify "
+        "--out artifacts/feasibility_v03 --replay"
+    ),
+    (
+        "python tools/run_sustained.py verify "
+        "--out artifacts/sustained_v04 --replay"
+    ),
+    (
+        "python tools/run_power_accounting.py verify "
+        "--out artifacts/power_jp_fy2024 --replay"
+    ),
 )
 
 
@@ -167,6 +299,99 @@ def make_recipe(makefile: str, target: str) -> str | None:
                 break
             return "\n".join(body)
     return None
+
+
+def workflow_job(workflow: str, job: str) -> str | None:
+    """Read a job from the deliberately fixed, two-space workflow layout."""
+
+    lines = workflow.splitlines()
+    for index, line in enumerate(lines):
+        if line != f"  {job}:":
+            continue
+        body: list[str] = []
+        for following in lines[index + 1 :]:
+            if following.strip() and not following.startswith("    "):
+                break
+            body.append(following)
+        return "\n".join(body)
+    return None
+
+
+def verify_windows_workflow(workflow: str) -> list[str]:
+    """Require explicit native exit propagation in the locked Windows job."""
+
+    windows = workflow_job(workflow, "windows")
+    if windows is None:
+        return ["verification workflow must define the windows job"]
+    failures: list[str] = []
+    if "runs-on: windows-latest" not in windows:
+        failures.append("windows verification job must run on windows-latest")
+    if "shell: pwsh" not in windows:
+        failures.append("windows verification job must explicitly select pwsh")
+    statements = [
+        line.strip()
+        for line in windows.splitlines()
+        if line.strip() and not line.lstrip().startswith("#")
+    ]
+    native_commands = []
+    for index, statement in enumerate(statements):
+        if WINDOWS_NATIVE_COMMAND.match(statement) is None:
+            continue
+        native_commands.append(statement)
+        if (
+            index + 1 >= len(statements)
+            or statements[index + 1] != WINDOWS_EXIT_CHECK
+        ):
+            failures.append(
+                "Windows native command must immediately check LASTEXITCODE: "
+                + statement
+            )
+    if tuple(native_commands) != WINDOWS_REQUIRED_NATIVE_COMMANDS:
+        missing = [
+            command
+            for command in WINDOWS_REQUIRED_NATIVE_COMMANDS
+            if command not in native_commands
+        ]
+        unexpected = [
+            command
+            for command in native_commands
+            if command not in WINDOWS_REQUIRED_NATIVE_COMMANDS
+        ]
+        if missing:
+            failures.append(
+                "Windows verification is missing required native commands: "
+                + "; ".join(missing)
+            )
+        if unexpected:
+            failures.append(
+                "Windows verification has unexpected native commands: "
+                + "; ".join(unexpected)
+            )
+        if not missing and not unexpected:
+            failures.append("Windows native commands must use the locked order")
+    for module in TEST_MODULES:
+        if f"python -m unittest -v {module}" not in native_commands:
+            failures.append(f"Windows verification must explicitly run {module}")
+    compiled = set()
+    for command in native_commands:
+        if command.startswith("python -m py_compile "):
+            compiled.update(command.split()[3:])
+    for relative in COMPILE_FILES:
+        if relative not in compiled:
+            failures.append(f"Windows verification must explicitly compile {relative}")
+    feasibility_verify = (
+        "python tools/run_feasibility.py verify "
+        "--out artifacts/feasibility_v03 --replay"
+    )
+    if feasibility_verify not in native_commands:
+        failures.append("Windows verification must replay the experimental feasibility fixture")
+    sustained_verify = (
+        "python tools/run_sustained.py verify "
+        "--out artifacts/sustained_v04 --replay"
+    )
+    if sustained_verify not in native_commands:
+        failures.append("Windows verification must replay the experimental sustained fixture")
+    return failures
 
 
 def verify_executable_surface(root: Path) -> list[str]:
@@ -242,6 +467,7 @@ def verify_operational_semantics(root: Path) -> list[str]:
             failures.append("every checkout step must disable persisted credentials")
         if "unittest discover" in workflow:
             failures.append("verification workflow must not auto-discover tests")
+        failures.extend(verify_windows_workflow(workflow))
 
     makefile = texts.get("Makefile")
     if makefile is not None:
@@ -261,14 +487,74 @@ def verify_operational_semantics(root: Path) -> list[str]:
         refresh = make_recipe(makefile, "refresh-reference")
         if refresh is None or "artifacts/reference_run" not in refresh:
             failures.append("Makefile must reserve fixture writes for refresh-reference")
+        feasibility = make_recipe(makefile, "feasibility")
+        if feasibility is None:
+            failures.append("Makefile must define feasibility")
+        else:
+            expected = "$(PYTHON) tools/run_feasibility.py run --out .tmp/feasibility"
+            if feasibility.strip() != expected:
+                failures.append(
+                    "make feasibility must create new-only output at fixed .tmp/feasibility"
+                )
+        feasibility_verify = make_recipe(makefile, "verify-feasibility")
+        expected = (
+            "$(PYTHON) tools/run_feasibility.py verify "
+            "--out artifacts/feasibility_v03 --replay"
+        )
+        if feasibility_verify is None or feasibility_verify.strip() != expected:
+            failures.append("make verify-feasibility must replay the experimental fixture")
+        sustained = make_recipe(makefile, "sustained")
+        if sustained is None:
+            failures.append("Makefile must define sustained")
+        else:
+            expected = "$(PYTHON) tools/run_sustained.py run --out .tmp/sustained"
+            if sustained.strip() != expected:
+                failures.append(
+                    "make sustained must create new-only output at fixed .tmp/sustained"
+                )
+        sustained_verify = make_recipe(makefile, "verify-sustained")
+        expected = (
+            "$(PYTHON) tools/run_sustained.py verify "
+            "--out artifacts/sustained_v04 --replay"
+        )
+        if sustained_verify is None or sustained_verify.strip() != expected:
+            failures.append("make verify-sustained must replay the experimental sustained fixture")
+        power_run = make_recipe(makefile, "power-accounting")
+        expected = "$(PYTHON) tools/run_power_accounting.py run --out .tmp/power-accounting"
+        if power_run is None or power_run.strip() != expected:
+            failures.append("make power-accounting must create new-only output at fixed .tmp/power-accounting")
+        power_verify = make_recipe(makefile, "verify-power")
+        expected = "$(PYTHON) tools/run_power_accounting.py verify --out artifacts/power_jp_fy2024 --replay"
+        if power_verify is None or power_verify.strip() != expected:
+            failures.append("make verify-power must replay the empirical accounting fixture")
+        verify_headers = [
+            line for line in makefile.splitlines() if line.startswith("verify:")
+        ]
+        required_dependencies = {
+            "verify-release", "compile", "test", "smoke", "verify-artifact",
+            "verify-reference-replay", "verify-feasibility", "verify-sustained",
+            "verify-power",
+        }
+        if (
+            len(verify_headers) != 1
+            or not required_dependencies <= set(verify_headers[0].split()[1:])
+        ):
+            failures.append("make verify must include all legacy and experimental checks")
+        compile_recipe = make_recipe(makefile, "compile")
+        compiled = set()
+        if compile_recipe is not None:
+            for line in compile_recipe.splitlines():
+                command = line.strip()
+                if command.startswith("$(PYTHON) -m py_compile "):
+                    compiled.update(command.split()[3:])
+        for relative in COMPILE_FILES:
+            if relative not in compiled:
+                failures.append(f"make compile must explicitly compile {relative}")
         tests = make_recipe(makefile, "test")
         if tests is None:
             failures.append("Makefile must define test")
         else:
-            for module in (
-                "simulation.tests.test_rvcim_sim",
-                "tools.tests.test_verify_release",
-            ):
+            for module in TEST_MODULES:
                 if f"-m unittest -v {module}" not in tests:
                     failures.append(f"make test must explicitly run {module}")
             if "discover" in tests:

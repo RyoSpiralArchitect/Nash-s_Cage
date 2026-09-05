@@ -1,0 +1,1086 @@
+{
+  "baseline_model_version": "0.3.0-experimental",
+  "claim_boundary": "F0 synthetic experiment; not an empirical digital twin, deployment controller, safety certificate, or authority to act.",
+  "claim_level": "F0",
+  "cohort_scope": {
+    "primary": "Fixed phase scenarios; paired reserve and sustained_reserve only.",
+    "prior_failure_regression": "Eleven post-hoc v0.3 losing cases; all four controllers retained and not mixed into primary groups."
+  },
+  "comparison_scope": "Identical sampled environment and feasibility resources within each pair; realized actions and spending may differ.",
+  "format": "nash-sustained-experiment/v1",
+  "groups": [
+    {
+      "active_emergency_steps_mean": 36.270833333,
+      "assessment_insufficient_evidence_steps_mean": null,
+      "assessment_no_candidate_steps_mean": null,
+      "assessment_plan_found_steps_mean": null,
+      "controller": "reserve",
+      "effective_emergency_steps_mean": 27.979166667,
+      "episodes": 48,
+      "final_assessment_status_counts": null,
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 17,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": null,
+      "min_projected_boundary_margin_mean": null,
+      "min_projected_final_budget_mean": null,
+      "no_candidate_boundary_steps_mean": null,
+      "no_candidate_braking_steps_mean": null,
+      "no_candidate_budget_steps_mean": null,
+      "public_forecast_checked_steps_mean": null,
+      "public_forecast_miss_steps_mean": null,
+      "remaining_budget_mean": 0.020825,
+      "requested_emergency_steps_mean": 39.1875,
+      "scenario": "baseline",
+      "selected_plan_emergency_steps_mean": null,
+      "selected_plan_normal_steps_mean": null,
+      "selected_plan_precaution_steps_mean": null,
+      "total_cost_mean": 3.979175,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 66.958333333,
+      "assessment_insufficient_evidence_steps_mean": 0.0,
+      "assessment_no_candidate_steps_mean": 66.9375,
+      "assessment_plan_found_steps_mean": 5.0625,
+      "controller": "sustained_reserve",
+      "effective_emergency_steps_mean": 40.958333333,
+      "episodes": 48,
+      "final_assessment_status_counts": {
+        "no_candidate_plan_within_declared_model": 48
+      },
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 7,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": 0.066839131,
+      "min_projected_boundary_margin_mean": -0.962111798,
+      "min_projected_final_budget_mean": 0.0,
+      "no_candidate_boundary_steps_mean": 45.4375,
+      "no_candidate_braking_steps_mean": 66.5,
+      "no_candidate_budget_steps_mean": 48.0,
+      "public_forecast_checked_steps_mean": 71.0,
+      "public_forecast_miss_steps_mean": 9.208333333,
+      "remaining_budget_mean": 0.0,
+      "requested_emergency_steps_mean": 69.958333333,
+      "scenario": "baseline",
+      "selected_plan_emergency_steps_mean": 3.020833333,
+      "selected_plan_normal_steps_mean": 0.020833333,
+      "selected_plan_precaution_steps_mean": 2.020833333,
+      "total_cost_mean": 4.0,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 59.854166667,
+      "assessment_insufficient_evidence_steps_mean": null,
+      "assessment_no_candidate_steps_mean": null,
+      "assessment_plan_found_steps_mean": null,
+      "controller": "reserve",
+      "effective_emergency_steps_mean": 39.416666667,
+      "episodes": 48,
+      "final_assessment_status_counts": null,
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 33,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": null,
+      "min_projected_boundary_margin_mean": null,
+      "min_projected_final_budget_mean": null,
+      "no_candidate_boundary_steps_mean": null,
+      "no_candidate_braking_steps_mean": null,
+      "no_candidate_budget_steps_mean": null,
+      "public_forecast_checked_steps_mean": null,
+      "public_forecast_miss_steps_mean": null,
+      "remaining_budget_mean": 0.006820833,
+      "requested_emergency_steps_mean": 69.8125,
+      "scenario": "long_delays",
+      "selected_plan_emergency_steps_mean": null,
+      "selected_plan_normal_steps_mean": null,
+      "selected_plan_precaution_steps_mean": null,
+      "total_cost_mean": 3.993179167,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 61.979166667,
+      "assessment_insufficient_evidence_steps_mean": 0.0,
+      "assessment_no_candidate_steps_mean": 70.895833333,
+      "assessment_plan_found_steps_mean": 1.104166667,
+      "controller": "sustained_reserve",
+      "effective_emergency_steps_mean": 40.0,
+      "episodes": 48,
+      "final_assessment_status_counts": {
+        "no_candidate_plan_within_declared_model": 48
+      },
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 26,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": 0.065942593,
+      "min_projected_boundary_margin_mean": -2.383430182,
+      "min_projected_final_budget_mean": 0.0,
+      "no_candidate_boundary_steps_mean": 67.375,
+      "no_candidate_braking_steps_mean": 67.854166667,
+      "no_candidate_budget_steps_mean": 27.979166667,
+      "public_forecast_checked_steps_mean": 71.0,
+      "public_forecast_miss_steps_mean": 9.145833333,
+      "remaining_budget_mean": 0.0,
+      "requested_emergency_steps_mean": 71.979166667,
+      "scenario": "long_delays",
+      "selected_plan_emergency_steps_mean": 1.083333333,
+      "selected_plan_normal_steps_mean": 0.020833333,
+      "selected_plan_precaution_steps_mean": 0.0,
+      "total_cost_mean": 4.0,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 69.0,
+      "assessment_insufficient_evidence_steps_mean": null,
+      "assessment_no_candidate_steps_mean": null,
+      "assessment_plan_found_steps_mean": null,
+      "controller": "reserve",
+      "effective_emergency_steps_mean": 65.0,
+      "episodes": 48,
+      "final_assessment_status_counts": null,
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 25,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": null,
+      "min_projected_boundary_margin_mean": null,
+      "min_projected_final_budget_mean": null,
+      "no_candidate_boundary_steps_mean": null,
+      "no_candidate_braking_steps_mean": null,
+      "no_candidate_budget_steps_mean": null,
+      "public_forecast_checked_steps_mean": null,
+      "public_forecast_miss_steps_mean": null,
+      "remaining_budget_mean": 0.1912,
+      "requested_emergency_steps_mean": 72.0,
+      "scenario": "low_policy_capacity",
+      "selected_plan_emergency_steps_mean": null,
+      "selected_plan_normal_steps_mean": null,
+      "selected_plan_precaution_steps_mean": null,
+      "total_cost_mean": 3.8088,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 69.0,
+      "assessment_insufficient_evidence_steps_mean": 0.0,
+      "assessment_no_candidate_steps_mean": 70.791666667,
+      "assessment_plan_found_steps_mean": 1.208333333,
+      "controller": "sustained_reserve",
+      "effective_emergency_steps_mean": 65.0,
+      "episodes": 48,
+      "final_assessment_status_counts": {
+        "no_candidate_plan_within_declared_model": 48
+      },
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 25,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": 0.068503873,
+      "min_projected_boundary_margin_mean": -1.617210406,
+      "min_projected_final_budget_mean": 0.0,
+      "no_candidate_boundary_steps_mean": 63.895833333,
+      "no_candidate_braking_steps_mean": 70.645833333,
+      "no_candidate_budget_steps_mean": 24.0,
+      "public_forecast_checked_steps_mean": 71.0,
+      "public_forecast_miss_steps_mean": 10.541666667,
+      "remaining_budget_mean": 0.1912,
+      "requested_emergency_steps_mean": 72.0,
+      "scenario": "low_policy_capacity",
+      "selected_plan_emergency_steps_mean": 1.208333333,
+      "selected_plan_normal_steps_mean": 0.0,
+      "selected_plan_precaution_steps_mean": 0.0,
+      "total_cost_mean": 3.8088,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 50.708333333,
+      "assessment_insufficient_evidence_steps_mean": null,
+      "assessment_no_candidate_steps_mean": null,
+      "assessment_plan_found_steps_mean": null,
+      "controller": "reserve",
+      "effective_emergency_steps_mean": 9.416666667,
+      "episodes": 48,
+      "final_assessment_status_counts": null,
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 48,
+      "justice_floor_violation_count": 1,
+      "max_public_forecast_overshoot_mean": null,
+      "min_projected_boundary_margin_mean": null,
+      "min_projected_final_budget_mean": null,
+      "no_candidate_boundary_steps_mean": null,
+      "no_candidate_braking_steps_mean": null,
+      "no_candidate_budget_steps_mean": null,
+      "public_forecast_checked_steps_mean": null,
+      "public_forecast_miss_steps_mean": null,
+      "remaining_budget_mean": 0.0,
+      "requested_emergency_steps_mean": 53.708333333,
+      "scenario": "tight_budget",
+      "selected_plan_emergency_steps_mean": null,
+      "selected_plan_normal_steps_mean": null,
+      "selected_plan_precaution_steps_mean": null,
+      "total_cost_mean": 1.5,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 67.458333333,
+      "assessment_insufficient_evidence_steps_mean": 0.0,
+      "assessment_no_candidate_steps_mean": 70.458333333,
+      "assessment_plan_found_steps_mean": 1.541666667,
+      "controller": "sustained_reserve",
+      "effective_emergency_steps_mean": 15.458333333,
+      "episodes": 48,
+      "final_assessment_status_counts": {
+        "no_candidate_plan_within_declared_model": 48
+      },
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 48,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": 0.070056591,
+      "min_projected_boundary_margin_mean": -2.67698704,
+      "min_projected_final_budget_mean": 0.0,
+      "no_candidate_boundary_steps_mean": 63.0,
+      "no_candidate_braking_steps_mean": 69.979166667,
+      "no_candidate_budget_steps_mean": 70.458333333,
+      "public_forecast_checked_steps_mean": 71.0,
+      "public_forecast_miss_steps_mean": 11.8125,
+      "remaining_budget_mean": 0.0,
+      "requested_emergency_steps_mean": 70.458333333,
+      "scenario": "tight_budget",
+      "selected_plan_emergency_steps_mean": 0.0,
+      "selected_plan_normal_steps_mean": 0.0,
+      "selected_plan_precaution_steps_mean": 1.541666667,
+      "total_cost_mean": 1.5,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 69.0,
+      "assessment_insufficient_evidence_steps_mean": null,
+      "assessment_no_candidate_steps_mean": null,
+      "assessment_plan_found_steps_mean": null,
+      "controller": "reserve",
+      "effective_emergency_steps_mean": 0.0,
+      "episodes": 48,
+      "final_assessment_status_counts": null,
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 48,
+      "justice_floor_violation_count": 3,
+      "max_public_forecast_overshoot_mean": null,
+      "min_projected_boundary_margin_mean": null,
+      "min_projected_final_budget_mean": null,
+      "no_candidate_boundary_steps_mean": null,
+      "no_candidate_braking_steps_mean": null,
+      "no_candidate_budget_steps_mean": null,
+      "public_forecast_checked_steps_mean": null,
+      "public_forecast_miss_steps_mean": null,
+      "remaining_budget_mean": 0.0,
+      "requested_emergency_steps_mean": 72.0,
+      "scenario": "zero_budget",
+      "selected_plan_emergency_steps_mean": null,
+      "selected_plan_normal_steps_mean": null,
+      "selected_plan_precaution_steps_mean": null,
+      "total_cost_mean": 0.0,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 69.0,
+      "assessment_insufficient_evidence_steps_mean": 0.0,
+      "assessment_no_candidate_steps_mean": 72.0,
+      "assessment_plan_found_steps_mean": 0.0,
+      "controller": "sustained_reserve",
+      "effective_emergency_steps_mean": 0.0,
+      "episodes": 48,
+      "final_assessment_status_counts": {
+        "no_candidate_plan_within_declared_model": 48
+      },
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 48,
+      "justice_floor_violation_count": 3,
+      "max_public_forecast_overshoot_mean": 0.071883166,
+      "min_projected_boundary_margin_mean": -3.614823276,
+      "min_projected_final_budget_mean": 0.0,
+      "no_candidate_boundary_steps_mean": 68.479166667,
+      "no_candidate_braking_steps_mean": 71.8125,
+      "no_candidate_budget_steps_mean": 72.0,
+      "public_forecast_checked_steps_mean": 71.0,
+      "public_forecast_miss_steps_mean": 12.625,
+      "remaining_budget_mean": 0.0,
+      "requested_emergency_steps_mean": 72.0,
+      "scenario": "zero_budget",
+      "selected_plan_emergency_steps_mean": 0.0,
+      "selected_plan_normal_steps_mean": 0.0,
+      "selected_plan_precaution_steps_mean": 0.0,
+      "total_cost_mean": 0.0,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 41.541666667,
+      "assessment_insufficient_evidence_steps_mean": null,
+      "assessment_no_candidate_steps_mean": null,
+      "assessment_plan_found_steps_mean": null,
+      "controller": "reserve",
+      "effective_emergency_steps_mean": 30.125,
+      "episodes": 48,
+      "final_assessment_status_counts": null,
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 43,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": null,
+      "min_projected_boundary_margin_mean": null,
+      "min_projected_final_budget_mean": null,
+      "no_candidate_boundary_steps_mean": null,
+      "no_candidate_braking_steps_mean": null,
+      "no_candidate_budget_steps_mean": null,
+      "public_forecast_checked_steps_mean": null,
+      "public_forecast_miss_steps_mean": null,
+      "remaining_budget_mean": 0.0102625,
+      "requested_emergency_steps_mean": 44.541666667,
+      "scenario": "closer_hidden_boundary",
+      "selected_plan_emergency_steps_mean": null,
+      "selected_plan_normal_steps_mean": null,
+      "selected_plan_precaution_steps_mean": null,
+      "total_cost_mean": 3.9897375,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 66.958333333,
+      "assessment_insufficient_evidence_steps_mean": 0.0,
+      "assessment_no_candidate_steps_mean": 66.9375,
+      "assessment_plan_found_steps_mean": 5.0625,
+      "controller": "sustained_reserve",
+      "effective_emergency_steps_mean": 40.958333333,
+      "episodes": 48,
+      "final_assessment_status_counts": {
+        "no_candidate_plan_within_declared_model": 48
+      },
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 14,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": 0.067003568,
+      "min_projected_boundary_margin_mean": -1.053212121,
+      "min_projected_final_budget_mean": 0.0,
+      "no_candidate_boundary_steps_mean": 45.458333333,
+      "no_candidate_braking_steps_mean": 66.5,
+      "no_candidate_budget_steps_mean": 48.0,
+      "public_forecast_checked_steps_mean": 71.0,
+      "public_forecast_miss_steps_mean": 9.270833333,
+      "remaining_budget_mean": 0.0,
+      "requested_emergency_steps_mean": 69.958333333,
+      "scenario": "closer_hidden_boundary",
+      "selected_plan_emergency_steps_mean": 3.020833333,
+      "selected_plan_normal_steps_mean": 0.020833333,
+      "selected_plan_precaution_steps_mean": 2.020833333,
+      "total_cost_mean": 4.0,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 28.8125,
+      "assessment_insufficient_evidence_steps_mean": null,
+      "assessment_no_candidate_steps_mean": null,
+      "assessment_plan_found_steps_mean": null,
+      "controller": "reserve",
+      "effective_emergency_steps_mean": 23.5625,
+      "episodes": 48,
+      "final_assessment_status_counts": null,
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 30,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": null,
+      "min_projected_boundary_margin_mean": null,
+      "min_projected_final_budget_mean": null,
+      "no_candidate_boundary_steps_mean": null,
+      "no_candidate_braking_steps_mean": null,
+      "no_candidate_budget_steps_mean": null,
+      "public_forecast_checked_steps_mean": null,
+      "public_forecast_miss_steps_mean": null,
+      "remaining_budget_mean": 0.117191667,
+      "requested_emergency_steps_mean": 31.395833333,
+      "scenario": "common_optimistic_bias",
+      "selected_plan_emergency_steps_mean": null,
+      "selected_plan_normal_steps_mean": null,
+      "selected_plan_precaution_steps_mean": null,
+      "total_cost_mean": 3.882808333,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 66.958333333,
+      "assessment_insufficient_evidence_steps_mean": 0.0,
+      "assessment_no_candidate_steps_mean": 66.979166667,
+      "assessment_plan_found_steps_mean": 5.020833333,
+      "controller": "sustained_reserve",
+      "effective_emergency_steps_mean": 40.958333333,
+      "episodes": 48,
+      "final_assessment_status_counts": {
+        "no_candidate_plan_within_declared_model": 48
+      },
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 7,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": 0.065925563,
+      "min_projected_boundary_margin_mean": -0.770229621,
+      "min_projected_final_budget_mean": 0.0,
+      "no_candidate_boundary_steps_mean": 32.895833333,
+      "no_candidate_braking_steps_mean": 66.645833333,
+      "no_candidate_budget_steps_mean": 48.0,
+      "public_forecast_checked_steps_mean": 71.0,
+      "public_forecast_miss_steps_mean": 8.770833333,
+      "remaining_budget_mean": 0.0,
+      "requested_emergency_steps_mean": 69.958333333,
+      "scenario": "common_optimistic_bias",
+      "selected_plan_emergency_steps_mean": 2.979166667,
+      "selected_plan_normal_steps_mean": 0.020833333,
+      "selected_plan_precaution_steps_mean": 2.020833333,
+      "total_cost_mean": 4.0,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 36.270833333,
+      "assessment_insufficient_evidence_steps_mean": null,
+      "assessment_no_candidate_steps_mean": null,
+      "assessment_plan_found_steps_mean": null,
+      "controller": "reserve",
+      "effective_emergency_steps_mean": 27.979166667,
+      "episodes": 48,
+      "final_assessment_status_counts": null,
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 17,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": null,
+      "min_projected_boundary_margin_mean": null,
+      "min_projected_final_budget_mean": null,
+      "no_candidate_boundary_steps_mean": null,
+      "no_candidate_braking_steps_mean": null,
+      "no_candidate_budget_steps_mean": null,
+      "public_forecast_checked_steps_mean": null,
+      "public_forecast_miss_steps_mean": null,
+      "remaining_budget_mean": 0.020825,
+      "requested_emergency_steps_mean": 39.1875,
+      "scenario": "optimistic_policy_gain_assumption",
+      "selected_plan_emergency_steps_mean": null,
+      "selected_plan_normal_steps_mean": null,
+      "selected_plan_precaution_steps_mean": null,
+      "total_cost_mean": 3.979175,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 61.854166667,
+      "assessment_insufficient_evidence_steps_mean": 0.0,
+      "assessment_no_candidate_steps_mean": 60.333333333,
+      "assessment_plan_found_steps_mean": 11.666666667,
+      "controller": "sustained_reserve",
+      "effective_emergency_steps_mean": 36.375,
+      "episodes": 48,
+      "final_assessment_status_counts": {
+        "no_candidate_plan_within_declared_model": 48
+      },
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 8,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": 0.067065008,
+      "min_projected_boundary_margin_mean": -1.750534078,
+      "min_projected_final_budget_mean": 0.0,
+      "no_candidate_boundary_steps_mean": 46.583333333,
+      "no_candidate_braking_steps_mean": 59.8125,
+      "no_candidate_budget_steps_mean": 47.479166667,
+      "public_forecast_checked_steps_mean": 71.0,
+      "public_forecast_miss_steps_mean": 9.479166667,
+      "remaining_budget_mean": 0.0,
+      "requested_emergency_steps_mean": 64.854166667,
+      "scenario": "optimistic_policy_gain_assumption",
+      "selected_plan_emergency_steps_mean": 4.520833333,
+      "selected_plan_normal_steps_mean": 0.125,
+      "selected_plan_precaution_steps_mean": 7.020833333,
+      "total_cost_mean": 4.0,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 37.479166667,
+      "assessment_insufficient_evidence_steps_mean": null,
+      "assessment_no_candidate_steps_mean": null,
+      "assessment_plan_found_steps_mean": null,
+      "controller": "reserve",
+      "effective_emergency_steps_mean": 29.458333333,
+      "episodes": 48,
+      "final_assessment_status_counts": null,
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 15,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": null,
+      "min_projected_boundary_margin_mean": null,
+      "min_projected_final_budget_mean": null,
+      "no_candidate_boundary_steps_mean": null,
+      "no_candidate_braking_steps_mean": null,
+      "no_candidate_budget_steps_mean": null,
+      "public_forecast_checked_steps_mean": null,
+      "public_forecast_miss_steps_mean": null,
+      "remaining_budget_mean": 0.011608333,
+      "requested_emergency_steps_mean": 40.395833333,
+      "scenario": "intermittent_observation",
+      "selected_plan_emergency_steps_mean": null,
+      "selected_plan_normal_steps_mean": null,
+      "selected_plan_precaution_steps_mean": null,
+      "total_cost_mean": 3.988391667,
+      "unknown_steps_mean": 18.0
+    },
+    {
+      "active_emergency_steps_mean": 65.958333333,
+      "assessment_insufficient_evidence_steps_mean": 18.0,
+      "assessment_no_candidate_steps_mean": 50.6875,
+      "assessment_plan_found_steps_mean": 3.3125,
+      "controller": "sustained_reserve",
+      "effective_emergency_steps_mean": 40.0625,
+      "episodes": 48,
+      "final_assessment_status_counts": {
+        "no_candidate_plan_within_declared_model": 48
+      },
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 8,
+      "justice_floor_violation_count": 0,
+      "max_public_forecast_overshoot_mean": 0.050369427,
+      "min_projected_boundary_margin_mean": -0.94891445,
+      "min_projected_final_budget_mean": 0.0,
+      "no_candidate_boundary_steps_mean": 36.166666667,
+      "no_candidate_braking_steps_mean": 50.3125,
+      "no_candidate_budget_steps_mean": 35.979166667,
+      "public_forecast_checked_steps_mean": 36.0,
+      "public_forecast_miss_steps_mean": 4.604166667,
+      "remaining_budget_mean": 0.0,
+      "requested_emergency_steps_mean": 68.958333333,
+      "scenario": "intermittent_observation",
+      "selected_plan_emergency_steps_mean": 1.520833333,
+      "selected_plan_normal_steps_mean": 0.0,
+      "selected_plan_precaution_steps_mean": 1.791666667,
+      "total_cost_mean": 4.0,
+      "unknown_steps_mean": 18.0
+    },
+    {
+      "active_emergency_steps_mean": 69.0,
+      "assessment_insufficient_evidence_steps_mean": null,
+      "assessment_no_candidate_steps_mean": null,
+      "assessment_plan_found_steps_mean": null,
+      "controller": "reserve",
+      "effective_emergency_steps_mean": 0.0,
+      "episodes": 48,
+      "final_assessment_status_counts": null,
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 48,
+      "justice_floor_violation_count": 3,
+      "max_public_forecast_overshoot_mean": null,
+      "min_projected_boundary_margin_mean": null,
+      "min_projected_final_budget_mean": null,
+      "no_candidate_boundary_steps_mean": null,
+      "no_candidate_braking_steps_mean": null,
+      "no_candidate_budget_steps_mean": null,
+      "public_forecast_checked_steps_mean": null,
+      "public_forecast_miss_steps_mean": null,
+      "remaining_budget_mean": 4.0,
+      "requested_emergency_steps_mean": 72.0,
+      "scenario": "zero_actuator_capacity",
+      "selected_plan_emergency_steps_mean": null,
+      "selected_plan_normal_steps_mean": null,
+      "selected_plan_precaution_steps_mean": null,
+      "total_cost_mean": 0.0,
+      "unknown_steps_mean": 0.0
+    },
+    {
+      "active_emergency_steps_mean": 69.0,
+      "assessment_insufficient_evidence_steps_mean": 0.0,
+      "assessment_no_candidate_steps_mean": 71.8125,
+      "assessment_plan_found_steps_mean": 0.1875,
+      "controller": "sustained_reserve",
+      "effective_emergency_steps_mean": 0.0,
+      "episodes": 48,
+      "final_assessment_status_counts": {
+        "no_candidate_plan_within_declared_model": 48
+      },
+      "final_selected_plan_mode_counts": null,
+      "irreversible_entry_count": 48,
+      "justice_floor_violation_count": 3,
+      "max_public_forecast_overshoot_mean": 0.071883166,
+      "min_projected_boundary_margin_mean": -3.614823276,
+      "min_projected_final_budget_mean": 4.0,
+      "no_candidate_boundary_steps_mean": 68.479166667,
+      "no_candidate_braking_steps_mean": 71.8125,
+      "no_candidate_budget_steps_mean": 0.0,
+      "public_forecast_checked_steps_mean": 71.0,
+      "public_forecast_miss_steps_mean": 12.625,
+      "remaining_budget_mean": 4.0,
+      "requested_emergency_steps_mean": 72.0,
+      "scenario": "zero_actuator_capacity",
+      "selected_plan_emergency_steps_mean": 0.1875,
+      "selected_plan_normal_steps_mean": 0.0,
+      "selected_plan_precaution_steps_mean": 0.0,
+      "total_cost_mean": 0.0,
+      "unknown_steps_mean": 0.0
+    }
+  ],
+  "model_version": "0.4.0-experimental",
+  "paired_comparisons": [
+    {
+      "both_failure": 7,
+      "both_success": 31,
+      "pairs": 48,
+      "reserve_only_success": 0,
+      "scenario": "baseline",
+      "sustained_minus_reserve_cost_mean": 0.020825,
+      "sustained_only_success": 10
+    },
+    {
+      "both_failure": 26,
+      "both_success": 15,
+      "pairs": 48,
+      "reserve_only_success": 0,
+      "scenario": "long_delays",
+      "sustained_minus_reserve_cost_mean": 0.006820833,
+      "sustained_only_success": 7
+    },
+    {
+      "both_failure": 25,
+      "both_success": 23,
+      "pairs": 48,
+      "reserve_only_success": 0,
+      "scenario": "low_policy_capacity",
+      "sustained_minus_reserve_cost_mean": 0.0,
+      "sustained_only_success": 0
+    },
+    {
+      "both_failure": 48,
+      "both_success": 0,
+      "pairs": 48,
+      "reserve_only_success": 0,
+      "scenario": "tight_budget",
+      "sustained_minus_reserve_cost_mean": 0.0,
+      "sustained_only_success": 0
+    },
+    {
+      "both_failure": 48,
+      "both_success": 0,
+      "pairs": 48,
+      "reserve_only_success": 0,
+      "scenario": "zero_budget",
+      "sustained_minus_reserve_cost_mean": 0.0,
+      "sustained_only_success": 0
+    },
+    {
+      "both_failure": 14,
+      "both_success": 5,
+      "pairs": 48,
+      "reserve_only_success": 0,
+      "scenario": "closer_hidden_boundary",
+      "sustained_minus_reserve_cost_mean": 0.0102625,
+      "sustained_only_success": 29
+    },
+    {
+      "both_failure": 7,
+      "both_success": 18,
+      "pairs": 48,
+      "reserve_only_success": 0,
+      "scenario": "common_optimistic_bias",
+      "sustained_minus_reserve_cost_mean": 0.117191667,
+      "sustained_only_success": 23
+    },
+    {
+      "both_failure": 8,
+      "both_success": 31,
+      "pairs": 48,
+      "reserve_only_success": 0,
+      "scenario": "optimistic_policy_gain_assumption",
+      "sustained_minus_reserve_cost_mean": 0.020825,
+      "sustained_only_success": 9
+    },
+    {
+      "both_failure": 8,
+      "both_success": 33,
+      "pairs": 48,
+      "reserve_only_success": 0,
+      "scenario": "intermittent_observation",
+      "sustained_minus_reserve_cost_mean": 0.011608333,
+      "sustained_only_success": 7
+    },
+    {
+      "both_failure": 48,
+      "both_success": 0,
+      "pairs": 48,
+      "reserve_only_success": 0,
+      "scenario": "zero_actuator_capacity",
+      "sustained_minus_reserve_cost_mean": 0.0,
+      "sustained_only_success": 0
+    }
+  ],
+  "phase": "evaluation",
+  "prior_failure_regression": [
+    {
+      "comparator": "threshold",
+      "environment_seed": 16752247575707099654,
+      "episode": 42,
+      "master_seed": 307,
+      "original_comparator_success": true,
+      "original_relation_preserved": true,
+      "reserve_failure": true,
+      "results": {
+        "reserve": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "sustained_reserve": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold_hysteresis": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        }
+      },
+      "scenario": "baseline",
+      "sustained_failure": false,
+      "sustained_success": true
+    },
+    {
+      "comparator": "threshold_hysteresis",
+      "environment_seed": 4709276392410794590,
+      "episode": 45,
+      "master_seed": 101,
+      "original_comparator_success": true,
+      "original_relation_preserved": true,
+      "reserve_failure": true,
+      "results": {
+        "reserve": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 3.9702
+        },
+        "sustained_reserve": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold_hysteresis": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        }
+      },
+      "scenario": "common_optimistic_bias",
+      "sustained_failure": false,
+      "sustained_success": true
+    },
+    {
+      "comparator": "threshold_hysteresis",
+      "environment_seed": 3615085530055339529,
+      "episode": 56,
+      "master_seed": 101,
+      "original_comparator_success": true,
+      "original_relation_preserved": true,
+      "reserve_failure": true,
+      "results": {
+        "reserve": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 3.943
+        },
+        "sustained_reserve": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold_hysteresis": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        }
+      },
+      "scenario": "common_optimistic_bias",
+      "sustained_failure": false,
+      "sustained_success": true
+    },
+    {
+      "comparator": "threshold_hysteresis",
+      "environment_seed": 17911486950316543786,
+      "episode": 8,
+      "master_seed": 211,
+      "original_comparator_success": true,
+      "original_relation_preserved": true,
+      "reserve_failure": true,
+      "results": {
+        "reserve": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "sustained_reserve": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold_hysteresis": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        }
+      },
+      "scenario": "common_optimistic_bias",
+      "sustained_failure": false,
+      "sustained_success": true
+    },
+    {
+      "comparator": "threshold_hysteresis",
+      "environment_seed": 6431856881725050588,
+      "episode": 28,
+      "master_seed": 211,
+      "original_comparator_success": true,
+      "original_relation_preserved": true,
+      "reserve_failure": true,
+      "results": {
+        "reserve": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "sustained_reserve": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold_hysteresis": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        }
+      },
+      "scenario": "common_optimistic_bias",
+      "sustained_failure": false,
+      "sustained_success": true
+    },
+    {
+      "comparator": "threshold_hysteresis",
+      "environment_seed": 12655701458943762091,
+      "episode": 61,
+      "master_seed": 211,
+      "original_comparator_success": true,
+      "original_relation_preserved": true,
+      "reserve_failure": true,
+      "results": {
+        "reserve": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 3.6814
+        },
+        "sustained_reserve": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold_hysteresis": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        }
+      },
+      "scenario": "common_optimistic_bias",
+      "sustained_failure": false,
+      "sustained_success": true
+    },
+    {
+      "comparator": "threshold_hysteresis",
+      "environment_seed": 13785140750904479624,
+      "episode": 6,
+      "master_seed": 307,
+      "original_comparator_success": true,
+      "original_relation_preserved": true,
+      "reserve_failure": true,
+      "results": {
+        "reserve": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 3.4902
+        },
+        "sustained_reserve": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold_hysteresis": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        }
+      },
+      "scenario": "common_optimistic_bias",
+      "sustained_failure": false,
+      "sustained_success": true
+    },
+    {
+      "comparator": "threshold_hysteresis",
+      "environment_seed": 10994399983252071043,
+      "episode": 35,
+      "master_seed": 307,
+      "original_comparator_success": true,
+      "original_relation_preserved": true,
+      "reserve_failure": true,
+      "results": {
+        "reserve": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 3.6808
+        },
+        "sustained_reserve": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold_hysteresis": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        }
+      },
+      "scenario": "common_optimistic_bias",
+      "sustained_failure": false,
+      "sustained_success": true
+    },
+    {
+      "comparator": "threshold_hysteresis",
+      "environment_seed": 3666429284321146123,
+      "episode": 36,
+      "master_seed": 307,
+      "original_comparator_success": true,
+      "original_relation_preserved": true,
+      "reserve_failure": true,
+      "results": {
+        "reserve": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 3.7376
+        },
+        "sustained_reserve": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold_hysteresis": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        }
+      },
+      "scenario": "common_optimistic_bias",
+      "sustained_failure": false,
+      "sustained_success": true
+    },
+    {
+      "comparator": "threshold_hysteresis",
+      "environment_seed": 654844966083634101,
+      "episode": 39,
+      "master_seed": 307,
+      "original_comparator_success": true,
+      "original_relation_preserved": true,
+      "reserve_failure": true,
+      "results": {
+        "reserve": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "sustained_reserve": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold_hysteresis": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        }
+      },
+      "scenario": "common_optimistic_bias",
+      "sustained_failure": false,
+      "sustained_success": true
+    },
+    {
+      "comparator": "threshold_hysteresis",
+      "environment_seed": 6252679547051884510,
+      "episode": 54,
+      "master_seed": 307,
+      "original_comparator_success": true,
+      "original_relation_preserved": true,
+      "reserve_failure": true,
+      "results": {
+        "reserve": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "sustained_reserve": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold": {
+          "irreversible_entry": 1,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        },
+        "threshold_hysteresis": {
+          "irreversible_entry": 0,
+          "justice_floor_violation": 0,
+          "total_cost": 4.0
+        }
+      },
+      "scenario": "common_optimistic_bias",
+      "sustained_failure": false,
+      "sustained_success": true
+    }
+  ],
+  "statistical_scope": "Descriptive synthetic paired outcomes by scenario; no pooled universal winner or empirical causal claim.",
+  "study_id": "sustained-v04-first-path-2026-09-04",
+  "trace_scope": "Primary sustained_reserve only; first declared episodes per scenario/master seed. The prior regression lot is not traced."
+}

@@ -1,0 +1,57 @@
+{
+  "schema": "nash-cage-feasibility-probe/v1",
+  "date": "2026-09-04",
+  "status": "post-hoc diagnostic; not a preregistered evaluation",
+  "claim_level": "F0",
+  "source_commit": "1ac0349baedde12c0ea97c16379322660b109b15",
+  "source_sha256": "cdfc09b60658b637f01bb241175591ecd55ef57005119b61d47118b5d7fc6b76",
+  "config": "simulation/configs/minimal.json",
+  "config_sha256": "42774c526c924397dafc19ca8c0050e7837115eb913bd3494efb3e3f6ff400ea",
+  "master_seed": 7,
+  "episodes": 64,
+  "environment_seed_derivation": "stable_seed(7, 'environment', episode)",
+  "counterfactual": "dataclasses.replace(ARM_SPECS['full_rvcim'], trigger='threshold')",
+  "changed_parameter": "trigger",
+  "budget_matched": false,
+  "capability_parameters_matched": true,
+  "irreversible_entry_counts": {
+    "nominal_bundle": 64,
+    "full_reserve": 40,
+    "matched_threshold": 20
+  },
+  "paired": {
+    "reserve_only_success": 2,
+    "threshold_only_success": 22,
+    "ties": 40
+  },
+  "full_reserve": {
+    "normal_requests": 0,
+    "total_steps": 4608,
+    "committed_episodes_with_positive_min_hidden_cr_and_irreversible_entry": 2
+  },
+  "truth_feedback_probe": {
+    "episode": 3,
+    "environment_seed": "11604122393904601897",
+    "true_boundaries": [0.87, 1.13],
+    "first_social_divergence_t": 38,
+    "common_pressure": 0.6919632688471019,
+    "common_observed_pressure": 0.6586980062484352,
+    "common_estimated_cr": -6.789313120427381,
+    "trust": [0.14296630560186277, 0.12566630560186276],
+    "first_policy_divergence_t": 39,
+    "policy": [0.6498246287553487, 0.6498237980830416],
+    "irreversible_at_policy_divergence": [0, 0]
+  },
+  "plant_lag_probe": {
+    "lag_values": [0.0, 100.0],
+    "net_drift_values": [0.024322390132093512, 0.024322390132093512],
+    "estimated_response_times": [2.94336, 114.94336000000001],
+    "plant_states_identical": true
+  },
+  "limitations": [
+    "Single existing toy configuration and seed family",
+    "Known truth-feedback and physical-lag model limitations remain",
+    "No empirical evidence or general policy ranking",
+    "Arm capability parameters are matched, not measured intervention costs"
+  ]
+}

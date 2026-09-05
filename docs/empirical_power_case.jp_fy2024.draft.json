@@ -1,0 +1,153 @@
+{
+  "format": "nashs-cage-empirical-power-contract-draft/v0.1",
+  "artifact_kind": "design_example_not_admitted_input",
+  "created_date": "2026-09-04",
+  "geography_choice": "Japan_provisional",
+  "contract_document": "EMPIRICAL_POWER_INPUT_CONTRACT.ja.md",
+  "validator_implemented": false,
+  "claim_boundary": "Source discovery and input design only. No reconstructed inventory, identified action effect, calibrated RVCIM parameters, climate harm attribution, or operational authority.",
+  "unknown_encoding": "null value plus missing_reason; never zero or an implicit probability distribution",
+  "policy_context": {
+    "instrument": "Japan NDC submitted 2025-02-18",
+    "source_url": "https://www.env.go.jp/content/000291804.pdf",
+    "reference_fiscal_year": 2013,
+    "targets": [
+      {"fiscal_year": 2035, "reduction_percent": 60},
+      {"fiscal_year": 2040, "reduction_percent": 73}
+    ],
+    "target_type": "single_year",
+    "scope": "economy_wide_multiple_GHG_including_LULUCF",
+    "power_sector_budget_tco2": null,
+    "cumulative_budget_tco2": null,
+    "missing_reason": "No adopted sector allocation or cumulative budget contract"
+  },
+  "accounting_slice": {
+    "country": "JP",
+    "fiscal_year": 2024,
+    "start_inclusive": "2024-04-01T00:00:00+09:00",
+    "end_exclusive": "2025-04-01T00:00:00+09:00",
+    "proposed_release_date": "2026-04-14",
+    "proposed_population": "business_electricity_generation_coal_and_natural_gas_rows_pending_scope_reconciliation",
+    "overview_is_same_population": null,
+    "raw_input_rows": [],
+    "raw_inputs_frozen": false,
+    "fuel_to_emissions_mapping_verified": false,
+    "generation_boundary": null,
+    "heating_value_basis": null,
+    "missing_reason": "Raw table rows, units, population crosswalk, factors, and source bytes not yet admitted"
+  },
+  "reported_overview_not_model_input": {
+    "population": "Japan national generation as reported in official overview; not restricted to selected business-generation rows",
+    "source_id": "estat_fy2024_final_overview",
+    "generation": {"value": 9911, "unit": "100_million_kWh", "evidence_kind": "reported", "source_id": "estat_fy2024_final_overview", "locator": "printed_page_5_reference_4_fiscal_2024", "missing_reason": null},
+    "energy_input_total": {"value": 8440, "unit": "PJ", "evidence_kind": "reported", "source_id": "estat_fy2024_final_overview", "locator": "printed_page_5_reference_4_fiscal_2024", "missing_reason": null},
+    "row_units": {"generation": "100_million_kWh", "energy_input": "PJ"},
+    "row_provenance": {"source_id": "estat_fy2024_final_overview", "locator": "printed_page_5_reference_4_fiscal_2024", "evidence_kind": "reported", "missing_reason": null},
+    "reported_fuel_rows": [
+      {"fuel_label_as_reported": "coal", "generation": 2785, "energy_input": 2821},
+      {"fuel_label_as_reported": "natural_gas", "generation": 3194, "energy_input": 2404},
+      {"fuel_label_as_reported": "oil_and_other", "generation": 711, "energy_input": 455},
+      {"fuel_label_as_reported": "nuclear", "generation": 935, "energy_input": 794},
+      {"fuel_label_as_reported": "hydro", "generation": 735, "energy_input": 626},
+      {"fuel_label_as_reported": "solar", "generation": 981, "energy_input": 833},
+      {"fuel_label_as_reported": "wind", "generation": 117, "energy_input": 99},
+      {"fuel_label_as_reported": "geothermal", "generation": 39, "energy_input": 33},
+      {"fuel_label_as_reported": "biomass", "generation": 414, "energy_input": 375}
+    ],
+    "access_limitation": "Direct METI fetch returned HTTP 403; official e-Stat PDF downloaded and page 5 visually checked; full raw-row reconciliation not performed",
+    "source_footnote": "Some generation and energy-input data use sources differing from General Energy Statistics; displayed figures are rounded",
+    "non_fossil_PJ_are_all_combustion_heat": false,
+    "may_reconstruct_exact_fuel_generation_from_rounded_shares": false
+  },
+  "coefficient_spotchecks_not_action_effects": {
+    "source_id": "gio_2026_ch3_workbook",
+    "year": 2024,
+    "unit": "t_C_per_TJ_HHV",
+    "evidence_kind": "reported",
+    "rows": [
+      {"fuel_code": "$0123", "fuel_name": "imported_steam_coal_for_power", "value": 24.75918569549864, "locator": "CEF!AR12"},
+      {"fuel_code": "$0510", "fuel_name": "imported_natural_gas_LNG", "value": 13.840090612572233, "locator": "CEF!AR57"}
+    ],
+    "unit_example": {"fuel_code": "$0510", "assumed_energy_TJ_HHV": 1, "carbon_to_CO2_ratio": "44/12", "calculated_tco2_if_all_carbon_converted": 50.74699891276486, "evidence_kind": "derived", "avoided_emissions_claim": false},
+    "may_apply_LNG_factor_to_all_natural_gas_without_crosswalk": false
+  },
+  "rejected_join_example": {
+    "numerator": "NID 2026 category 1.A.1.a electricity and heat production CO2",
+    "denominator": "9911 x 100 million kWh national total generation",
+    "status": "REJECT_SCOPE_MISMATCH",
+    "evidence": "NID 2026 Table 3-16, printed page 3-26; includes heat and own-use while much industrial autoproduction belongs to other sectors"
+  },
+  "action_candidate": {
+    "status": "DESIGN_ONLY",
+    "target_region_id": null,
+    "target_coal_unit_id": null,
+    "replacement_lng_unit_id": null,
+    "delivery_point_id": null,
+    "window_start": null,
+    "window_end": null,
+    "control_interval_seconds": null,
+    "coal_reduction_profile_mw": null,
+    "replacement_delivery_profile_mw": null,
+    "coal_downward_headroom_profile_mw": null,
+    "same_service_verified_each_interval": false,
+    "requested_coal_reduction": {"value": 1.0, "unit": "MWh_net", "evidence_kind": "assumed", "source_id": "research_design", "locator": "contract_section_3", "missing_reason": null},
+    "replacement_rule": "Maintain the same electricity service in the same window and delivery scope; 1 MWh LNG only conditional on no differential delivery losses",
+    "excluded_unit_features": ["CHP", "mixed_fuel", "CCS"],
+    "unit_eligibility_verified": false,
+    "marginal_fuel_response": null,
+    "no_action_path": null,
+    "identification_design": null,
+    "start_stop_and_rebound_window": null,
+    "system_redispatch_effect": null,
+    "missing_reason": "No selected units/window, synchronized operational data, marginal response, or counterfactual identification"
+  },
+  "resource": {
+    "name": "additional_deliverable_LNG_net_electricity_in_same_window_and_supply_scope",
+    "available": {"value": null, "unit": "MWh_net", "evidence_kind": "unknown", "source_id": null, "locator": null, "missing_reason": "No verified time-specific deliverable headroom"},
+    "source_available_at": null,
+    "temporal_carryover_allowed": false,
+    "annual_generation_is_resource_balance": false,
+    "capacity_MW_is_resource_balance": false,
+    "supporting_constraints_verified": false,
+    "other_constraints_assumed_unlimited": false
+  },
+  "outputs": {
+    "reconstructed_fossil_combustion_tco2": null,
+    "average_intensity_tco2_per_mwh": null,
+    "avoided_direct_tco2": null,
+    "avoided_system_tco2": null,
+    "lifecycle_ghg_effect": null,
+    "rvcim_policy_gain": null,
+    "climate_or_mortality_effect": null
+  },
+  "gates": {
+    "sources": "SOURCE_BYTES_FROZEN_SPOTCHECKED",
+    "accounting": "ACCOUNTING_NOT_RECONSTRUCTED",
+    "action": "ACTION_EFFECT_UNIDENTIFIED",
+    "resource": "RESOURCE_AVAILABILITY_UNKNOWN",
+    "coal_reduction": "COAL_REDUCTION_FEASIBILITY_UNKNOWN",
+    "service_balance": "TIME_RESOLVED_SERVICE_UNVERIFIED",
+    "sector_budget": "SECTOR_BUDGET_UNSPECIFIED",
+    "operation": "NOT_AUTHORIZED"
+  },
+  "sources": [
+    {"id": "meti_fy2024_final_overview", "url": "https://www.meti.go.jp/press/2026/04/20260414001/20260414001.html", "publisher": "METI", "publication_date": "2026-04-14", "access_mode": "official_search_indexed_text", "source_sha256": null},
+    {"id": "anre_total_energy", "url": "https://www.enecho.meti.go.jp/statistics/total_energy/results.html", "publisher": "METI_ANRE", "publication_date": "2026-04-14", "access_mode": "catalogue_located", "source_sha256": null},
+    {"id": "gio_2026_nid_series", "url": "https://www.nies.go.jp/gio/archive/nirdata/2026.html", "publisher": "NIES_GIO", "publication_date": "2026-05-29", "access_mode": "catalogue_read", "source_sha256": null},
+    {"id": "estat_fy2024_final_overview", "url": "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040391289&fileKind=2", "publisher": "METI_ANRE_via_eStat", "publication_date": "2026-04-14", "access_mode": "downloaded_page_5_visually_checked", "source_sha256": "bd6f33b998aa00897692cec5e90a3906b98935733edbdba0a472742f994f8d7f", "local_copy": ".tmp/empirical_power_inputs.q787Wy/nash-energy-summary-2024.pdf"},
+    {"id": "estat_fy2024_energy_balance", "url": "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040445051&fileKind=0", "publisher": "METI_ANRE_via_eStat", "publication_date": "2026-04-14", "access_mode": "downloaded_full_row_reconciliation_pending", "source_sha256": "d05d4aa10581bc4e5a4f000c1257484e9a8241938f5bccbe43937b5a4e0c2980", "local_copy": ".tmp/empirical_power_inputs.q787Wy/nash-energybalance-2024.xlsx"},
+    {"id": "gio_2026_ch3_workbook", "url": "https://www.nies.go.jp/gio/archive/nirdata/qu9bd600001b3pi9-att/L5-NID-Ch3-Energy-2026_web.xlsx", "publisher": "NIES_GIO", "publication_date": "2026-05-29", "access_mode": "downloaded_CEF_headers_and_selected_2024_cells_checked", "source_sha256": "67db62abf7e09388705a1cf88565779daa0c4bbf2f037a421c06ebae0600f5c4", "local_copy": ".tmp/empirical_power_inputs.q787Wy/nash-nid-ch3-2026.xlsx"},
+    {"id": "gio_2026_nid_pdf", "url": "https://www.nies.go.jp/gio/archive/nir/qu9bd60000050ys2-att/NID-JPN-2026-v3.0_J_gioweb.pdf", "publisher": "NIES_GIO", "publication_date": "2026-04-14", "access_mode": "downloaded_table_3_16_visually_checked", "source_sha256": "5296e31737c1d8b5fc15b2bcb9e6ad352d1808f9e371b58b04086ceeb1341b1c", "local_copy": ".tmp/empirical_power_inputs.q787Wy/nash-nid-2026.pdf"}
+  ],
+  "furnace": {
+    "status_checked_date": "2026-09-04",
+    "reachable": true,
+    "gpu_reported": "NVIDIA GeForce RTX 5090",
+    "gpu_utilization_percent_at_check": 0,
+    "existing_cpu_workloads_present": true,
+    "transfer_performed": false,
+    "experiment_run_performed": false,
+    "next_compute_gate": "Freeze and reconcile source inputs, then benchmark a bounded isolated CPU replay before any scale-up"
+  },
+  "release_scope": "Local design files only; not part of the frozen v0.2-v0.4 release manifest"
+}

@@ -25,12 +25,15 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Exercise POSIX launcher
         run: ./rvcim explain
-      - name: Verify committed release, tests, smoke run, and reference artifact
+      - name: Verify committed release, tests, smoke run, and all fixtures
         run: make verify
 
   windows:
     runs-on: windows-latest
     timeout-minutes: 15
+    defaults:
+      run:
+        shell: pwsh
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -39,15 +42,44 @@ jobs:
         with:
           python-version: "3.13"
       - name: Exercise Windows launcher
-        run: .\rvcim.cmd explain
+        run: |
+          .\rvcim.cmd explain
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Verify release and deterministic behavior without Make
         run: |
           python tools/verify_release.py --root . --manifest RELEASE_MANIFEST.json
-          python -m py_compile simulation/__init__.py simulation/__main__.py simulation/rvcim_sim.py
-          python -m py_compile tools/verify_release.py tools/verify_reference_replay.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m py_compile simulation/__init__.py simulation/__main__.py simulation/rvcim_sim.py simulation/feasibility.py simulation/sustained.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m py_compile tools/verify_release.py tools/verify_reference_replay.py tools/run_feasibility.py tools/run_sustained.py tools/run_power_accounting.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m py_compile simulation/tests/test_rvcim_sim.py simulation/tests/test_feasibility.py simulation/tests/test_sustained.py tools/tests/test_verify_release.py tools/tests/test_feasibility_runner.py tools/tests/test_sustained_runner.py tools/tests/test_power_accounting.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python -m unittest -v simulation.tests.test_rvcim_sim
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest -v simulation.tests.test_feasibility
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest -v simulation.tests.test_sustained
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python -m unittest -v tools.tests.test_verify_release
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest -v tools.tests.test_feasibility_runner
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest -v tools.tests.test_sustained_runner
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest -v tools.tests.test_power_accounting
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .\rvcim.cmd smoke --config simulation\configs\minimal.json --episodes 4 --seed 101 --out .tmp\smoke-windows
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .\rvcim.cmd verify --receipt .tmp\smoke-windows\receipt.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python -m simulation verify --receipt artifacts\reference_run\receipt.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python tools/verify_reference_replay.py --root . --reference-dir artifacts\reference_run
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python tools/run_feasibility.py verify --out artifacts/feasibility_v03 --replay
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python tools/run_sustained.py verify --out artifacts/sustained_v04 --replay
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python tools/run_power_accounting.py verify --out artifacts/power_jp_fy2024 --replay
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

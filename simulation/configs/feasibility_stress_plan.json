@@ -1,0 +1,97 @@
+{
+  "format": "nash-feasibility-stress-plan/v1",
+  "study_id": "feasibility-v03-first-path-2026-09-04",
+  "claim_level": "F0",
+  "registration_status": "local pre-execution specification; not independently preregistered",
+  "legacy_source_sha256": "cdfc09b60658b637f01bb241175591ecd55ef57005119b61d47118b5d7fc6b76",
+  "legacy_config_sha256": "42774c526c924397dafc19ca8c0050e7837115eb913bd3494efb3e3f6ff400ea",
+  "phases": {
+    "development": {
+      "master_seeds": [
+        7
+      ],
+      "episodes_per_seed": 16
+    },
+    "evaluation": {
+      "master_seeds": [
+        101,
+        211,
+        307
+      ],
+      "episodes_per_seed": 64
+    }
+  },
+  "controllers": [
+    "threshold",
+    "threshold_hysteresis",
+    "reserve"
+  ],
+  "trace_episodes_per_seed": 1,
+  "scenarios": [
+    {
+      "id": "baseline",
+      "config_overrides": {},
+      "environment_overrides": {}
+    },
+    {
+      "id": "long_delays",
+      "config_overrides": {
+        "actuation_delay_steps": 10,
+        "physical_effect_delay_steps": 20
+      },
+      "environment_overrides": {}
+    },
+    {
+      "id": "low_policy_capacity",
+      "config_overrides": {
+        "policy_capacity": 0.25
+      },
+      "environment_overrides": {}
+    },
+    {
+      "id": "zero_budget",
+      "config_overrides": {
+        "initial_budget": 0
+      },
+      "environment_overrides": {}
+    },
+    {
+      "id": "closer_hidden_boundary",
+      "config_overrides": {},
+      "environment_overrides": {
+        "true_boundary_scale": 0.7
+      }
+    },
+    {
+      "id": "common_optimistic_bias",
+      "config_overrides": {},
+      "environment_overrides": {
+        "model_boundary_shift": 0.12,
+        "observation_bias_shift": -0.08
+      }
+    },
+    {
+      "id": "persistent_ambiguity",
+      "config_overrides": {
+        "uncertainty_limit": 0.18
+      },
+      "environment_overrides": {}
+    },
+    {
+      "id": "missing_every_observation",
+      "config_overrides": {
+        "observation_missing_every": 1
+      },
+      "environment_overrides": {}
+    },
+    {
+      "id": "zero_actuator_capacity",
+      "config_overrides": {
+        "policy_capacity": 0,
+        "support_capacity": 0,
+        "audit_capacity": 0
+      },
+      "environment_overrides": {}
+    }
+  ]
+}
