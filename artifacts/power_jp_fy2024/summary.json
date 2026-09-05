@@ -1,0 +1,31 @@
+{
+  "accounting_status": "PARTIAL_RECONCILIATION_WITH_REJECTIONS",
+  "claim_boundary": "Fuel-carbon accounting consistency only. Reported carbon is not independent stack measurement. Full-carbon CO2 equivalents are not avoided emissions, electricity-service-preserving effects, or evidence of present fuel scarcity. RVCIM remains an uncalibrated F0 structural toy.",
+  "coverage": "21 nonzero leaves close six fossil-family parents; not all generation fuels",
+  "diesel_biomass_diagnostic_residual_tc": "0.000000000",
+  "diesel_diagnostic_status": "DIAGNOSTIC_ONLY_NOT_AN_ACCEPTED_MAPPING",
+  "forbidden_join": "REJECT_SCOPE_MISMATCH: NID 1.A.1.a CO2 / national 9911 hundred-million kWh",
+  "format": "nashs-cage-power-carbon-result/v1",
+  "priority_fuel": "$0440",
+  "priority_reason": "operator-selected oil accounting entry, not an inferred scarcity ranking",
+  "row_count": 21,
+  "scope": "JP/FY2024/#241000/business-generation-excluding-pumped-storage",
+  "status_counts": {
+    "COEFFICIENT_MAPPING_UNKNOWN": 3,
+    "RECONCILED": 17,
+    "REJECT_COEFFICIENT_MISMATCH": 1
+  },
+  "unknowns_and_gates": {
+    "action_status": "ACTION_EFFECT_UNIDENTIFIED",
+    "deliverable_oil_stock_tj": null,
+    "dispatch_authority": "NOT_AUTHORIZED",
+    "fuel_specific_net_generation_mwh": null,
+    "ndc_allocation_status": "SECTOR_BUDGET_UNSPECIFIED",
+    "oil_stockout_date": null,
+    "power_sector_carbon_budget_tco2": null,
+    "resource_status": "RESOURCE_AVAILABILITY_UNKNOWN",
+    "same_service_avoided_tco2": null,
+    "service_status": "TIME_RESOLVED_SERVICE_UNVERIFIED",
+    "tco2_per_net_mwh": null
+  }
+}

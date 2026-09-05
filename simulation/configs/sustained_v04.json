@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "forecast_steps": 24,
+  "required_braking_steps": 6,
+  "max_projected_pressure_change": 0.0,
+  "drift_margin": 0.008,
+  "policy_gain_lower": 0.03,
+  "policy_gain_upper": 0.05,
+  "pressure_error_bound": 0.04,
+  "model_boundary_margin": 0.02,
+  "terminal_budget_reserve": 0.20
+}

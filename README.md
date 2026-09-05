@@ -16,7 +16,7 @@ cd Nash-s_Cage
 make verify
 ```
 
-`make verify` checks the full executable closure against `RELEASE_MANIFEST.json`, compile-checks the package, runs deterministic standard-library tests, executes and verifies a four-arm smoke experiment, verifies the committed reference receipt, and replays the declared 64-episode reference command for byte comparison of its five deterministic outputs. The closure includes both launchers, package entrypoints, configuration, simulator, verifiers, tests, Makefile, CI workflow, checkout policy, papers, and reference outputs. Missing files, symlinks, CRLF-normalized tracked text, and replay mismatches are failures; there is no assembly or download step. CI runs this contract on Linux and Windows with read-only permissions.
+`make verify` checks the full executable closure against `RELEASE_MANIFEST.json`, compile-checks the package, runs deterministic standard-library tests, executes and verifies a four-arm smoke experiment, verifies the committed reference receipt, and replays the declared 64-episode reference command for byte comparison of its five deterministic outputs. It also verifies and replays the separate experimental v0.3 feasibility, v0.4 sustained-plan, and FY2024 fuel-carbon accounting bundles. The closure includes both launchers, package entrypoints, configurations, simulators, verifiers, tests, Makefile, CI workflow, checkout policy, papers, reference outputs, and fixed experiment inputs/outputs. Missing files, symlinks, CRLF-normalized tracked text, and replay mismatches are failures; there is no assembly or download step. CI is configured to run this contract on Linux and Windows with read-only permissions.
 
 ## Release files and provenance
 
@@ -69,7 +69,92 @@ Inspect the claim boundary and paper-to-code map first:
 python3 -m simulation explain
 ```
 
-## What is executable
+## Failure-first feasibility experiment (v0.3 experimental)
+
+The preserved v0.2 run below is not a clean trigger comparison: capabilities vary
+between arms, and hidden-state evaluation feeds part of its feedback loop. The
+separate v0.3 engine removes that feedback path and compares three triggers with
+matched capability parameters, measurement mechanisms, exogenous draws and initial
+budget. It adds actual actuation/effect delays, capacity and command-slew bounds,
+paid delivery, and explicit missing-evidence behavior. It does not establish a
+recovery probability or sustained ability to brake.
+
+```bash
+make feasibility
+make verify-feasibility
+```
+
+The first command creates a **new** `.tmp/feasibility` directory; an existing output
+is never overwritten. For another run, choose a new path:
+
+```bash
+python3 tools/run_feasibility.py run --out .tmp/feasibility-second-run
+python3 tools/run_feasibility.py verify --out .tmp/feasibility-second-run --replay
+```
+
+The fixed plan contains nine scenarios, three controllers, and 192 evaluation
+episodes per scenario/controller (5,184 runs). All losses are retained. For example,
+under common optimistic observation/model bias, there are ten paired cases where
+the hysteretic threshold avoids irreversible entry and reserve does not. Average
+performance does not erase these counterexamples. Zero budget, zero actuator
+capacity, and entirely missing pressure observations each fail in every evaluation
+episode for all three controllers under the declared fallback.
+
+Read the [experimental contract](docs/FEASIBILITY_V03_CONTRACT.md),
+[Japanese results and failure cases](docs/FEASIBILITY_V03_RESULTS.ja.md), and
+[full comparison](artifacts/feasibility_v03/comparison.md). This remains F0: no live
+data, real-world digital twin, intervention authority, or safety certificate.
+The v0.2 simulator, configuration, manuscripts and reference artifacts are unchanged.
+
+## Sustained-plan screen (v0.4 experimental)
+
+The next separate experiment asks what v0.3 still could not: whether delayed
+delivery can remain below a public model boundary, produce six terminal braking
+steps, and preserve a terminal budget across a 24-step projection. It carries the
+complete public actuator queues forward and returns only the first request of a
+receding-horizon screen. `no candidate` means none of three constant-mode plans
+passed this declared projection—not physical infeasibility.
+
+```bash
+make sustained
+make verify-sustained
+```
+
+In the fixed synthetic evaluation, the sustained screen reduced baseline
+irreversible entries from 17/48 to 7/48 and avoided all eleven post-hoc v0.3 losing
+cases. But it kept emergency active for a mean 66.958 of 72 steps, spent the entire
+baseline budget, and found no passing candidate for a mean 66.938 steps. Under an
+optimistic policy-gain assumption it released earlier and introduced one additional
+failure relative to the screen's baseline assumptions. Protection, sustainable
+operation, and justified release therefore remain separate problems.
+
+Read the [v0.4 contract](docs/SUSTAINED_V04_CONTRACT.md),
+[Japanese results and missing pieces](docs/SUSTAINED_V04_RESULTS.ja.md), and
+[full comparison](artifacts/sustained_v04/comparison.md). These are F0 outcomes,
+not estimates of real risk or institutional feasibility.
+
+## First real-data input: Japan FY2024 fuel-carbon accounting
+
+```bash
+make power-accounting
+make verify-power
+```
+
+The separate standard-library accounting CLI joins 21 nonzero fossil-family fuel
+leaves within one published annual business-generation scope. Seventeen reconcile,
+diesel retains a coefficient mismatch, and three remain unmapped. Oil is the next
+selected entry point, specifically power-generation C fuel oil; this is not a
+finding that oil is currently scarcer than other fuels.
+
+Read the [Japanese results and oil input contract](docs/POWER_ACCOUNTING_RESULTS.ja.md)
+and [source/extraction contract](data/power_jp_fy2024/README.md). The frozen factual
+extract can be independently reproduced from two hash-pinned public workbooks.
+Default offline replay does not download or re-open those workbooks. Carbon-input
+closure is not independent emissions validation, a net-MWh intensity, an avoided
+emissions estimate, current inventory, or an authorized dispatch decision. It does
+not calibrate the synthetic RVCIM model or advance its F0 claim level.
+
+## Preserved v0.2 executable
 
 The reference model compares four governance arms under common episode seeds and random draws:
 
@@ -89,7 +174,7 @@ The verified 64-episode package is a smokeable baseline, not evidence. Under its
 | Robust reserve | 0.875 | -8.809 | 0.703 | 0.395 | 0.413 | 0.000 |
 | Full RVCIM | 0.625 | 2.674 | 0.777 | 0.535 | 0.366 | 0.000 |
 
-These values show only what the current toy assumptions produce. They do not estimate real risk or policy effect.
+These values show only what the preserved toy assumptions produce. They do not estimate real risk or policy effect, and the unequal capabilities and truth-fed feedback make this table unsuitable for isolating trigger quality. See the separate v0.3 experiment above.
 
 ## Claim boundary and feasibility ladder
 
@@ -107,11 +192,21 @@ This repository is currently at **F0**. Cleaner execution makes assumptions easi
 ```text
 simulation/
   rvcim_sim.py                   transparent zero-dependency implementation
+  feasibility.py                separate public-input, paid-delivery experiment
+  sustained.py                  finite queue/resource/braking plan screen
   configs/minimal.json           declared normalized reference configuration
+  configs/feasibility_v03.json    declared experimental resource/delay settings
+  configs/feasibility_stress_plan.json  fixed scenarios and evaluation seeds
+  configs/sustained_v04.json     declared finite-projection assumptions
+  configs/sustained_stress_plan.json  fixed primary and prior-failure cohorts
   tests/test_rvcim_sim.py        deterministic standard-library tests
 tools/
   verify_release.py              fail-closed release-manifest verifier
   verify_reference_replay.py     64-episode deterministic replay verifier
+  run_feasibility.py             new-only experiment runner and replay verifier
+  run_sustained.py               sustained experiment runner and replay verifier
+  run_power_accounting.py        bounded fuel-carbon extractor and replay runner
+data/power_jp_fy2024/              source-linked factual extract and raw recheck instructions
 paper/
   nashs_cage_rvcim_v0_1.tex     operator-attested preserved source
   nashs_cage_rvcim_v0_1.pdf     operator-attested preserved PDF
@@ -119,11 +214,17 @@ paper/
   nashs_cage_rvcim_v0_2.pdf
   references.bib
 artifacts/reference_run/          committed reproducibility fixture
+artifacts/feasibility_v03/        failure-first experimental fixture
+artifacts/sustained_v04/           finite-plan experimental fixture
+artifacts/power_jp_fy2024/          empirical accounting rows with explicit unknowns
 rvcim / rvcim.cmd                no-install POSIX and Windows launchers
 .github/workflows/verify.yml      portable verification workflow
 .gitattributes                    LF checkout policy for deterministic hashes
 RELEASE_MANIFEST.json             hashes, sizes, and provenance boundary
 ```
+
+The [2026-09-05 pre-merge review record](docs/PREMERGE_REVIEW_20260905.md)
+separates fresh-review findings, repairs, and local/Furnace execution evidence.
 
 ## Paper revision
 
@@ -158,6 +259,10 @@ They delegate directly to `python -m simulation`; the Python module remains the 
 make help
 make verify
 make experiment
+make feasibility
+make verify-feasibility
+make sustained
+make verify-sustained
 make refresh-reference            # explicit maintainer operation
 make explain
 make verify-release

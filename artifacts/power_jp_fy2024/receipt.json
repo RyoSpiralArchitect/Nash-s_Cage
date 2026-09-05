@@ -1,0 +1,32 @@
+{
+  "claim_boundary": "Fuel-carbon accounting consistency only. Reported carbon is not independent stack measurement. Full-carbon CO2 equivalents are not avoided emissions, electricity-service-preserving effects, or evidence of present fuel scarcity. RVCIM remains an uncalibrated F0 structural toy.",
+  "code": {
+    "path": "tools/run_power_accounting.py",
+    "sha256": "758af2cb68765464ad9a5b8759654485e34c2f47e22ad7f02a50b183b651b51e"
+  },
+  "format": "nashs-cage-power-carbon-receipt/v1",
+  "input": {
+    "path": "data/power_jp_fy2024/observations.json",
+    "sha256": "15e9c2b3152ab4efbd7757b0b9018f9b8e6f98848b1adf667062c3adf11b334e"
+  },
+  "numeric_encoding": "decimal arithmetic; outputs rounded to 9 fractional digits; null is unknown",
+  "outputs": {
+    "comparison.md": {
+      "bytes": 2415,
+      "sha256": "47d394c4303e183dceb021c9e0a8199ad6011a89627ba90b45cb6d193ca76480"
+    },
+    "rows.csv": {
+      "bytes": 3158,
+      "sha256": "a54e8ba3bcb351a9888546ea3eddaa969e4a4474099f0044f90cd3032340cb1c"
+    },
+    "summary.json": {
+      "bytes": 1609,
+      "sha256": "ba84b32dace54dbf98bce4560392776a8d9e95d5312474811403882d46abdb2a"
+    }
+  },
+  "raw_source_verification": "separate verify-sources command; offline replay alone does not re-open workbooks",
+  "source_workbook_sha256": {
+    "energy_balance": "fa243caf7ecfccb0c091aaaa45415aee804553d28fbbb6f5cd53ec24403376b8",
+    "nid_coefficients": "67db62abf7e09388705a1cf88565779daa0c4bbf2f037a421c06ebae0600f5c4"
+  }
+}

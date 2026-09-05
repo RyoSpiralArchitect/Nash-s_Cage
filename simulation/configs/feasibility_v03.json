@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "actuation_delay_steps": 3,
+  "physical_effect_delay_steps": 4,
+  "policy_capacity": 1.0,
+  "support_capacity": 1.0,
+  "audit_capacity": 1.0,
+  "max_policy_slew": 0.12,
+  "max_support_slew": 0.12,
+  "max_audit_slew": 0.12,
+  "initial_budget": 4.0,
+  "policy_cost": 0.06,
+  "support_cost": 0.03,
+  "audit_cost": 0.02,
+  "uncertainty_limit": 0.30,
+  "release_margin": 11.0,
+  "threshold_release_margin": 0.05,
+  "release_consecutive_steps": 3,
+  "max_observation_age_steps": 1,
+  "observation_missing_every": 0
+}

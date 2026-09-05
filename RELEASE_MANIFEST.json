@@ -21,14 +21,64 @@
       "sha256": "74daf9b09ec7baad35e92b8f1ad725c69e85b9e56f1212ae3ae33778bf7c00c5"
     },
     ".github/workflows/verify.yml": {
-      "bytes": 1993,
+      "bytes": 4161,
       "role": "read-only cross-platform verification workflow",
-      "sha256": "1d26caa9a7ecd7af9acf4c78584a77e174c4f570ee3a273ff75ff188a120c267"
+      "sha256": "67f18cbe8d58cada39f3e4bbfd8d36c52b3c991b06b9eff8c21b7d2956b7389e"
     },
     "Makefile": {
-      "bytes": 2835,
+      "bytes": 4768,
       "role": "verification and experiment orchestration",
-      "sha256": "165ff1412efa6f20d19296137bc2eabc513ca81ab804499d575716fac37b8216"
+      "sha256": "44ca6dbcc9c41aee0002519133f45121a6ced2d108e61aed4f45c419cafd6040"
+    },
+    "artifacts/feasibility_v03/comparison.md": {
+      "bytes": 2943,
+      "role": "human-readable experimental feasibility comparison",
+      "sha256": "90a4df0434fead7c6077dcf4257f219a43abe50dbca50e1e4523633e958fa537"
+    },
+    "artifacts/feasibility_v03/episodes.csv": {
+      "bytes": 1061335,
+      "role": "experimental feasibility episode outcomes",
+      "sha256": "0978510b10398c1d17ad2a4de401985b4115c8b7f6bf07d1e001d52ef819ed07"
+    },
+    "artifacts/feasibility_v03/receipt.json": {
+      "bytes": 1840,
+      "role": "experimental feasibility verification receipt",
+      "sha256": "0a67b8638d6b4562b85f9e6285a216d57d6be917cb100548663f17e91cb2549b"
+    },
+    "artifacts/feasibility_v03/resolved_plan.json": {
+      "bytes": 26736,
+      "role": "resolved experimental feasibility stress plan",
+      "sha256": "ad7594d4fecb830434d1db36dec539ebc2a13a25eac0fa30ad04ea2804bc2ea6"
+    },
+    "artifacts/feasibility_v03/summary.json": {
+      "bytes": 19980,
+      "role": "experimental feasibility aggregate summary",
+      "sha256": "f279087cd4a847edbf175e15152c40a184594c2509dc7896538bbaa2d0f2e08c"
+    },
+    "artifacts/feasibility_v03/trace.csv": {
+      "bytes": 2284392,
+      "role": "experimental feasibility step trace",
+      "sha256": "8fc7e7f96c83a24ccb25ff23e65d0455fb70b12475b12524d020454d5ea0c957"
+    },
+    "artifacts/power_jp_fy2024/comparison.md": {
+      "bytes": 2415,
+      "sha256": "47d394c4303e183dceb021c9e0a8199ad6011a89627ba90b45cb6d193ca76480",
+      "role": "human-readable empirical fuel-carbon comparison"
+    },
+    "artifacts/power_jp_fy2024/receipt.json": {
+      "bytes": 1494,
+      "sha256": "476b2388a92e70de99724b81cb2f8cf5f7f703fc4512e3715d14591dc86793d5",
+      "role": "deterministic empirical fuel-carbon replay receipt"
+    },
+    "artifacts/power_jp_fy2024/rows.csv": {
+      "bytes": 3158,
+      "sha256": "a54e8ba3bcb351a9888546ea3eddaa969e4a4474099f0044f90cd3032340cb1c",
+      "role": "all empirical fuel-carbon row outcomes including rejections"
+    },
+    "artifacts/power_jp_fy2024/summary.json": {
+      "bytes": 1609,
+      "sha256": "ba84b32dace54dbf98bce4560392776a8d9e95d5312474811403882d46abdb2a",
+      "role": "empirical fuel-carbon summary and unresolved gates"
     },
     "artifacts/reference_run/comparison.md": {
       "bytes": 695,
@@ -59,6 +109,71 @@
       "bytes": 86410,
       "role": "step-level reference trace",
       "sha256": "ea9c2e0b11c6b34cf52a18140bb5e20afd5f77ae4d2e1a537f82fe169696b970"
+    },
+    "artifacts/sustained_v04/comparison.md": {
+      "bytes": 5205,
+      "role": "human-readable experimental sustained-response comparison",
+      "sha256": "914a43569c0b71286d9d09ddaa37f5c35f2f83ce1e6b34641ce78739d7e251a6"
+    },
+    "artifacts/sustained_v04/episodes.csv": {
+      "bytes": 277346,
+      "role": "experimental sustained-response episode outcomes",
+      "sha256": "99641399f639fc5362433f156bb38802ee281bd3ee5ce4706ab0cf474e55f6a4"
+    },
+    "artifacts/sustained_v04/receipt.json": {
+      "bytes": 2248,
+      "role": "experimental sustained-response verification receipt",
+      "sha256": "71574770dfefe79e1c58d29af5cc6200c2fe18afb1aa291958e38c87dec4d3f5"
+    },
+    "artifacts/sustained_v04/resolved_plan.json": {
+      "bytes": 63908,
+      "role": "resolved experimental sustained-response stress plan",
+      "sha256": "4e64d8a6335355bd25dad37dfbfccef6b93e62f6bda1ba0340ba8fd59e6d1454"
+    },
+    "artifacts/sustained_v04/summary.json": {
+      "bytes": 39853,
+      "role": "experimental sustained-response aggregate summary",
+      "sha256": "7d4d68230c3d69e28f4bcc488a5b6e890fd494f601c9d07a83d2e7243cf71678"
+    },
+    "artifacts/sustained_v04/trace.csv": {
+      "bytes": 1544601,
+      "role": "experimental sustained-response step trace",
+      "sha256": "ed3715fcf1a4ec0dc9930cc0f7564b24310eae66fb29945541c702f7961d2643"
+    },
+    "data/power_jp_fy2024/README.md": {
+      "bytes": 3740,
+      "sha256": "85360986dbfc4421324e1b8b99b93e525a4b997878840148486551ddc4e42e05",
+      "role": "fuel-carbon source attribution and extraction contract"
+    },
+    "data/power_jp_fy2024/observations.json": {
+      "bytes": 9135,
+      "sha256": "15e9c2b3152ab4efbd7757b0b9018f9b8e6f98848b1adf667062c3adf11b334e",
+      "role": "frozen official fuel-carbon factual extract"
+    },
+    "docs/EMPIRICAL_POWER_INPUT_CONTRACT.ja.md": {
+      "bytes": 20227,
+      "sha256": "f34793d4f4013f9c2c34fa6b832c64ffc704458e4506e1f41a7db386aea14f35",
+      "role": "initial empirical power-input design contract"
+    },
+    "docs/FEASIBILITY_V03_CONTRACT.md": {
+      "bytes": 9390,
+      "role": "experimental v0.3 feasibility contract and claim boundary",
+      "sha256": "4b892e21a272ebb2d0f87c224b4a0d35e07a48231a80b3afc3793cd3c847be5d"
+    },
+    "docs/POWER_ACCOUNTING_RESULTS.ja.md": {
+      "bytes": 5959,
+      "sha256": "7097b00bcfcf3a2b79b64c7d93b87d151cae34effa737c55c84e46af0e984167",
+      "role": "empirical accounting results and oil resource boundary"
+    },
+    "docs/SUSTAINED_V04_CONTRACT.md": {
+      "bytes": 5160,
+      "role": "experimental v0.4 sustained-response contract and claim boundary",
+      "sha256": "c28e0dd777395fe7e43cbda859e946bff89e3495bd0a38630d7a952a0e763826"
+    },
+    "docs/empirical_power_case.jp_fy2024.draft.json": {
+      "bytes": 10478,
+      "sha256": "779f5de87f0df01feea1fda258520cbbcd716e7cae67d72d28f4770e2c9d4928",
+      "role": "initial empirical power-input draft with unknown gates"
     },
     "paper/nashs_cage_rvcim_v0_1.pdf": {
       "bytes": 389459,
@@ -110,25 +225,95 @@
       "role": "python -m simulation CLI entrypoint",
       "sha256": "a37b56bff0aec5873db9bff258064b294846f8cd63678668ac9f30cbc2bb20ae"
     },
+    "simulation/configs/feasibility_stress_plan.json": {
+      "bytes": 2261,
+      "role": "fixed experimental feasibility stress plan",
+      "sha256": "f6f9f1004b413df98326459aed8f75542946b4ddf96e4e7f6d26d96fa63dd545"
+    },
+    "simulation/configs/feasibility_v03.json": {
+      "bytes": 538,
+      "role": "experimental v0.3 feasibility configuration",
+      "sha256": "f6e92d1982c155788de422141207807bbc570fe2f7d120f1a8936252ff66e303"
+    },
     "simulation/configs/minimal.json": {
       "bytes": 1490,
       "role": "declared normalized reference configuration",
       "sha256": "42774c526c924397dafc19ca8c0050e7837115eb913bd3494efb3e3f6ff400ea"
+    },
+    "simulation/configs/sustained_stress_plan.json": {
+      "bytes": 3884,
+      "role": "fixed experimental sustained-response stress plan",
+      "sha256": "7d55fa88b26f3ea8806dbe4e3c3d79d6bfcb8641559297878df4d841c57cc0b4"
+    },
+    "simulation/configs/sustained_v04.json": {
+      "bytes": 304,
+      "role": "experimental v0.4 sustained-response configuration",
+      "sha256": "5e757afe67250a68d63fb154d30bf8194cca16db353609cd85db7b1cc2e79df7"
+    },
+    "simulation/feasibility.py": {
+      "bytes": 43621,
+      "role": "experimental v0.3 structural feasibility engine",
+      "sha256": "609056a45bbc74cabffad658dc3388360c20eea1ea18c190f8d5a2e2377dc0a9"
     },
     "simulation/rvcim_sim.py": {
       "bytes": 63479,
       "role": "zero-dependency executable reference source",
       "sha256": "cdfc09b60658b637f01bb241175591ecd55ef57005119b61d47118b5d7fc6b76"
     },
+    "simulation/sustained.py": {
+      "bytes": 41464,
+      "role": "experimental v0.4 sustained-response engine",
+      "sha256": "90c511e87ddb50f71f6e93be0119d8b5dbe8c80afd5eae491541a4f3d53e1418"
+    },
+    "simulation/tests/test_feasibility.py": {
+      "bytes": 35717,
+      "role": "experimental feasibility engine contract tests",
+      "sha256": "50890a42c2741af3f9512762a6c9ed09a5bd9379e8cb3ffbd0236fae8ad29f38"
+    },
     "simulation/tests/test_rvcim_sim.py": {
       "bytes": 16625,
       "role": "deterministic simulator contract tests",
       "sha256": "28b140b5199754d6724b5af932c6cc3fada79dbde66582d67f53aace6ed69e2d"
     },
+    "simulation/tests/test_sustained.py": {
+      "bytes": 39638,
+      "role": "experimental sustained-response engine contract tests",
+      "sha256": "e94e02142830e7def0f8f58cfe1461dff609a94c3dd4b562d13f25c6b4ca5d5f"
+    },
+    "tools/run_feasibility.py": {
+      "bytes": 19482,
+      "role": "experimental feasibility runner and replay verifier",
+      "sha256": "3518e40c5b8b078ae3e7f02845d5d506ce209c951531ac4d9c5a364f9a74a08a"
+    },
+    "tools/run_power_accounting.py": {
+      "bytes": 20850,
+      "sha256": "758af2cb68765464ad9a5b8759654485e34c2f47e22ad7f02a50b183b651b51e",
+      "role": "bounded empirical fuel-carbon extractor and replay runner"
+    },
+    "tools/run_sustained.py": {
+      "bytes": 36669,
+      "role": "experimental sustained-response runner and replay verifier",
+      "sha256": "6f4497e191ef97e4d0059f0858bc88df1fddc721f4c4005d350a760a9a8a5fb9"
+    },
+    "tools/tests/test_feasibility_runner.py": {
+      "bytes": 10699,
+      "role": "experimental feasibility runner contract tests",
+      "sha256": "c30fd7512b14bcbed5f02803727b4a48cb4be231c8c1f70ea974c27808ffc643"
+    },
+    "tools/tests/test_power_accounting.py": {
+      "bytes": 9010,
+      "sha256": "4d6d7ed1eca63183b03a9d65b23dc7c037db99cd367b3ad116a20cc0cc0be223",
+      "role": "fuel-carbon input and replay contract tests"
+    },
+    "tools/tests/test_sustained_runner.py": {
+      "bytes": 15426,
+      "role": "experimental sustained-response runner contract tests",
+      "sha256": "417dc0bb472af2c65bb0c99bd496246a47ba221d1ebbdd6046bf5c3b2b05c3dc"
+    },
     "tools/tests/test_verify_release.py": {
-      "bytes": 14316,
+      "bytes": 29287,
       "role": "release-verifier contract tests",
-      "sha256": "30f95f6a521c4c19bc3b5d0ea004f4ab599763cbe66c977829a597f59cdbeb71"
+      "sha256": "b1cfa60c63ad4894041fa9140ca637ac8f6003219b15f74072900c1dd8c57b5f"
     },
     "tools/verify_reference_replay.py": {
       "bytes": 6147,
@@ -136,9 +321,9 @@
       "sha256": "167666f529876d1d52a5ec3b9641790d8aa4a7d1155e3d22fbf03b98aed1bb7e"
     },
     "tools/verify_release.py": {
-      "bytes": 20619,
+      "bytes": 35185,
       "role": "fail-closed release-tree verifier",
-      "sha256": "069edffd260cf81ab30c2efeef686188c2bbab01caea5bfc2dd56fcf18b03717"
+      "sha256": "ce224f3f92945bfe1d3f8af261a5704b7f30db905b4d06338383ca6e25a9ce54"
     }
   }
 }

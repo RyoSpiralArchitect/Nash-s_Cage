@@ -1,0 +1,51 @@
+{
+  "claim_level": "F0",
+  "controllers": [
+    "reserve",
+    "sustained_reserve"
+  ],
+  "format": "nash-sustained-stress-plan/v1",
+  "legacy_config_sha256": "42774c526c924397dafc19ca8c0050e7837115eb913bd3494efb3e3f6ff400ea",
+  "legacy_source_sha256": "cdfc09b60658b637f01bb241175591ecd55ef57005119b61d47118b5d7fc6b76",
+  "phases": {
+    "development": {
+      "episodes_per_seed": 8,
+      "master_seeds": [17]
+    },
+    "evaluation": {
+      "episodes_per_seed": 16,
+      "master_seeds": [401, 503, 607]
+    }
+  },
+  "prior_failure_cases": [
+    {"comparator": "threshold", "episode": 42, "master_seed": 307, "scenario": "baseline"},
+    {"comparator": "threshold_hysteresis", "episode": 45, "master_seed": 101, "scenario": "common_optimistic_bias"},
+    {"comparator": "threshold_hysteresis", "episode": 56, "master_seed": 101, "scenario": "common_optimistic_bias"},
+    {"comparator": "threshold_hysteresis", "episode": 8, "master_seed": 211, "scenario": "common_optimistic_bias"},
+    {"comparator": "threshold_hysteresis", "episode": 28, "master_seed": 211, "scenario": "common_optimistic_bias"},
+    {"comparator": "threshold_hysteresis", "episode": 61, "master_seed": 211, "scenario": "common_optimistic_bias"},
+    {"comparator": "threshold_hysteresis", "episode": 6, "master_seed": 307, "scenario": "common_optimistic_bias"},
+    {"comparator": "threshold_hysteresis", "episode": 35, "master_seed": 307, "scenario": "common_optimistic_bias"},
+    {"comparator": "threshold_hysteresis", "episode": 36, "master_seed": 307, "scenario": "common_optimistic_bias"},
+    {"comparator": "threshold_hysteresis", "episode": 39, "master_seed": 307, "scenario": "common_optimistic_bias"},
+    {"comparator": "threshold_hysteresis", "episode": 54, "master_seed": 307, "scenario": "common_optimistic_bias"}
+  ],
+  "registration_status": "local pre-execution specification; not independently preregistered",
+  "scenarios": [
+    {"environment_overrides": {}, "feasibility_overrides": {}, "id": "baseline", "sustained_overrides": {}},
+    {"environment_overrides": {}, "feasibility_overrides": {"actuation_delay_steps": 10, "physical_effect_delay_steps": 20}, "id": "long_delays", "sustained_overrides": {}},
+    {"environment_overrides": {}, "feasibility_overrides": {"policy_capacity": 0.25}, "id": "low_policy_capacity", "sustained_overrides": {}},
+    {"environment_overrides": {}, "feasibility_overrides": {"initial_budget": 1.5}, "id": "tight_budget", "sustained_overrides": {}},
+    {"environment_overrides": {}, "feasibility_overrides": {"initial_budget": 0.0}, "id": "zero_budget", "sustained_overrides": {}},
+    {"environment_overrides": {"true_boundary_scale": 0.70}, "feasibility_overrides": {}, "id": "closer_hidden_boundary", "sustained_overrides": {}},
+    {"environment_overrides": {"model_boundary_shift": 0.12, "observation_bias_shift": -0.08}, "feasibility_overrides": {}, "id": "common_optimistic_bias", "sustained_overrides": {}},
+    {"environment_overrides": {}, "feasibility_overrides": {}, "id": "optimistic_policy_gain_assumption", "sustained_overrides": {"policy_gain_lower": 0.08, "policy_gain_upper": 0.10}},
+    {"environment_overrides": {}, "feasibility_overrides": {"observation_missing_every": 4}, "id": "intermittent_observation", "sustained_overrides": {}},
+    {"environment_overrides": {}, "feasibility_overrides": {"audit_capacity": 0.0, "policy_capacity": 0.0, "support_capacity": 0.0}, "id": "zero_actuator_capacity", "sustained_overrides": {}}
+  ],
+  "study_id": "sustained-v04-first-path-2026-09-04",
+  "trace_episodes_per_seed": 1,
+  "v03_feasibility_receipt_sha256": "0a67b8638d6b4562b85f9e6285a216d57d6be917cb100548663f17e91cb2549b",
+  "v03_feasibility_source_sha256": "609056a45bbc74cabffad658dc3388360c20eea1ea18c190f8d5a2e2377dc0a9",
+  "v03_feasibility_config_sha256": "f6e92d1982c155788de422141207807bbc570fe2f7d120f1a8936252ff66e303"
+}

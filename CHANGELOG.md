@@ -1,5 +1,43 @@
 # Changelog
 
+## Unreleased - v0.3 experimental first path - 2026-09-04
+
+- preserved the v0.2 engine, configuration, manuscripts and reference outputs
+- added an independent public-input controller/actor/social loop with no truth-label feedback
+- implemented real actuation and effect queues, capacity/command-slew constraints,
+  and finite-budget delivery; disclosed affordability shutdown and proxy limitations
+- matched threshold, hysteretic threshold and reserve capability parameters and
+  initial budgets across nine fixed synthetic stresses and 5,184 evaluation runs
+- retained per-case losses, unknown periods, emergency duration and actual spending
+- added new-only output publication, source/output hashes and six-file byte replay
+- extended release verification and explicit tests; guarded Windows native-command failures
+- documented that the current response proxy is not sustained affordability,
+  physical controllability, a recovery probability or an empirical digital twin
+
+### v0.4 sustained-plan extension
+
+- added a public-only, receding-horizon screen over the complete v0.3 actuator ledger
+- projected three constant-mode candidates through actual delays, slew, capacity,
+  paid delivery and forced affordability curtailment for 24 steps
+- separated strict model-boundary, six-step braking and terminal-budget tests,
+  with explicit rejection counters and no physical-infeasibility claim
+- evaluated reserve versus sustained-reserve on ten fixed scenarios and retained
+  eleven post-hoc v0.3 losing cases as a separate regression cohort
+- exposed chronic emergency duration, full-budget use, model-gain optimism and
+  observation-envelope misses rather than interpreting fewer toy failures alone
+- added deterministic new-only outputs, receipts, full replay and adversarial tests
+
+### First empirical input — FY2024 fuel-carbon accounting — 2026-09-05
+
+- extracted 21 non-overlapping fuel leaves from hash-pinned official workbooks
+- reconciled 17 carbon-input rows, retained one diesel mismatch and three unknown mappings
+- selected power-generation C fuel oil as the next stock-and-delivery contract;
+  kept oil urgency separate from national annual emissions scale
+- added a standard-library extractor, strict unit/year/fuel checks, new-only runs,
+  deterministic offline replay, and separate raw-workbook verification
+- kept net-MWh intensities, action effects, inventories and NDC sector allocation unknown
+- preserved all synthetic fixtures and the F0 claim boundary
+
 ## v0.2.0 - 2026-08-07
 
 ### Added
