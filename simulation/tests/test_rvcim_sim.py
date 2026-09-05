@@ -350,9 +350,23 @@ class ExperimentTests(unittest.TestCase):
             )
             self.assertTrue(sim.verify_receipt(receipt_path))
 
-            self._run(out)
-
-            self.assertEqual(sim.verify_receipt(receipt_path), [])
+            # Ownership acceptance and atomic overwrite capability are separate.
+            # Probe this temporary filesystem; Windows intentionally has no
+            # exchange primitive, and other hosts may use unsupported mounts.
+            sim._verify_owned_output_directory(out, allow_stale_inputs=True)
+            before = {path.name: path.read_bytes() for path in out.iterdir()}
+            left, right = Path(tmp) / "probe-left", Path(tmp) / "probe-right"
+            left.mkdir()
+            right.mkdir()
+            if sim._atomic_exchange_directories(left, right):
+                self._run(out)
+                self.assertEqual(sim.verify_receipt(receipt_path), [])
+            else:
+                with self.assertRaisesRegex(OSError, "atomic directory overwrite is unavailable"):
+                    self._run(out)
+                self.assertEqual(before, {path.name: path.read_bytes() for path in out.iterdir()})
+                self.assertEqual(sim.verify_receipt(receipt_path, verify_inputs=False), [])
+                self.assertTrue(sim.verify_receipt(receipt_path))
 
     def test_overwrite_refuses_without_atomic_directory_exchange(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

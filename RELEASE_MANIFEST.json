@@ -271,9 +271,9 @@
       "sha256": "50890a42c2741af3f9512762a6c9ed09a5bd9379e8cb3ffbd0236fae8ad29f38"
     },
     "simulation/tests/test_rvcim_sim.py": {
-      "bytes": 16625,
+      "bytes": 17622,
       "role": "deterministic simulator contract tests",
-      "sha256": "28b140b5199754d6724b5af932c6cc3fada79dbde66582d67f53aace6ed69e2d"
+      "sha256": "21a3968b941f59d8becff87cc3ebe412d05d6fc42490b136e6d49424579521a9"
     },
     "simulation/tests/test_sustained.py": {
       "bytes": 39638,

@@ -74,8 +74,10 @@ The narrow read-only re-review reported:
 - After repair, all five v0.4 data files and all three accounting data files were
   byte-identical to the pre-review results. Only their source-binding receipts
   changed. The model parameters, cohorts, seeds and scientific conclusions did not.
-- Legacy engine/configuration, entrypoints/tests, manuscript files and the
-  v0.2 reference fixture remain byte-identical to the base commit (17 files).
+- At initial push, legacy engine/configuration, entrypoints/tests, manuscript
+  files and the v0.2 reference fixture were byte-identical to the base (17 files).
+  The later Windows test correction below changes only that test file; the
+  other 16 files, including all model code and reference outputs, remain unchanged.
 
 Final receipts:
 
@@ -89,7 +91,22 @@ correctly rejected that transferred fixture even though raw extraction and the
 fresh Linux run passed. Re-exporting without Mac metadata resolved transport
 packaging; no scientific input or result was changed to make it pass.
 
-This record precedes publication. GitHub PR/Actions state is the evidence for
-remote CI and merge, not this local report. Passing replay establishes the named
+## Windows CI correction after initial push
+
+The initial [PR #16 Windows run](https://github.com/RyoSpiralArchitect/Nash-s_Cage/actions/runs/33944986977)
+failed in the pre-existing `test_overwrite_accepts_owned_output_with_stale_input_hash`.
+It unconditionally expected successful directory overwrite, although the engine
+deliberately refuses overwrite on Windows, where no atomic exchange primitive is
+implemented. No model or production overwrite behavior was changed.
+
+The test now distinguishes verified output ownership from filesystem capability:
+it probes two empty directories on the same temporary filesystem. If exchange
+is available, replacement must verify; otherwise replacement must raise and every
+original byte must survive. The stale input receipt must remain stale, while its
+output-only verification still passes. The existing forced-unavailable test also
+continues to cover preservation and staging cleanup on every host.
+
+GitHub PR/Actions state is the evidence for final remote CI and merge, not the
+pre-push portion of this local report. Passing replay establishes the named
 software/accounting contracts, not real-world feasibility, policy effect,
 resource availability, or authorization to act.
