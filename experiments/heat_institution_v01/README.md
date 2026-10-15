@@ -25,6 +25,24 @@ and require a new freeze. The six inputs are hashed before and after computation
 the seven output files are checked for exact closure before and after verification.
 The registration is not an external timestamp authority. Hash consistency is
 distinct from deterministic replay (`--replay`) and neither proves model validity.
+The exact local-only scope and trust-model wording are enforced. Registration time
+must be timezone-aware UTC; runtime metadata must have the declared fields and
+types, valid Python-version syntax, bounded process count and finite nonnegative
+elapsed time. These are self-reported observations, not authenticated historical
+facts, and are not compared to the machine doing a later replay.
+
+The committed 2026-09-09 checkpoint predates publication hardening. Its six exact
+inputs live at `artifacts/heat_institution_v01/history/r01_inputs/`. Verify those
+original outputs with the current code and explicit read-only compatibility mode:
+
+```sh
+python3 experiments/heat_institution_v01/run.py verify --out artifacts/heat_institution_v01/development --replay --processes 2 --input-revision r01
+python3 experiments/heat_institution_v01/run.py verify --out artifacts/heat_institution_v01/evaluation --replay --processes 2 --input-revision r01
+```
+
+The original receipts are pinned; historical claims or timestamps cannot be
+replaced by updating only the bundle hashes. Archived code is evidence, not a
+supported execution entry point. New `freeze`/`run` commands use current inputs.
 
 ## Evidence
 

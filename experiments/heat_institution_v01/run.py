@@ -16,12 +16,20 @@ import os
 from pathlib import Path
 import platform
 import random
+import re
 import statistics
 import sys
 import tempfile
 import time
 
 HERE = Path(__file__).resolve().parent
+R01_INPUT_DIR = HERE.parents[1] / "artifacts/heat_institution_v01/history/r01_inputs"
+R01_RECEIPT_SHA256 = {
+    "development": "86221f2e668929777104556dd372c5abe07bd5f2a383c43cfd5401b53b0c831e",
+    "evaluation": "daac1b2922f6de4793e92ce9f3d422d1d9864ee7b8126d6b54cfb30dfc025a97",
+}
+REGISTRATION_SCOPE = "Local pre-execution freeze; not third-party preregistration."
+TRUST_MODEL = "Internal consistency; not authenticity, calibration, or external registration."
 INPUT_NAMES = frozenset({"run.py", "test_run.py", "plan.json", "CONTRACT.ja.md",
                          "policy_inventory.json", "README.md"})
 OUTPUT_NAMES = frozenset({"episodes.csv", "trace.csv", "summary.json", "resolved_plan.json",
@@ -107,8 +115,33 @@ def read_plain(path):
     return p.read_bytes()
 
 
-def input_hashes():
-    return {n: digest(read_plain(HERE / n)) for n in sorted(INPUT_NAMES)}
+def input_hashes(directory=None):
+    directory = HERE if directory is None else no_links(directory)
+    return {n: digest(read_plain(directory / n)) for n in sorted(INPUT_NAMES)}
+
+
+def validate_created_utc(value):
+    if not isinstance(value, str) or not value:
+        raise ValueError("created_utc must be a UTC timestamp")
+    try:
+        stamp = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError("created_utc must be a UTC timestamp") from exc
+    if stamp.tzinfo is None or stamp.utcoffset() != timezone.utc.utcoffset(None):
+        raise ValueError("created_utc must include the UTC offset")
+
+
+def validate_runtime(runtime, max_processes):
+    if not isinstance(runtime, dict) or set(runtime) != {
+            "python", "system", "machine", "processes", "elapsed_seconds"}:
+        raise ValueError("invalid runtime schema")
+    for key in ("python", "system", "machine"):
+        if not isinstance(runtime[key], str) or not runtime[key].strip():
+            raise ValueError(f"runtime {key} must be nonempty text")
+    if re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+(?:(?:a|b|rc)[0-9]+)?", runtime["python"]) is None:
+        raise ValueError("invalid runtime Python version")
+    integer(runtime["processes"], 1, max_processes)
+    number(runtime["elapsed_seconds"], 0.0, sys.float_info.max)
 
 
 def number(x, lo=0.0, hi=100.0):
@@ -506,20 +539,24 @@ def freeze(out):
     if input_hashes() != before:
         raise ValueError("inputs changed during freeze")
     record = {"format": "heat-local-registration/v1", "created_utc": datetime.now(timezone.utc).isoformat(),
-              "scope": "Local pre-execution freeze; not third-party preregistration.",
+              "scope": REGISTRATION_SCOPE,
               "inputs": before, "plan": p}
     publish(out, {"registration.json": encode(record)})
     return record
 
 
-def registration(path):
+def registration(path, input_dir=None):
+    input_dir = HERE if input_dir is None else no_links(input_dir)
     raw = read_plain(path)
     record = decode(raw)
     if (not isinstance(record, dict) or set(record) != {"format", "created_utc", "scope", "inputs", "plan"}
-            or record["format"] != "heat-local-registration/v1" or record["inputs"] != input_hashes()):
+            or record["format"] != "heat-local-registration/v1" or record["inputs"] != input_hashes(input_dir)):
         raise ValueError("registration or source identity mismatch")
+    if record["scope"] != REGISTRATION_SCOPE:
+        raise ValueError("registration scope must remain local-only")
+    validate_created_utc(record["created_utc"])
     validate_plan(record["plan"])
-    if encode(record["plan"]) != encode(decode(read_plain(HERE / "plan.json"))):
+    if encode(record["plan"]) != encode(decode(read_plain(input_dir / "plan.json"))):
         raise ValueError("registered plan differs from current plan")
     return raw, record
 
@@ -542,7 +579,7 @@ def run(reg_path, phase, out, processes):
                "runtime": {"python": platform.python_version(), "system": platform.system(),
                            "machine": platform.machine(), "processes": processes,
                            "elapsed_seconds": time.monotonic() - started},
-               "trust_model": "Internal consistency; not authenticity, calibration, or external registration."}
+               "trust_model": TRUST_MODEL}
     blobs["receipt.json"] = encode(receipt)
     publish(out, blobs)
     return decode(blobs["summary.json"])
@@ -555,20 +592,32 @@ def output_snapshot(out):
     return {n: read_plain(out / n) for n in sorted(OUTPUT_NAMES)}
 
 
-def verify(out, replay=False, processes=1):
+def verify(out, replay=False, processes=1, input_revision="current"):
+    if input_revision not in ("current", "r01"):
+        raise ValueError("unknown input revision")
+    active_inputs = input_hashes()
+    input_dir = R01_INPUT_DIR if input_revision == "r01" else HERE
+    if input_revision == "r01" and {p.name for p in no_links(input_dir).iterdir()} != INPUT_NAMES:
+        raise ValueError("archived input closure mismatch")
+    expected_inputs = input_hashes(input_dir)
     snapshot = output_snapshot(out)
     receipt = decode(snapshot["receipt.json"])
     keys = {"format", "phase", "claim_level", "inputs", "outputs", "runtime", "trust_model"}
     if (not isinstance(receipt, dict) or set(receipt) != keys
             or receipt["format"] != "heat-institution-receipt/v1"
             or receipt["phase"] not in ("development", "evaluation")
-            or receipt["inputs"] != input_hashes()
+            or receipt["inputs"] != expected_inputs
+            or receipt["trust_model"] != TRUST_MODEL
+            or not isinstance(receipt["outputs"], dict)
             or set(receipt["outputs"]) != OUTPUT_NAMES - {"receipt.json"}):
         raise ValueError("invalid receipt")
+    if input_revision == "r01" and digest(snapshot["receipt.json"]) != R01_RECEIPT_SHA256[receipt["phase"]]:
+        raise ValueError("not the pinned r01 receipt")
     for n, h in receipt["outputs"].items():
         if digest(snapshot[n]) != h:
             raise ValueError(f"artifact hash mismatch: {n}")
-    raw, reg = registration(Path(out) / "registration.json")
+    raw, reg = registration(Path(out) / "registration.json", input_dir)
+    validate_runtime(receipt["runtime"], reg["plan"]["max_processes"])
     if raw != snapshot["registration.json"] or receipt["claim_level"] != reg["plan"]["claim_level"]:
         raise ValueError("claim/registration mismatch")
     if snapshot["resolved_plan.json"] != encode(reg["plan"]):
@@ -582,8 +631,11 @@ def verify(out, replay=False, processes=1):
         fresh = compute(reg["plan"], receipt["phase"], processes)
         if any(snapshot[n] != b for n, b in fresh.items()):
             raise ValueError("deterministic replay mismatch")
-    if output_snapshot(out) != snapshot or input_hashes() != receipt["inputs"]:
+    if (output_snapshot(out) != snapshot or input_hashes(input_dir) != expected_inputs
+            or input_hashes() != active_inputs):
         raise ValueError("inputs or artifacts changed during verification")
+    if input_revision == "r01" and {p.name for p in no_links(input_dir).iterdir()} != INPUT_NAMES:
+        raise ValueError("archived input closure changed during verification")
     return {"verified": True, "replayed": replay, "phase": receipt["phase"],
             "arm_seasons": summary["arm_seasons"], "unknown_gates": GATES}
 
@@ -602,6 +654,8 @@ def main():
     v.add_argument("--out", required=True, type=Path)
     v.add_argument("--replay", action="store_true")
     v.add_argument("--processes", type=int, default=1)
+    v.add_argument("--input-revision", choices=["current", "r01"], default="current",
+                   help="r01 is read-only replay of the pinned 2026-09-09 checkpoint")
     args = ap.parse_args()
     try:
         if args.command == "freeze":
@@ -611,7 +665,7 @@ def main():
             x = run(args.registration, args.phase, args.out, args.processes)
             print(encode({k: x[k] for k in ("phase", "arm_seasons", "paired_worlds", "winner", "invariants")}).decode())
         else:
-            print(encode(verify(args.out, args.replay, args.processes)).decode())
+            print(encode(verify(args.out, args.replay, args.processes, args.input_revision)).decode())
         return 0
     except (ValueError, OSError, KeyError, TypeError) as e:
         print(f"REFUSED: {e}", file=sys.stderr)

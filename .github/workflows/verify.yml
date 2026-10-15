@@ -117,8 +117,8 @@ jobs:
         working-directory: experiments/heat_public_audit_v01
         run: python -m unittest -v test_run test_publication
       - name: Replay development fixture
-        run: python experiments/heat_institution_v01/run.py verify --out artifacts/heat_institution_v01/development --replay --processes 2
+        run: python experiments/heat_institution_v01/run.py verify --out artifacts/heat_institution_v01/development --replay --processes 2 --input-revision r01
       - name: Replay evaluation fixture
-        run: python experiments/heat_institution_v01/run.py verify --out artifacts/heat_institution_v01/evaluation --replay --processes 2
+        run: python experiments/heat_institution_v01/run.py verify --out artifacts/heat_institution_v01/evaluation --replay --processes 2 --input-revision r01
       - name: Reconstruct public audit
         run: python experiments/heat_public_audit_v01/run.py --out artifacts/heat_public_audit_v01/analysis-r02 --verify --input-revision r02

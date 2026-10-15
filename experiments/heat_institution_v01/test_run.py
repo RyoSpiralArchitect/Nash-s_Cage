@@ -276,6 +276,83 @@ class EvidenceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             h.verify(self.out)
 
+    def test_receipt_trust_claim_cannot_be_promoted(self):
+        self.make_run()
+        path = self.out / "receipt.json"
+        receipt = h.decode(path.read_bytes())
+        receipt["trust_model"] = "Externally authenticated and empirically validated."
+        path.write_bytes(h.encode(receipt))
+        for replay in (False, True):
+            with self.subTest(replay=replay), self.assertRaises(ValueError):
+                h.verify(self.out, replay)
+
+    def test_runtime_schema_is_validated(self):
+        self.make_run()
+        path = self.out / "receipt.json"
+        receipt = h.decode(path.read_bytes())
+        runtime = receipt["runtime"]
+        invalid = [None, "authenticated", {}, runtime | {"extra": "claim"}]
+        invalid += [runtime | {key: value} for key, value in (
+            ("python", None), ("python", ""), ("python", "externally authenticated"),
+            ("system", True), ("system", ""), ("machine", []),
+            ("processes", True), ("processes", 0), ("processes", 3),
+            ("elapsed_seconds", -1), ("elapsed_seconds", True), ("elapsed_seconds", "1"))]
+        for value in invalid:
+            path.write_bytes(h.encode(receipt | {"runtime": value}))
+            for replay in (False, True):
+                with self.subTest(runtime=value, replay=replay), self.assertRaises(ValueError):
+                    h.verify(self.out, replay)
+
+    def rewrite_registration(self, record):
+        path = self.out / "registration.json"
+        path.write_bytes(h.encode(record))
+        receipt_path = self.out / "receipt.json"
+        receipt = h.decode(receipt_path.read_bytes())
+        receipt["outputs"]["registration.json"] = h.digest(path.read_bytes())
+        receipt_path.write_bytes(h.encode(receipt))
+
+    def test_registration_scope_cannot_be_promoted_even_if_rehashed(self):
+        self.make_run()
+        reg = h.decode((self.out / "registration.json").read_bytes())
+        reg["scope"] = "Independent third-party preregistration."
+        self.rewrite_registration(reg)
+        for replay in (False, True):
+            with self.subTest(replay=replay), self.assertRaises(ValueError):
+                h.verify(self.out, replay)
+
+    def test_invalid_registration_timestamp_rejected_even_if_rehashed(self):
+        self.make_run()
+        reg = h.decode((self.out / "registration.json").read_bytes())
+        for value in (None, True, 0, "", "not a timestamp", "2026-02-30T00:00:00Z",
+                      "2026-09-09T11:17:32", "2026-09-09T11:17:32+09:00"):
+            self.rewrite_registration(reg | {"created_utc": value})
+            for replay in (False, True):
+                with self.subTest(timestamp=value, replay=replay), self.assertRaises(ValueError):
+                    h.verify(self.out, replay)
+
+    def test_invalid_registration_refused_before_generation(self):
+        reg = h.decode(self.reg.read_bytes())
+        for field, value in (("scope", "Externally registered"), ("created_utc", "not a timestamp")):
+            self.reg.write_bytes(h.encode(reg | {field: value}))
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                self.make_run()
+            self.assertFalse(self.out.exists())
+
+    def test_registration_accepts_explicit_utc_not_external_authentication(self):
+        reg = h.decode(self.reg.read_bytes())
+        for value in ("2026-09-09T11:17:32.090207+00:00", "2026-09-09T11:17:32Z"):
+            self.reg.write_bytes(h.encode(reg | {"created_utc": value}))
+            _, checked = h.registration(self.reg)
+            self.assertEqual(checked["scope"], h.REGISTRATION_SCOPE)
+
+    def test_runtime_is_self_reported_not_compared_to_verifier_platform(self):
+        self.make_run()
+        path = self.out / "receipt.json"
+        receipt = h.decode(path.read_bytes())
+        receipt["runtime"].update(python="3.14.4", system="Linux", machine="x86_64")
+        path.write_bytes(h.encode(receipt))
+        self.assertTrue(h.verify(self.out, True)["replayed"])
+
     def test_symlink_input_and_output_rejected(self):
         alias = self.root / "alias"
         try:
@@ -303,6 +380,44 @@ class EvidenceTests(unittest.TestCase):
             return result
         with patch.object(h, "compute", side_effect=changed), self.assertRaises(ValueError):
             h.verify(self.out, True)
+
+
+class ArchivedEvidenceTests(unittest.TestCase):
+    def test_original_inputs_and_receipts_are_preserved(self):
+        base = h.HERE.parents[1] / "artifacts/heat_institution_v01"
+        frozen = h.input_hashes(h.R01_INPUT_DIR)
+        self.assertEqual(h.INPUT_NAMES, {p.name for p in h.R01_INPUT_DIR.iterdir()})
+        for phase in ("development", "evaluation"):
+            receipt_bytes = h.read_plain(base / phase / "receipt.json")
+            self.assertEqual(h.R01_RECEIPT_SHA256[phase], h.digest(receipt_bytes))
+            self.assertEqual(frozen, h.decode(receipt_bytes)["inputs"])
+            self.assertTrue(h.verify(base / phase, input_revision="r01")["verified"])
+
+    def test_archived_mode_rejects_rehashed_registration_tampering(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp).resolve() / "out"
+            base = h.HERE.parents[1] / "artifacts/heat_institution_v01/development"
+            shutil.copytree(base, out)
+            path = out / "registration.json"
+            record = h.decode(path.read_bytes())
+            record["created_utc"] = "2000-01-01T00:00:00Z"
+            path.write_bytes(h.encode(record))
+            receipt_path = out / "receipt.json"
+            receipt = h.decode(receipt_path.read_bytes())
+            receipt["outputs"]["registration.json"] = h.digest(path.read_bytes())
+            receipt_path.write_bytes(h.encode(receipt))
+            with self.assertRaisesRegex(ValueError, "pinned r01 receipt"):
+                h.verify(out, True, input_revision="r01")
+
+    def test_archived_input_closure_is_exact(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            inputs = Path(tmp).resolve() / "inputs"
+            shutil.copytree(h.R01_INPUT_DIR, inputs)
+            (inputs / "extra").write_text("unexpected", encoding="utf-8")
+            with patch.object(h, "R01_INPUT_DIR", inputs):
+                with self.assertRaisesRegex(ValueError, "archived input closure"):
+                    h.verify(h.HERE.parents[1] / "artifacts/heat_institution_v01/development",
+                             input_revision="r01")
 
 
 if __name__ == "__main__":

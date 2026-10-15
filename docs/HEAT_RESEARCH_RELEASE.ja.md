@@ -34,8 +34,8 @@ Windowsの新ジョブはGit BashからネイティブPythonを起動し、各�
 ```sh
 (cd experiments/heat_institution_v01 && python3 -m unittest -v test_run)
 (cd experiments/heat_public_audit_v01 && python3 -m unittest -v test_run test_publication)
-python3 experiments/heat_institution_v01/run.py verify --out artifacts/heat_institution_v01/development --replay --processes 2
-python3 experiments/heat_institution_v01/run.py verify --out artifacts/heat_institution_v01/evaluation --replay --processes 2
+python3 experiments/heat_institution_v01/run.py verify --out artifacts/heat_institution_v01/development --replay --processes 2 --input-revision r01
+python3 experiments/heat_institution_v01/run.py verify --out artifacts/heat_institution_v01/evaluation --replay --processes 2 --input-revision r01
 python3 experiments/heat_public_audit_v01/run.py --out artifacts/heat_public_audit_v01/analysis-r02 --verify --input-revision r02
 make verify
 ```
@@ -61,6 +61,22 @@ receiptの形式・時刻・較正ゲート・セル実行数・実行方法を�
 読み取り専用に再生する。旧runner自体は実行しない。元のHTML、ノートブック、
 監査出力、receiptは変更しない。現行runnerで新規生成する場合は5入力を固定する。
 OS自体やファイルシステムを乗っ取った並行書換えに対する隔離機構は主張しない。
+
+## PRレビューでの追加修正（2026-10-16 JST）
+
+PR #17の独立レビューは、合成レーンにも2件の主張・来歴の検証漏れを指摘した。
+`trust_model` を外部認証・実証済みへ変更する、または登録の `scope` を第三者の
+事前登録へ変更して登録ファイルのハッシュだけ再計算しても、再生付き検証が通った。
+両方とも修正前に回帰テストを失敗させて再現し、次を追加した。
+
+- 信頼性の説明とローカル登録範囲を、固定された文言と照合。
+- runtimeの正確なキー集合・型・Python版・プロセス上限・非負有限の経過時間を検査。
+- `created_utc` をUTCオフセット付きの有効な日時として検査。
+- 合成レーンの旧6入力を原バイトで保存し、旧receiptを固定した読み取り専用の
+  `--input-revision r01` で、元の開発・評価結果を現行検証処理から再生。
+
+日付やruntimeの形式が正しいことと、その自己申告が外部認証されていることは別。
+旧入力、全出力、登録時刻、receiptは変更せず、較正・因果・政策効果の主張も増やさない。
 
 ## Mergeの条件
 
