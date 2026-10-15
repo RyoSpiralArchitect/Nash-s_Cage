@@ -29,10 +29,18 @@ From the repository root:
 
 ```sh
 python3 -m unittest discover -s experiments/heat_public_audit_v01 -v
-python3 experiments/heat_public_audit_v01/run.py --out artifacts/heat_public_audit_v01/analysis-r02 --verify
+python3 experiments/heat_public_audit_v01/run.py --out artifacts/heat_public_audit_v01/analysis-r02 --verify --input-revision r02
 ```
 
-To generate another snapshot, omit `--verify` and use a new output directory. To
+The current runner is publication-hardened. `--input-revision r02` verifies the
+original receipt against the four exact inputs in `history/r02_inputs/` and
+reconstructs the original output with the current verifier; it never executes
+the archived runner. This legacy mode is read-only and receipt-pinned.
+
+To generate another snapshot, omit both `--verify` and `--input-revision r02` and
+use a **new, non-existing output directory**. Current receipts include the new
+publication tests as a fifth input. Existing bundles, symlink path components,
+and changes to calibration/receipt claims are rejected. To
 package its canonical report, use the installed Data Analytics portable builder:
 
 ```sh
@@ -85,3 +93,5 @@ transcription queries; it does not change the public measurements or turn them i
 empirical simulation coefficients. Final packaging and responsive checks passed.
 
 No source data or preceding heat simulation input/result was deleted or replaced.
+The r02 runner and tests are also retained byte-for-byte as historical evidence,
+not as supported execution entry points. Use only the current runner above.

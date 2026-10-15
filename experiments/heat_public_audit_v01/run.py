@@ -9,13 +9,19 @@ import io
 import json
 import math
 import sqlite3
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 SOURCE_DIR = ROOT / "artifacts/heat_public_audit_v01/sources"
-INPUTS = ("run.py", "test_run.py", "evidence.json", "CONTRACT.ja.md")
+ARCHIVED_INPUTS = ("run.py", "test_run.py", "evidence.json", "CONTRACT.ja.md")
+INPUTS = ARCHIVED_INPUTS + ("test_publication.py",)
+R02_INPUT_DIR = ROOT / "artifacts/heat_public_audit_v01/history/r02_inputs"
+R02_RECEIPT_SHA256 = "02b36e001d732c48984a3e672b0bc8d7e4709a79f33e9a2ccfec6069a8d497b2"
+LOADED_SOURCE_SHA256 = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+OUTPUTS = ("audit.json", "artifact.json", "audit.ipynb", "receipt.json")
 
 
 def require(condition, message):
@@ -46,12 +52,44 @@ def unique_object(pairs):
 
 
 def read_json(path):
-    return json.loads(Path(path).read_text(encoding="utf-8"),
-                      parse_constant=reject_constant, object_pairs_hook=unique_object)
+    value = json.loads(Path(path).read_text(encoding="utf-8"),
+                       parse_constant=reject_constant, object_pairs_hook=unique_object)
+    def finite(item):
+        if isinstance(item, float):
+            require(math.isfinite(item), "nonfinite JSON number")
+        elif isinstance(item, list):
+            for child in item:
+                finite(child)
+        elif isinstance(item, dict):
+            for child in item.values():
+                finite(child)
+    finite(value)
+    return value
 
 
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def no_links(path):
+    """Check the supplied path before resolving away any symlink components."""
+    path = Path(path).absolute()
+    require(".." not in path.parts, "parent traversal is not an artifact path")
+    for component in (path, *path.parents):
+        require(not component.is_symlink(), f"symlink path rejected: {component}")
+    return path
+
+
+def input_snapshot(directory=HERE, names=INPUTS):
+    directory = no_links(directory)
+    result = {}
+    for name in names:
+        path = no_links(directory / name)
+        require(path.is_file(), f"missing input: {name}")
+        result[name] = digest(path)
+    if directory == HERE:
+        require(result["run.py"] == LOADED_SOURCE_SHA256, "loaded source changed")
+    return result
 
 
 def coverage_bounds(total, delivered, not_delivered, unknown):
@@ -183,7 +221,7 @@ def validate_evidence(evidence):
 
 
 def verify_sources(evidence, directory=SOURCE_DIR):
-    directory = Path(directory)
+    directory = no_links(directory)
     files = [s["file"] for s in evidence["sources"]]
     require(len(set(files)) == len(files), "source file collision")
     for name in files:
@@ -191,7 +229,7 @@ def verify_sources(evidence, directory=SOURCE_DIR):
     actual = {p.name for p in directory.iterdir()}
     require(actual == set(files), "source directory closure mismatch")
     for source in evidence["sources"]:
-        path = directory / source["file"]
+        path = no_links(directory / source["file"])
         require(path.is_file() and not path.is_symlink(), "source must be a regular local snapshot")
         require(digest(path) == source["sha256"], f"source hash mismatch: {source['id']}")
 
@@ -246,7 +284,7 @@ def report_artifact(evidence, result, generated_at):
     def query_rows(raw, selection, order):
         literal = json.dumps(raw, ensure_ascii=False).replace("'", "''")
         sql = f"WITH transcribed AS (SELECT key, value FROM json_each('{literal}'))\nSELECT {selection}\nFROM transcribed ORDER BY {order}"
-        with sqlite3.connect(":memory:") as db:
+        with contextlib.closing(sqlite3.connect(":memory:")) as db:
             db.row_factory = sqlite3.Row
             rows = [dict(r) for r in db.execute(sql)]
         return rows, sql
@@ -280,7 +318,11 @@ def report_artifact(evidence, result, generated_at):
 
 
 def write_json(path, value):
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    # Exclusive creation and byte writes preserve evidence and LF on Windows.
+    path = no_links(path)
+    data = (json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + "\n").encode("utf-8")
+    with path.open("xb") as handle:
+        handle.write(data)
 
 
 def notebook(evidence, result):
@@ -311,45 +353,76 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--verify", action="store_true", help="verify hashes, closure and deterministic reconstruction without writing")
+    parser.add_argument("--input-revision", choices=("current", "r02"), default="current",
+                        help="r02 is read-only replay of the pinned 2026-09-09 checkpoint")
     args = parser.parse_args()
-    evidence = read_json(HERE / "evidence.json")
-    input_hashes = {name: digest(HERE / name) for name in INPUTS}
-    out = args.out.resolve()
+    active_inputs = input_snapshot()
+    require(args.verify or args.input_revision == "current", "archived inputs are verification-only")
+    input_dir = R02_INPUT_DIR if args.input_revision == "r02" else HERE
+    input_names = ARCHIVED_INPUTS if args.input_revision == "r02" else INPUTS
+    input_hashes = input_snapshot(input_dir, input_names)
+    evidence = read_json(input_dir / "evidence.json")
+    out = no_links(args.out)
     require(out != SOURCE_DIR and SOURCE_DIR not in out.parents and out != HERE and HERE not in out.parents, "output overlaps inputs")
     if args.verify:
-        verify_output(out, evidence, input_hashes)
+        if args.input_revision == "r02":
+            require({p.name for p in input_dir.iterdir()} == set(ARCHIVED_INPUTS), "archived input closure mismatch")
+            require(digest(no_links(out / "receipt.json")) == R02_RECEIPT_SHA256, "not the pinned r02 receipt")
+        verify_output(out, evidence, input_hashes, input_dir, input_names, active_inputs)
         print("VERIFIED: source/output closure, hashes, reconstruction; calibration remains BLOCKED")
         return
-    if out.exists():
-        receipt = out / "receipt.json"
-        require(receipt.exists(), "output exists without receipt; use a new output directory")
-        require(read_json(receipt)["input_sha256"] == input_hashes, "inputs changed; use a new output directory")
+    require(not out.exists(), "output exists; use a new output directory")
     verify_sources(evidence)
     result = analyze(evidence)
     generated_at = datetime.now(timezone.utc).isoformat()
     artifact = report_artifact(evidence, result, generated_at)
     nb = notebook(evidence, result)
     verify_sources(evidence)
-    require(input_hashes == {name: digest(HERE / name) for name in INPUTS}, "inputs changed during analysis")
-    out.mkdir(parents=True, exist_ok=True)
-    for name, value in (("audit.json", result), ("artifact.json", artifact), ("audit.ipynb", nb)):
-        write_json(out / name, value)
-    receipt = {"format": "heat-public-audit-receipt/v1", "generated_at": generated_at,
-               "input_sha256": input_hashes, "source_sha256": {s["file"]: s["sha256"] for s in evidence["sources"]},
-               "output_sha256": {name: digest(out / name) for name in ("audit.json", "artifact.json", "audit.ipynb")},
-               "source_closure": "VERIFIED_BEFORE_AND_AFTER", "notebook_cells_executed": sum(c["cell_type"] == "code" for c in nb["cells"]),
-               "notebook_engine": "stdlib exec, not Jupyter kernel", "calibration": "BLOCKED"}
-    write_json(out / "receipt.json", receipt)
+    require(input_hashes == input_snapshot(), "inputs changed during analysis")
+    no_links(out.parent).mkdir(parents=True, exist_ok=True)
+    no_links(out.parent)
+    with tempfile.TemporaryDirectory(prefix=".heat-audit-", dir=out.parent) as temporary:
+        stage = Path(temporary)
+        for name, value in (("audit.json", result), ("artifact.json", artifact), ("audit.ipynb", nb)):
+            write_json(stage / name, value)
+        receipt = {"format": "heat-public-audit-receipt/v1", "generated_at": generated_at,
+                   "input_sha256": input_hashes, "source_sha256": {s["file"]: s["sha256"] for s in evidence["sources"]},
+                   "output_sha256": {name: digest(stage / name) for name in OUTPUTS[:-1]},
+                   "source_closure": "VERIFIED_BEFORE_AND_AFTER", "notebook_cells_executed": sum(c["cell_type"] == "code" for c in nb["cells"]),
+                   "notebook_engine": "stdlib exec, not Jupyter kernel", "calibration": "BLOCKED"}
+        write_json(stage / "receipt.json", receipt)
+        verify_output(stage, evidence, input_hashes, active_inputs=active_inputs)
+        # Reserve a new destination. Never replace an existing bundle, even if
+        # its input hashes match. A failed publish remains an invalid partial
+        # bundle for inspection; no user-owned destination is cleaned up.
+        no_links(out).mkdir(exist_ok=False)
+        for name in OUTPUTS:
+            with no_links(out / name).open("xb") as handle:
+                handle.write((stage / name).read_bytes())
+        verify_output(out, evidence, input_hashes, active_inputs=active_inputs)
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
-def verify_output(out, evidence, input_hashes):
-    out = Path(out)
-    names = {"audit.json", "artifact.json", "audit.ipynb", "receipt.json"}
+def verify_output(out, evidence, input_hashes, input_dir=HERE, input_names=INPUTS, active_inputs=None):
+    out = no_links(out)
+    active_inputs = input_snapshot() if active_inputs is None else active_inputs
+    require(input_snapshot() == active_inputs, "active verifier inputs changed")
+    require(input_snapshot(input_dir, input_names) == input_hashes, "input identity mismatch")
+    require(read_json(input_dir / "evidence.json") == evidence, "evidence identity mismatch")
+    names = set(OUTPUTS)
     require({p.name for p in out.iterdir()} == names, "analysis output closure mismatch")
     require(all((out / n).is_file() and not (out / n).is_symlink() for n in names), "invalid output file")
     before = {n: digest(out / n) for n in names}
     receipt = read_json(out / "receipt.json")
+    require(isinstance(receipt, dict) and set(receipt) == {
+        "format", "generated_at", "input_sha256", "source_sha256", "output_sha256",
+        "source_closure", "notebook_cells_executed", "notebook_engine", "calibration"}, "receipt schema mismatch")
+    require(receipt["format"] == "heat-public-audit-receipt/v1", "wrong receipt format")
+    timestamp(receipt["generated_at"])
+    require(receipt["calibration"] == "BLOCKED", "receipt cannot admit calibration")
+    require(receipt["source_closure"] == "VERIFIED_BEFORE_AND_AFTER", "source verification claim mismatch")
+    require(type(receipt["notebook_cells_executed"]) is int and receipt["notebook_cells_executed"] == 3, "notebook execution count mismatch")
+    require(receipt["notebook_engine"] == "stdlib exec, not Jupyter kernel", "notebook engine claim mismatch")
     require(receipt["input_sha256"] == input_hashes, "input identity mismatch")
     require(set(receipt["output_sha256"]) == names - {"receipt.json"}, "receipt output set mismatch")
     require(all(before[n] == sha for n, sha in receipt["output_sha256"].items()), "output hash mismatch")
@@ -362,7 +435,10 @@ def verify_output(out, evidence, input_hashes):
     verify_sources(evidence)
     require(before == {n: digest(out / n) for n in names}, "outputs changed during verification")
     require({p.name for p in out.iterdir()} == names, "output closure changed during verification")
-    require(input_hashes == {n: digest(HERE / n) for n in INPUTS}, "inputs changed during verification")
+    no_links(out)
+    require(all(not (out / n).is_symlink() for n in names), "output link changed during verification")
+    require(input_hashes == input_snapshot(input_dir, input_names), "inputs changed during verification")
+    require(active_inputs == input_snapshot(), "active verifier inputs changed")
 
 
 if __name__ == "__main__":

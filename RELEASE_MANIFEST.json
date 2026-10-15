@@ -21,9 +21,9 @@
       "sha256": "74daf9b09ec7baad35e92b8f1ad725c69e85b9e56f1212ae3ae33778bf7c00c5"
     },
     ".github/workflows/verify.yml": {
-      "bytes": 5918,
+      "bytes": 5939,
       "role": "read-only cross-platform verification workflow",
-      "sha256": "7658a1a441f5d59d4da3d0b8efb262d322ca062ba3eb54129752e4ec7206daea"
+      "sha256": "ba39d43efe4199aea1ec31c5bbce2b9dd41cdab6701647a5bf7f19025cbd03df"
     },
     "Makefile": {
       "bytes": 4768,

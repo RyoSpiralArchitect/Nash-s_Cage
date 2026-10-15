@@ -36,7 +36,7 @@ Windowsの新ジョブはGit BashからネイティブPythonを起動し、各�
 (cd experiments/heat_public_audit_v01 && python3 -m unittest -v test_run test_publication)
 python3 experiments/heat_institution_v01/run.py verify --out artifacts/heat_institution_v01/development --replay --processes 2
 python3 experiments/heat_institution_v01/run.py verify --out artifacts/heat_institution_v01/evaluation --replay --processes 2
-python3 experiments/heat_public_audit_v01/run.py --out artifacts/heat_public_audit_v01/analysis-r02 --verify
+python3 experiments/heat_public_audit_v01/run.py --out artifacts/heat_public_audit_v01/analysis-r02 --verify --input-revision r02
 make verify
 ```
 
@@ -44,6 +44,23 @@ make verify
 正規化させないため、原資料ディレクトリに限定した属性を設定した。
 初回のHTML梱包失敗とr01入力、最終r02入力・出力、9月9日の検証記録を残す。
 過去の「未push／未merge」等は当時の記録であり、後日のPR状態を表すものではない。
+
+## 公開前の破壊テストと修正
+
+初期実装では、同じ入力ハッシュの出力を再利用すると、出力内のsymlink先を
+上書きできた。またreceiptの `calibration` を `READY` に変えても検証が通った。
+使い捨ての合成ファイルで両方を再現した。研究成果物への改変・破壊は行っていない。
+
+現行runnerは新規ディレクトリのみに発行し、symlinkを解決する前に祖先まで検査する。
+発行前に一時領域で再構成検証し、既存ファイルは排他的作成で拒否する。
+receiptの形式・時刻・較正ゲート・セル実行数・実行方法を厳密に照合し、JSONの
+指数オーバーフローも拒否する。SQL接続も確実に閉じる。
+
+修正前のr02の4入力は `history/r02_inputs/` に原バイトのまま保存した。
+`--input-revision r02 --verify` は固定された旧receiptを、保存入力と現行の検証処理で
+読み取り専用に再生する。旧runner自体は実行しない。元のHTML、ノートブック、
+監査出力、receiptは変更しない。現行runnerで新規生成する場合は5入力を固定する。
+OS自体やファイルシステムを乗っ取った並行書換えに対する隔離機構は主張しない。
 
 ## Mergeの条件
 

@@ -121,4 +121,4 @@ jobs:
       - name: Replay evaluation fixture
         run: python experiments/heat_institution_v01/run.py verify --out artifacts/heat_institution_v01/evaluation --replay --processes 2
       - name: Reconstruct public audit
-        run: python experiments/heat_public_audit_v01/run.py --out artifacts/heat_public_audit_v01/analysis-r02 --verify
+        run: python experiments/heat_public_audit_v01/run.py --out artifacts/heat_public_audit_v01/analysis-r02 --verify --input-revision r02
