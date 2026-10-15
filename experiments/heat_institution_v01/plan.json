@@ -1,0 +1,57 @@
+{
+  "format": "heat-institution-plan/v1",
+  "study_id": "heat-institution-v01",
+  "claim_level": "F0_SYNTHETIC_MECHANISM_SCREEN",
+  "institution_exists": true,
+  "base_commit": "c0031acceda44c13f32be1c51eb2125167e89ed1",
+  "workers": 24,
+  "days": 36,
+  "max_processes": 2,
+  "development_seeds": [11, 17, 23, 29],
+  "evaluation_seeds": [1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031],
+  "arms": ["ordinary", "information", "linked", "information_linked"],
+  "factors": {
+    "existing_coverage": [0.25, 0.6, 1.0],
+    "friction": [0.0, 0.6, 1.2],
+    "additional_capacity_fraction": [0.25, 0.75],
+    "budget_per_worker": [0.8, 3.0],
+    "hot_day_probability": [0.3, 0.7]
+  },
+  "defaults": {
+    "existing_coverage": 0.6,
+    "friction": 0.6,
+    "additional_capacity_fraction": 0.75,
+    "budget_per_worker": 3.0,
+    "hot_day_probability": 0.7,
+    "signal_noise": 0.8,
+    "signal_bias": 0.0,
+    "information_noise_multiplier": 0.25,
+    "link_effect": 0.7,
+    "information_setup_per_worker": 0.1,
+    "link_setup_per_worker": 0.25,
+    "baseline_cost_per_worker_day": 0.08,
+    "action_cost": 1.0,
+    "worker_transfer": 0.7
+  },
+  "controls": [
+    {"id": "full_existing_protection", "overrides": {"existing_coverage": 1.0}},
+    {"id": "no_additional_capacity", "overrides": {"additional_capacity_fraction": 0.0}},
+    {"id": "no_additional_budget", "overrides": {"budget_per_worker": 0.0}},
+    {"id": "no_hazard", "overrides": {"hot_day_probability": 0.0}},
+    {"id": "information_effect_null", "overrides": {"information_noise_multiplier": 1.0, "information_setup_per_worker": 0.0}},
+    {"id": "link_effect_null", "overrides": {"link_effect": 0.0, "link_setup_per_worker": 0.0}},
+    {"id": "common_underwarning", "overrides": {"signal_bias": -0.9}},
+    {"id": "common_overwarning", "overrides": {"signal_bias": 0.9}}
+  ],
+  "unknown_gates": [
+    "EMPIRICAL_INSTITUTION_COVERAGE_UNKNOWN",
+    "EMPIRICAL_PRIVATE_PAYOFFS_UNKNOWN",
+    "EMPIRICAL_RESPONSE_DELAYS_UNKNOWN",
+    "CLINICAL_EXPOSURE_RESPONSE_UNIDENTIFIED",
+    "NATIONAL_POLICY_TRANSMISSION_UNVERIFIED",
+    "NASH_EQUILIBRIUM_NOT_ESTIMATED",
+    "CAPTURE_NOT_MODELLED",
+    "SERVICE_PRESERVATION_UNVERIFIED",
+    "REAL_WORLD_ACTION_NOT_AUTHORIZED"
+  ]
+}

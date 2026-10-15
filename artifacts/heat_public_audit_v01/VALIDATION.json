@@ -1,0 +1,82 @@
+{
+  "format": "heat-public-validation/v1",
+  "checked_on": "2026-09-09",
+  "assessment": "Share with caveats: descriptive research audit only",
+  "checks": {
+    "new_lane_tests": {
+      "passed": 32,
+      "failed": 0
+    },
+    "prior_heat_tests": {
+      "passed": 35,
+      "failed": 0
+    },
+    "prior_heat_development_replay": {
+      "verified": true,
+      "arm_seasons": 1280
+    },
+    "prior_heat_evaluation_replay": {
+      "verified": true,
+      "arm_seasons": 10240
+    },
+    "root_make_verify": {
+      "exit_code": 0,
+      "scope": "Historical 61-file release only; not integration of new lane"
+    },
+    "new_audit_verify": {
+      "verified": true,
+      "source_count": 8,
+      "closure": "before and after",
+      "method": "SHA-256 plus deterministic reconstruction"
+    },
+    "notebook": {
+      "executed_code_cells": 3,
+      "engine": "Python stdlib exec in shared namespace; not a Jupyter kernel"
+    }
+  },
+  "html_delivery": {
+    "ok": true,
+    "stages": {
+      "validation": "passed",
+      "package": "passed",
+      "verification": "passed"
+    },
+    "counts": {
+      "blocks": 15,
+      "charts": 1,
+      "html": 0,
+      "metrics": 0,
+      "tables": 1
+    },
+    "sourceDialog": "passed",
+    "sourceInteraction": "keyboard_menu_semantic_click",
+    "viewports": [
+      1440,
+      390
+    ],
+    "sha256": "5570f58f4d3f7481c2867195682e224ea0b08949256a2006284cbbdbbed85df6"
+  },
+  "analysis_receipt_sha256": "02b36e001d732c48984a3e672b0bc8d7e4709a79f33e9a2ccfec6069a8d497b2",
+  "pdf_visual_checks": [
+    "survey pages 2,3,9,10,16",
+    "final fatal-case summaries pages 11-16",
+    "2026 cost standard page 2"
+  ],
+  "open_empirical_gates": [
+    "ACTION_RECEIPT_DENOMINATOR_UNKNOWN",
+    "REPRESENTATIVE_RESPONSE_TIMES_UNKNOWN",
+    "LINKED_CONTRACT_PAYROLL_PAYMENT_UNKNOWN"
+  ],
+  "not_claimed": [
+    "national effectiveness",
+    "causal effect",
+    "clinical or legal determination",
+    "independent review",
+    "Windows validation of new lane",
+    "Furnace execution of this audit",
+    "publication",
+    "push",
+    "merge"
+  ],
+  "skills_influence": "Data-quality/validation skills kept denominators, rounded values, source versions and missingness explicit. Report and notebook skills supplied a traceable local handoff. PDF inspection checked original table and footnote layout."
+}

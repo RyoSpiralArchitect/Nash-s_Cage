@@ -1,0 +1,29 @@
+{
+  "claim_level": "F0_SYNTHETIC_MECHANISM_SCREEN",
+  "format": "heat-institution-receipt/v1",
+  "inputs": {
+    "CONTRACT.ja.md": "40fb0832841f926e711031642cc0b9abba91c57cba805758129f9626c6ef8519",
+    "README.md": "552e35aad05c39d1f24650868c870e00d944a0661187b3a0fb3ffc1b47a960f2",
+    "plan.json": "ef9823384769627b3b6458978e992f3c76573626ce10c8c74446ed059634335b",
+    "policy_inventory.json": "7a8a76773ad92cbf86b548f4811e6419b0e60ce1aeafb3ffe1d56faa05a3bae5",
+    "run.py": "3a020e12411440e25c7c85a71dce9dc7ffdcdbe6f04e37b3f201283e6e17dbdd",
+    "test_run.py": "0c9fd6d07731be537f7d7fd34798a4f3451559b9ccfc38f3fab283df3a5088be"
+  },
+  "outputs": {
+    "comparison.md": "7750f6e5994cfc9cbd344eb2790071050def79ee43a99aa0cf83a0291ffdba91",
+    "episodes.csv": "4ecdee03f9daf6a8a8bf19dc849b4b8830ff37ebc4e86a5715b40e53434ddf52",
+    "registration.json": "8d73c4d120b7dd3c401b12e3497b5947bcc2f4420b29a8fb3dbfc5a6efa97dc6",
+    "resolved_plan.json": "c9e04e73111ebe6a9a6c98bdff88a409ce4771d6ef91e5b746c116ef4d099ab1",
+    "summary.json": "24a30387179f46f2c8b4a3cac9b20727c4d6c7c57fbd37241dc1756b2a30be31",
+    "trace.csv": "3120c9a44be4ad0a95f10c6c1b45343ca762fefd031289ef2995bb425b52aedb"
+  },
+  "phase": "development",
+  "runtime": {
+    "elapsed_seconds": 0.527967167,
+    "machine": "arm64",
+    "processes": 2,
+    "python": "3.13.13",
+    "system": "Darwin"
+  },
+  "trust_model": "Internal consistency; not authenticity, calibration, or external registration."
+}

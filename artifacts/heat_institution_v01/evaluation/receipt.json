@@ -1,0 +1,29 @@
+{
+  "claim_level": "F0_SYNTHETIC_MECHANISM_SCREEN",
+  "format": "heat-institution-receipt/v1",
+  "inputs": {
+    "CONTRACT.ja.md": "40fb0832841f926e711031642cc0b9abba91c57cba805758129f9626c6ef8519",
+    "README.md": "552e35aad05c39d1f24650868c870e00d944a0661187b3a0fb3ffc1b47a960f2",
+    "plan.json": "ef9823384769627b3b6458978e992f3c76573626ce10c8c74446ed059634335b",
+    "policy_inventory.json": "7a8a76773ad92cbf86b548f4811e6419b0e60ce1aeafb3ffe1d56faa05a3bae5",
+    "run.py": "3a020e12411440e25c7c85a71dce9dc7ffdcdbe6f04e37b3f201283e6e17dbdd",
+    "test_run.py": "0c9fd6d07731be537f7d7fd34798a4f3451559b9ccfc38f3fab283df3a5088be"
+  },
+  "outputs": {
+    "comparison.md": "474dfaad20a4164e6d4110a2b2308d44e33602dffe99b4a334c586cd81be9c35",
+    "episodes.csv": "2e0d25c9899f8177c1a1981e8c988354c29b7b8fb8208b67bcfa23782c8f8bba",
+    "registration.json": "8d73c4d120b7dd3c401b12e3497b5947bcc2f4420b29a8fb3dbfc5a6efa97dc6",
+    "resolved_plan.json": "c9e04e73111ebe6a9a6c98bdff88a409ce4771d6ef91e5b746c116ef4d099ab1",
+    "summary.json": "279380e8120ce7dbb3c89c60283f4fb9ab630c6073dd688acf44b4e0587011b9",
+    "trace.csv": "22d14fe8dd539f0b0fbe7412cdb377b1057702f46d8caa324c35b0e094e79481"
+  },
+  "phase": "evaluation",
+  "runtime": {
+    "elapsed_seconds": 1.687385021,
+    "machine": "x86_64",
+    "processes": 2,
+    "python": "3.14.4",
+    "system": "Linux"
+  },
+  "trust_model": "Internal consistency; not authenticity, calibration, or external registration."
+}

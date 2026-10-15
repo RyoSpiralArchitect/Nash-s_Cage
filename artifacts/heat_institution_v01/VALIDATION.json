@@ -1,0 +1,27 @@
+{
+  "format": "heat-institution-validation-attestation/v1",
+  "date": "2026-09-09",
+  "status": "OPERATOR_RECORDED_TOOL_RESULTS_NOT_EXTERNAL_CERTIFICATION",
+  "base_commit": "c0031acceda44c13f32be1c51eb2125167e89ed1",
+  "registration_sha256": "8d73c4d120b7dd3c401b12e3497b5947bcc2f4420b29a8fb3dbfc5a6efa97dc6",
+  "development_receipt_sha256": "86221f2e668929777104556dd372c5abe07bd5f2a383c43cfd5401b53b0c831e",
+  "evaluation_receipt_sha256": "daac1b2922f6de4793e92ce9f3d422d1d9864ee7b8126d6b54cfb30dfc025a97",
+  "source_transport_archive_sha256_at_both_ends": "7c64680a5ee513106dbb399f47e150a0c29b92539c29cf9dc3f7834108b91cfb",
+  "mac": {
+    "python": "3.13.13",
+    "new_tests_passed": 35,
+    "development_replay": "PASS",
+    "furnace_evaluation_replay": "PASS",
+    "historical_make_verify": "PASS"
+  },
+  "furnace": {
+    "python": "3.14.4",
+    "cpu_processes": 2,
+    "gpu_used": false,
+    "new_tests_passed": 35,
+    "evaluation_replay": "PASS",
+    "isolated_path": "/home/ryospiralarchitect/scratch/nash-heat-20260909.ZQ8Dgp"
+  },
+  "not_performed": ["independent adversarial review", "new-lane Windows CI", "push", "merge"],
+  "data_boundary": "Only the public-source inventory, authored model, synthetic parameters, contract, tests and registration were transferred. No private conversation or personal records were inputs."
+}
