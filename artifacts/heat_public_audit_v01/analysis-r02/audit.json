@@ -1,0 +1,25 @@
+{
+  "status": "DESCRIPTIVE_AUDIT_COMPLETE_CALIBRATION_BLOCKED",
+  "exact_clock_pair_completeness": {
+    "numerator": 0,
+    "denominator": 19,
+    "unit": "public fatal-case summaries",
+    "rate": 0.0
+  },
+  "national_change": {
+    "casualties": 546,
+    "deaths": -12,
+    "casualties_ratio_change": 0.4343675417661097,
+    "deaths_ratio_change": -0.3870967741935484
+  },
+  "source_count": 8,
+  "unidentified": {
+    "status": "BLOCKED",
+    "floor": "UNKNOWN: 必要な保護機会の分母と実行記録が未接続",
+    "response_time": "UNKNOWN: 同一定義・代表性のあるイベント記録なし",
+    "cost_incidence": "UNKNOWN: 契約・費目・支払・賃金の接続記録なし",
+    "rule": "No automatic transfer of percentages, case intervals or statutory ratios into the frozen synthetic model."
+  },
+  "causal_effect": "NOT_IDENTIFIED",
+  "intervention_authority": "NONE"
+}

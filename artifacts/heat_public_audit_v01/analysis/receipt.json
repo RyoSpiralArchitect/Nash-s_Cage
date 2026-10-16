@@ -1,0 +1,29 @@
+{
+  "format": "heat-public-audit-receipt/v1",
+  "generated_at": "2026-09-09T13:11:27.620057+00:00",
+  "input_sha256": {
+    "run.py": "92fc8726ef74e1232bcf3cce3b74a5a9a99ad952e61d56bad6a3e8131412d3ca",
+    "test_run.py": "7035ede013bc11ea655957e3f69e94be4aa1fcb4b012578e246a5f804698220c",
+    "evidence.json": "cd8aca2de80dc3972ff62a137cba41053851c06d8da1b20060f9b9988bc13860",
+    "CONTRACT.ja.md": "12801da5ad118509ecba7ad7e41f5d2e4e3995516460ab6542438d76ed845ee7"
+  },
+  "source_sha256": {
+    "survey_20251223.pdf": "f371771e6abe919330afd835149e994374b85bb8fc17cfb0e524885d219d620c",
+    "report_20260318.pdf": "15b1c6bb2d919d02d01c9ca8edf7666c89bf797145aaecbf0d18e7a680e51742",
+    "ordinance_notice_20250520.pdf": "73f5bd365128cf6a033293b6d2e64bbbd469bf38bed1a3e0e73a2a9d3d688615",
+    "construction_support_20251223.pdf": "6f061c337202f8590d03ea40c088980499b39c7e0bef43c5f1f9144cb479c4f5",
+    "cost_standard_20260227.pdf": "7f3957f80c91e163ebf4a976fc74d089a761c8ee8c46d107cd893e82be36691f",
+    "fatalities_final_20260527.pdf": "b2ef1749444f43cb9e511218a7012b01cca861e05d38cefbc501e582a5314ef6",
+    "wage_faq.html": "533e6f7febcf52f2d761865f01b0fce2542613fe8dfef10c841ddb2fd5ea0699",
+    "compensation.pdf": "7101e9ccd172130ac793663e511c980bbad53061a8854c0d0d569536874a276f"
+  },
+  "output_sha256": {
+    "audit.json": "f9f3ba14e7e9a528a8b1f8fd5ff49c6dd1ee85576720ff787b9522dddbc2a8da",
+    "artifact.json": "120ef53d7d6b93ce0c549a962ae5559930eafefeed31f9d0e1e8265fb847a61c",
+    "audit.ipynb": "d57b71c7f65fbc1b0c31bda5ffccbc90c69125033a1c166e5a2e52637aa06b92"
+  },
+  "source_closure": "VERIFIED_BEFORE_AND_AFTER",
+  "notebook_cells_executed": 3,
+  "notebook_engine": "stdlib exec, not Jupyter kernel",
+  "calibration": "BLOCKED"
+}

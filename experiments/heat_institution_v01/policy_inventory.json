@@ -1,0 +1,32 @@
+{
+  "format": "heat-institution-inventory/v1",
+  "checked_on": "2026-09-09",
+  "status": "SOURCE_BACKED_EXISTENCE_NOT_EFFECTIVENESS",
+  "records": [
+    {
+      "id": "occupational_heat_response_2025",
+      "source": "https://jsite.mhlw.go.jp/toyama-roudoukyoku/news_topics/oshirase/0706nechushokyoka.html",
+      "effective_date": "2025-06-01",
+      "confirmed": "Specified hot-work conditions trigger employer duties to establish and communicate reporting arrangements and response procedures including leaving work, cooling and medical care as necessary.",
+      "scope": "The page specifies WBGT >=28 or temperature >=31 Celsius, with anticipated continuous work >=1 hour or daily work >4 hours. These are scope conditions for the stated duties, not an automatic universal shutdown rule.",
+      "unknown": ["actual coverage", "compliance", "response time", "income protection", "causal effectiveness"],
+      "simulation_use": "Requires a non-abolished institutional baseline in every arm. No legal temperature or duration is converted into a toy decision threshold."
+    },
+    {
+      "id": "heat_alert_system",
+      "source": "https://www.wbgt.env.go.jp/alert.php",
+      "confirmed": "An official heat alert information system exists.",
+      "unknown": ["comprehension", "local exposure accuracy", "coordination with employers", "action feasibility"],
+      "simulation_use": "Motivates separating information from execution. All numerical observation errors are synthetic, not estimates of alert quality."
+    },
+    {
+      "id": "climate_informed_river_planning",
+      "source": "https://www.mlit.go.jp/report/press/mizukokudo03_hh_001241.html",
+      "published_on": "2024-03-29",
+      "confirmed": "The national government changed river policy assumptions for the Mukawa, Saru and Asahi systems to consider increased future rainfall under climate change.",
+      "unknown": ["delivery dates", "realized protection", "cross-sector transmission"],
+      "simulation_use": "Counterevidence to an absent-national-baseline-change premise. This flood policy is not a heat-work intervention and is not a simulation parameter."
+    }
+  ],
+  "provenance_boundary": "Manually checked, paraphrased source claims with URLs and access date; not raw-source archival hashes or a complete legal inventory. No private conversation or personal data is an input."
+}

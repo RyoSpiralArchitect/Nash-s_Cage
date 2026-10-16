@@ -1,0 +1,429 @@
+{
+  "format": "heat-public-evidence/v1",
+  "checked_on": "2026-09-09",
+  "status": "PUBLIC_DESCRIPTIVE_ONLY",
+  "sources": [
+    {
+      "id": "survey",
+      "file": "survey_20251223.pdf",
+      "url": "https://www.mhlw.go.jp/content/11303000/001643396.pdf",
+      "published_on": "2025-12-23",
+      "title": "事業場における熱中症防止対策の取組状況（資料4）",
+      "sha256": "f371771e6abe919330afd835149e994374b85bb8fc17cfb0e524885d219d620c",
+      "accessed_on": "2026-09-09"
+    },
+    {
+      "id": "report",
+      "file": "report_20260318.pdf",
+      "url": "https://www.mhlw.go.jp/content/11201250/001676115.pdf",
+      "published_on": "2026-03-18",
+      "title": "職場における熱中症防止対策に係る検討会 報告書",
+      "sha256": "15b1c6bb2d919d02d01c9ca8edf7666c89bf797145aaecbf0d18e7a680e51742",
+      "accessed_on": "2026-09-09"
+    },
+    {
+      "id": "notice",
+      "file": "ordinance_notice_20250520.pdf",
+      "url": "https://www.mhlw.go.jp/content/001490909.pdf",
+      "published_on": "2025-05-20",
+      "title": "基発0520第6号 施行通知",
+      "sha256": "73f5bd365128cf6a033293b6d2e64bbbd469bf38bed1a3e0e73a2a9d3d688615",
+      "accessed_on": "2026-09-09"
+    },
+    {
+      "id": "support",
+      "file": "construction_support_20251223.pdf",
+      "url": "https://www.mlit.go.jp/report/press/content/001974370.pdf",
+      "published_on": "2025-12-23",
+      "title": "建設工事における猛暑対策サポートパッケージ",
+      "sha256": "6f061c337202f8590d03ea40c088980499b39c7e0bef43c5f1f9144cb479c4f5",
+      "accessed_on": "2026-09-09"
+    },
+    {
+      "id": "cost",
+      "file": "cost_standard_20260227.pdf",
+      "url": "https://www.mlit.go.jp/tec/content/001984908.pdf",
+      "published_on": "2026-02-27",
+      "title": "国官技第457号 現場環境改善費の積算要領（2026-04-01適用）",
+      "sha256": "7f3957f80c91e163ebf4a976fc74d089a761c8ee8c46d107cd893e82be36691f",
+      "accessed_on": "2026-09-09"
+    },
+    {
+      "id": "final",
+      "file": "fatalities_final_20260527.pdf",
+      "url": "https://www.mhlw.go.jp/content/11303000/001705024.pdf",
+      "published_on": "2026-05-27",
+      "title": "2025年 職場における熱中症による死傷災害の発生状況（確定値）",
+      "sha256": "b2ef1749444f43cb9e511218a7012b01cca861e05d38cefbc501e582a5314ef6",
+      "accessed_on": "2026-09-09"
+    },
+    {
+      "id": "wage",
+      "file": "wage_faq.html",
+      "url": "https://www.mhlw.go.jp/bunya/roudoukijun/faq_kijyunhou_26.html",
+      "published_on": null,
+      "title": "厚生労働省 労働基準法Q&A・休業手当",
+      "sha256": "533e6f7febcf52f2d761865f01b0fce2542613fe8dfef10c841ddb2fd5ea0699",
+      "accessed_on": "2026-09-09"
+    },
+    {
+      "id": "compensation",
+      "file": "compensation.pdf",
+      "url": "https://www.mhlw.go.jp/new-info/kobetu/roudou/gyousei/rousai/dl/040325-13-02.pdf",
+      "published_on": null,
+      "title": "厚生労働省 休業（補償）等給付について",
+      "sha256": "7101e9ccd172130ac793663e511c980bbad53061a8854c0d0d569536874a276f",
+      "accessed_on": "2026-09-09"
+    }
+  ],
+  "scope": {
+    "country": "Japan",
+    "core_sector": "construction",
+    "observed_period": "2025-06-01/2025-09-30",
+    "audit_as_of": "2026-09-09",
+    "cohort_note": "検討会の最終報告書p5に従い、建設業の建設労務安全研究会会員事業場（多くは総合工事業）の発災事例、延べ1,100事業場。一般標本やユニーク1,100現場とはみなさない。",
+    "survey_population_source": "report",
+    "survey_population_page": 5,
+    "workers_or_shifts_at_risk": null
+  },
+  "measurements": [
+    {
+      "id": "inspection_no_findings",
+      "label": "4措置の違反・指導なし",
+      "source": "survey",
+      "page": 3,
+      "cohort": "inspection_all",
+      "denominator": 17072,
+      "numerator": null,
+      "reported_percent": 94,
+      "precision": "rounded_percent",
+      "meaning": "指導を行った4業種の事業場。全国無作為標本でも、保護された労働者の割合でもない。"
+    },
+    {
+      "id": "accident_inspection_no_findings",
+      "label": "災害端緒調査の違反・指導なし",
+      "source": "survey",
+      "page": 3,
+      "cohort": "inspection_accident",
+      "denominator": 103,
+      "numerator": null,
+      "reported_percent": 80,
+      "precision": "rounded_percent",
+      "meaning": "上記調査の部分集合。94%との独立群比較や制度効果の推定は禁止。"
+    },
+    {
+      "id": "procedures_followed",
+      "label": "手順通りの措置",
+      "source": "survey",
+      "page": 9,
+      "cohort": "procedure_ascertainable",
+      "denominator": 40,
+      "numerator": null,
+      "reported_percent": 90,
+      "precision": "rounded_percent",
+      "meaning": "実施状況を把握できた事例のみ。分単位の応答時間や救命率ではない。手順外の対応も直ちに不適切とはいえない。"
+    },
+    {
+      "id": "cooling_facility",
+      "label": "冷却できる休憩設備あり",
+      "source": "survey",
+      "page": 16,
+      "cohort": "construction_facility_respondents",
+      "denominator": 960,
+      "numerator": null,
+      "reported_percent": 99,
+      "precision": "rounded_percent",
+      "meaning": "発災した会員事業場の任意アンケート。全建設事業場の保護率でも設備の有効性でもない。"
+    }
+  ],
+  "rest_frequency": [
+    {
+      "order": 1,
+      "label": "1時間に1回以上",
+      "reported_percent": 32,
+      "numerator": null,
+      "denominator": 1093,
+      "precision": "rounded_percent",
+      "source": "survey",
+      "page": 16,
+      "cohort": "construction_rest_frequency_respondents"
+    },
+    {
+      "order": 2,
+      "label": "2時間に1回程度",
+      "reported_percent": 17,
+      "numerator": null,
+      "denominator": 1093,
+      "precision": "rounded_percent",
+      "source": "survey",
+      "page": 16,
+      "cohort": "construction_rest_frequency_respondents"
+    },
+    {
+      "order": 3,
+      "label": "2時間以上に1回程度",
+      "reported_percent": 5,
+      "numerator": null,
+      "denominator": 1093,
+      "precision": "rounded_percent",
+      "source": "survey",
+      "page": 16,
+      "cohort": "construction_rest_frequency_respondents"
+    },
+    {
+      "order": 4,
+      "label": "不明",
+      "reported_percent": 46,
+      "numerator": null,
+      "denominator": 1093,
+      "precision": "rounded_percent",
+      "source": "survey",
+      "page": 16,
+      "cohort": "construction_rest_frequency_respondents"
+    }
+  ],
+  "national_final": [
+    {
+      "year": 2024,
+      "casualties": 1257,
+      "deaths": 31
+    },
+    {
+      "year": 2025,
+      "casualties": 1803,
+      "deaths": 19
+    }
+  ],
+  "national_definition": {
+    "source": "final",
+    "page": 9,
+    "unit": "人",
+    "casualties_include_deaths": true,
+    "threshold": "死亡または休業4日以上",
+    "denominator_exposed_workers": null,
+    "version": "2026-05-27 確定値資料内の2024/2025比較。旧速報値は混ぜない。"
+  },
+  "timing_case_audit": {
+    "source": "final",
+    "method": "2025年の死亡19事例の公開要約全件を目視確認。初回の異常認知時刻と初回身体冷却開始時刻がともに明示された正確な時計時刻の対かを監査。時刻のない行動順序、再訪間隔、近隣観測点のWBGTを遅延・現場実測へ変換しない。",
+    "cases": [
+      {
+        "case_id": 1,
+        "source": "final",
+        "page": 11,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 2,
+        "source": "final",
+        "page": 12,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 3,
+        "source": "final",
+        "page": 12,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 4,
+        "source": "final",
+        "page": 12,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 5,
+        "source": "final",
+        "page": 12,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 6,
+        "source": "final",
+        "page": 13,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": {
+          "nominal_minutes": 10,
+          "precision": "approximate_unquantified_error",
+          "start": "日陰で休むよう促した時点",
+          "end": "再訪し倒れているのを発見した時点",
+          "is_initial_response_latency": false
+        }
+      },
+      {
+        "case_id": 7,
+        "source": "final",
+        "page": 13,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": {
+          "nominal_minutes": 15,
+          "precision": "approximate_unquantified_error",
+          "start": "ふらつき発見後の飲水・休憩",
+          "end": "再訪し車内に移してエアコン使用",
+          "is_initial_response_latency": false
+        }
+      },
+      {
+        "case_id": 8,
+        "source": "final",
+        "page": 13,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 9,
+        "source": "final",
+        "page": 13,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 10,
+        "source": "final",
+        "page": 14,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 11,
+        "source": "final",
+        "page": 14,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": {
+          "nominal_minutes": 60,
+          "precision": "approximate_unquantified_error",
+          "start": "発見・身体冷却等の措置",
+          "end": "帰宅のため立ち上がり倒れた時点",
+          "is_initial_response_latency": false
+        }
+      },
+      {
+        "case_id": 12,
+        "source": "final",
+        "page": 14,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 13,
+        "source": "final",
+        "page": 14,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 14,
+        "source": "final",
+        "page": 15,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 15,
+        "source": "final",
+        "page": 15,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 16,
+        "source": "final",
+        "page": 15,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 17,
+        "source": "final",
+        "page": 15,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 18,
+        "source": "final",
+        "page": 15,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      },
+      {
+        "case_id": 19,
+        "source": "final",
+        "page": 16,
+        "exact_recognition_and_initial_cooling_clock_pair": false,
+        "reported_interval": null
+      }
+    ]
+  },
+  "cost_rules": [
+    {
+      "id": "facility_cost_envelope",
+      "source": "cost",
+      "pages": [
+        1,
+        2
+      ],
+      "effective_on": "2026-04-01",
+      "status": "ESTIMATION_RULE_NOT_PAYMENT",
+      "claim": "施設・設備の暑熱/防寒対策を妥当性・個人向け費用との重複を確認して積上げ計上。上限は要領の算出式による現場環境改善費の100%。",
+      "ceiling": "対策実費の100%補償や賃金全額補償ではない。直轄土木等、当該要領の適用契約を個別に確認。"
+    },
+    {
+      "id": "worker_income",
+      "source": "support",
+      "pages": [
+        3,
+        6,
+        10
+      ],
+      "status": "POLICY_AND_RESEARCH_AGENDA",
+      "claim": "日給制等の年収確保を課題とし、直轄土木で賃金・労働時間の実態調査を試行。",
+      "ceiling": "本資料に個々の労働者への実支給額・受給率・支払時刻はない。"
+    },
+    {
+      "id": "employer_suspension",
+      "source": "wage",
+      "pages": [],
+      "status": "CONDITIONAL_LEGAL_RULE",
+      "claim": "使用者の責に帰すべき事由の休業では、平均賃金60%以上の休業手当。",
+      "ceiling": "特定の暑熱休止への適用、契約上の上積み、実際の支払いは別途確認。"
+    },
+    {
+      "id": "illness_absence",
+      "source": "compensation",
+      "pages": [
+        1,
+        2,
+        3
+      ],
+      "status": "CONDITIONAL_BENEFIT_RULE",
+      "claim": "業務等による傷病の療養・就労不能・賃金不支給の要件を満たす休業は第4日目から給付等。",
+      "ceiling": "発症前の予防的休止と混同しない。就業形態・特別加入等による適用と実給付は個別確認。"
+    }
+  ],
+  "calibration_gate": {
+    "status": "BLOCKED",
+    "floor": "UNKNOWN: 必要な保護機会の分母と実行記録が未接続",
+    "response_time": "UNKNOWN: 同一定義・代表性のあるイベント記録なし",
+    "cost_incidence": "UNKNOWN: 契約・費目・支払・賃金の接続記録なし",
+    "rule": "No automatic transfer of percentages, case intervals or statutory ratios into the frozen synthetic model."
+  },
+  "chart_contract": {
+    "family": "Comparison & Ranking",
+    "variant": "single-series bar",
+    "question": "発災会員事業場の回答に、冷却休憩頻度はどの程度記録されているか",
+    "takeaway": "46%が不明。これは事例群内の記録不足であり、全国の未保護率ではない。",
+    "data_sufficiency": "同一設問・同一分母1093、4区分。原図の丸め値。",
+    "palette_policy": "single-root preferred",
+    "palette_root": "blue",
+    "non_color": "区分名と数値を併記",
+    "surface": "portable HTML",
+    "table_rationale": "その他は分母・標本が異なるため割合の横比較図にしない。"
+  },
+  "privacy": "Public official documents only. No private conversation, worker identity, payroll or medical records imported. No publication or external transmission of private data."
+}
