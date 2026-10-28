@@ -1,0 +1,14 @@
+{
+  "result": "PASS",
+  "independent_value_checks": 1578,
+  "source": "raw API JSON, Ruby Date/Array arithmetic",
+  "fema_declarations": 1542,
+  "verify_sha256": "1fe7338fa7e66f1e699c5165cf54697feabf5f158e1d764c045cfa88521bf611",
+  "summary_sha256": "43d845ca55900707eb893120ce039320dc3ef43fa2c49f429cbe088a65fcda7f",
+  "snapshot_manifest_sha256": "a68eb408f35e02b334dacb3a6c38d65959c4da72e072692a368654526bac08f3",
+  "does_not_validate": [
+    "source date correctness",
+    "causality",
+    "payment or protection outcomes"
+  ]
+}

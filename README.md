@@ -6,6 +6,21 @@ Nash's Cage describes governance systems in which individually rational best res
 
 The repository now places the manuscript beside a deliberately small executable reference model. The code is an **F0 structural toy**. It is not a climate forecast, an integrated assessment model, empirical validation, or a policy recommendation.
 
+## Research notes and prior work
+
+The [Japanese research index](docs/research/README.ja.md) connects the theory proposals,
+bounded real-data audits, and a growing [prior-work catalogue](docs/research/prior-work/README.ja.md).
+The catalogue distinguishes prior contributions, study limitations, what we actually read,
+and this project's interpretations. It includes existing institutional practices and critical
+literature, not only supporting papers. Adding sources does not advance the F0 claim level.
+
+The current [manuscript v0.3](paper/nashs_cage_rvcim_v0_3.pdf)
+integrates joint executability, financial timing, shared-resource burdens, and
+recipient-level revisability. Its [source](paper/nashs_cage_rvcim_v0_3.tex),
+[revision and build record](docs/research/2026-10-28-manuscript-v03/README.ja.md),
+and [additional source checks](docs/research/2026-10-28-manuscript-v03/SOURCE_NOTES.ja.md)
+separate prior contributions from this project's prospective hypotheses.
+
 ## Start in one minute
 
 Requirements: Python 3.10 or newer and Make. The simulator and verification tools have no third-party Python runtime dependencies.
@@ -212,7 +227,13 @@ paper/
   nashs_cage_rvcim_v0_1.pdf     operator-attested preserved PDF
   nashs_cage_rvcim_v0_2.tex     operator-attested regenerated revision
   nashs_cage_rvcim_v0_2.pdf
-  references.bib
+  references.bib                 preserved v0.1/v0.2 bibliography
+  nashs_cage_rvcim_v0_3.tex     joint-executability research revision
+  nashs_cage_rvcim_v0_3.pdf
+  references_v0_3.bib           separate expanded bibliography
+docs/research/                   dated research notes and prior-work catalogue
+experiments/cross_domain_audit_v01/  frozen public-data descriptive audit
+artifacts/cross_domain_audit_v01/    source-specific attribution and replay inputs
 artifacts/reference_run/          committed reproducibility fixture
 artifacts/feasibility_v03/        failure-first experimental fixture
 artifacts/sustained_v04/           finite-plan experimental fixture
@@ -228,21 +249,31 @@ separates fresh-review findings, repairs, and local/Furnace execution evidence.
 
 ## Paper revision
 
-Version 0.2 preserves the conceptual architecture and adds:
+Version 0.3 (28 October 2026) preserves v0.1/v0.2 and their bibliography. It adds
+prior contributions and critical literature, an actor/time/resource execution
+contract, a prospective payment-timing hypothesis, explicit distinctions among
+liquidity, scarcity, performance uncertainty and incentive conflict, and
+recipient-level correction and release requirements. Existing synthetic losses
+and frozen administrative descriptions remain distinct from causal evidence.
+This is a manuscript revision, not a new simulator release or an F0 promotion;
+the historical release metadata remains unchanged.
 
-- an explicit F0 to F3 feasibility ladder
-- a paper-to-code correspondence table
-- a one-command reference experiment
-- an implementation contract for seeds, outputs, trigger errors, and receipts
-- a stronger boundary between executability and validation
-
-Build v0.2 when `latexmk`, XeLaTeX, BibTeX, and the required TeX packages are installed:
+Build the current manuscript when `latexmk`, XeLaTeX, BibTeX, and the required TeX packages are installed:
 
 ```bash
 make paper
 ```
 
-The build is written to `.tmp/paper/nashs_cage_rvcim_v0_2.pdf`; it does not overwrite either committed PDF. The manifest hash identifies the current committed rendering for same-tree consistency; it does not independently prove a source-to-PDF derivation. A local rebuild checks source buildability but is not expected to be byte-identical across TeX engines, package sets, fonts, or embedded creation metadata.
+Use `make paper-v02` for the preserved v0.2 source. Builds go to `.tmp/paper/` and
+never overwrite committed PDFs. The manifest identifies the committed rendering
+for same-tree consistency, not independent source-to-PDF attestation. Builds are
+not expected to be byte-identical across engines, packages, fonts, or metadata.
+The [revision record](docs/research/2026-10-28-manuscript-v03/README.ja.md)
+states the toolchain actually exercised locally; Python CI alone is not a TeX build.
+
+The frozen cross-domain snapshot has its own receipts and separate CI replay;
+it is not included in the 64-file release/manuscript manifest. See its
+[attribution and verification boundary](artifacts/cross_domain_audit_v01/README.md).
 
 ## No-install launchers
 

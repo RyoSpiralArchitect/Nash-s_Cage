@@ -1,3 +1,7 @@
 * text=auto eol=lf
 
 *.pdf -text
+
+# Preserve the frozen audit CSV bytes covered by its independent receipt.
+artifacts/cross_domain_audit_v01/analysis_20261025/fema_declarations.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+artifacts/cross_domain_audit_v01/analysis_20261025/world_bank_series.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "analyze_sha256": "df8715af5edd2dac54bc051551c605b778a8ef6afa55988e0eb22784595547af",
+  "snapshot_manifest_sha256": "a68eb408f35e02b334dacb3a6c38d65959c4da72e072692a368654526bac08f3",
+  "outputs_sha256": {
+    "fema_declarations.csv": "49e3bdd14e34800a8b73bef04b8bce06ce611e17e450e6fcd308833e35d7b682",
+    "summary.json": "43d845ca55900707eb893120ce039320dc3ef43fa2c49f429cbe088a65fcda7f",
+    "world_bank_series.csv": "7d564c3a778ea0e2a219d04d08134fb7f688e4d99eac1757296dabf42f04ad92"
+  },
+  "checks": [
+    "raw and compressed hashes",
+    "FEMA source count",
+    "unique source IDs",
+    "constant declaration fields",
+    "individual date decomposition",
+    "WB full country-year grid",
+    "WB unique finite-or-null values"
+  ],
+  "not_checked": [
+    "actual recipient payment",
+    "protection outcomes",
+    "causal effects",
+    "government daily liquidity",
+    "cross-page atomicity"
+  ]
+}
