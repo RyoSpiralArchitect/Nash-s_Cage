@@ -11,6 +11,7 @@ RVCIMはF0のまま。新しい政策実験、モデル実行による新規研�
 - [TeX本文](../../../paper/nashs_cage_rvcim_v0_3.tex)
 - [v0.3専用の参考文献](../../../paper/references_v0_3.bib)
 - [追加出典確認](SOURCE_NOTES.ja.md)
+- [PR作成後の次実験設計](NEXT_STUDY.ja.md)：未実行・未事前登録
 - [先行研究の目録](../prior-work/README.ja.md)
 
 v0.1/v0.2のTeX・PDFと`paper/references.bib`は変更しない。
@@ -92,3 +93,10 @@ v0.1/v0.2のTeX・PDFと`paper/references.bib`は変更しない。
 生成物を`paper/nashs_cage_rvcim_v0_3.pdf`へ複製してmanifestを更新した。
 この絶対パスはホスト上のビルド記録であり、他環境の前提ではない。
 この時点の結果はローカル検証であり、GitHub CI成功・mergeを意味しない。
+
+## PR作成後の設計
+
+[PR #19](https://github.com/RyoSpiralArchitect/Nash-s_Cage/pull/19)を作成・pushした。
+その後、次実験を別読み手と検討し、時点介入と流動性媒介、C/Uの介入前分類、共有資源による干渉、
+通常運用を残すだけでは十分でない安全条件を[設計メモ](NEXT_STUDY.ja.md)へまとめた。
+実験は未実行で、現段階では入力契約の記録監査を先に行う設計である。mergeは依頼の範囲に含めない。
