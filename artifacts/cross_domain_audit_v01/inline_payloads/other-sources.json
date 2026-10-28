@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "fema-administrative-clocks",
+      "title": "行政の日付と実際の保護は別の観測",
+      "queries": [
+        {
+          "id": "fema-dates",
+          "source": {
+            "label": "OpenFEMA DisasterDeclarationsSummaries v2",
+            "links": [
+              {
+                "label": "公式データ説明",
+                "url": "https://www.fema.gov/openfema-data-page/disaster-declarations-summaries-v2"
+              }
+            ],
+            "metricDefinitions": [
+              {
+                "id": "lag",
+                "name": "開始から宣言",
+                "definition": "開始から宣言の日数は、公式incidentBeginDateとdeclarationDateをUTC暦日に直して引いた値。宣言IDを一回ずつ数える。"
+              }
+            ],
+            "filters": [
+              "宣言種別: DR",
+              "宣言日: 2000-01-01以上2025-01-01未満（UTC）"
+            ],
+            "caveats": [
+              "1,542宣言は独立した災害1,542件ではない。宣言されなかった被害は分母にいない。",
+              "この日差は無保護期間・入金待ち・現場の応答時間ではない。",
+              "申請日には欠測1件と未解決の負の日差があり、原記録を推測修正していない。"
+            ],
+            "evidenceFlow": [
+              {
+                "kind": "validation",
+                "title": "集計単位の確認",
+                "detail": "元データ29,471地域行を1,542宣言へ縮約。ID重複と対象フィールドの宣言内不一致は0。"
+              }
+            ]
+          },
+          "rows": [
+            {
+              "declarations": 1542,
+              "median_days": 40.0,
+              "q25_days": 17.0,
+              "q75_days": 65.0
+            }
+          ],
+          "columns": [
+            "declarations",
+            "median_days",
+            "q25_days",
+            "q75_days"
+          ],
+          "reportingPeriod": "宣言年2000–2024",
+          "preview": {
+            "kind": "aggregate",
+            "note": "宣言単位の集計。四分位点は観測分布であり信頼区間ではない。"
+          }
+        }
+      ]
+    },
+    {
+      "id": "local-benefit-system-effect",
+      "title": "受取側の改善と、周辺・仲介者の制約を分ける",
+      "queries": [
+        {
+          "id": "quickpay",
+          "source": {
+            "label": "Barrot & Nanda (2020)",
+            "links": [
+              {
+                "label": "Journal of Finance 刊行版要旨",
+                "url": "https://afajof.org/issue/volume-75-issue-6/"
+              }
+            ],
+            "caveats": [
+              "刊行版要旨を確認。個票と推定式の再現はしていない。"
+            ]
+          },
+          "summary": "支払前倒しの対象企業の雇用増と、地域の非対象企業への押し出しを併せて報告。"
+        },
+        {
+          "id": "insurance-timing",
+          "source": {
+            "label": "Casaburi & Willis (2018)",
+            "links": [
+              {
+                "label": "刊行論文",
+                "url": "https://www.atai-research.org/wp-content/uploads/2017/08/aer.20171526.pdf"
+              }
+            ],
+            "caveats": [
+              "加入率は保護の最終履行率ではない。企業の経営難を保険設計の因果効果としない。"
+            ]
+          },
+          "summary": "保険料の後払いで加入が増える一方、仲介企業の経営難による契約履行問題も記録された。"
+        }
+      ]
+    }
+  ]
+}

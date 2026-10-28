@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "fema_expected_rows": 29471,
+  "sources": [
+    {
+      "file": "fema_fields.json.gz",
+      "url": "https://www.fema.gov/api/open/v1/OpenFemaDataSetFields?%24filter=openFemaDataSet+eq+%27DisasterDeclarationsSummaries%27&%24top=1000",
+      "started_at": "2026-10-24T21:55:22.179625+00:00",
+      "completed_at": "2026-10-24T21:55:24.163469+00:00",
+      "raw_bytes": 17161,
+      "raw_sha256": "2c154e8f940fed598450a6893415d42353e2588079086792bdd34e998b34788d",
+      "gzip_bytes": 4362,
+      "gzip_sha256": "9d7938bd5ab267d128004ab07723fd289080985c19f7d74a11c2483adcc80fac"
+    },
+    {
+      "file": "fema_dataset.json.gz",
+      "url": "https://www.fema.gov/api/open/v1/OpenFemaDataSets?%24filter=name+eq+%27DisasterDeclarationsSummaries%27&%24top=100",
+      "started_at": "2026-10-24T21:55:24.163609+00:00",
+      "completed_at": "2026-10-24T21:55:25.781980+00:00",
+      "raw_bytes": 4442,
+      "raw_sha256": "bdb7a7ea88a99968274ed828c2825d4c583cf71e3a641e65e3a6b4b304ca8cc8",
+      "gzip_bytes": 1847,
+      "gzip_sha256": "d075ab0830fd92306acfe51ecb8d310c3cd5378bf6903933c5fe8104bd7e253a"
+    },
+    {
+      "file": "fema_page_000.json.gz",
+      "url": "https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries?%24filter=declarationType+eq+%27DR%27+and+declarationDate+ge+%272000-01-01T00%3A00%3A00.000Z%27+and+declarationDate+lt+%272025-01-01T00%3A00%3A00.000Z%27&%24select=id%2CfemaDeclarationString%2CdisasterNumber%2Cstate%2CdeclarationType%2CdeclarationDate%2CdeclarationRequestDate%2CincidentBeginDate%2CincidentEndDate%2CincidentType%2CdeclarationTitle%2CtribalRequest%2CplaceCode%2CincidentId%2ClastRefresh&%24orderby=id&%24top=10000&%24skip=0&%24count=true",
+      "started_at": "2026-10-24T21:55:25.782094+00:00",
+      "completed_at": "2026-10-24T21:55:31.077302+00:00",
+      "raw_bytes": 5202918,
+      "raw_sha256": "8ae08c56081b5c8a2550c0ea7eb51d2087a4cf05872f4907fa980ab011ecc4ed",
+      "gzip_bytes": 614308,
+      "gzip_sha256": "1271670f4aa1c2accb8f83293a5ebabe0c448590c401c5b40cba9b20ceb14223"
+    },
+    {
+      "file": "fema_page_001.json.gz",
+      "url": "https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries?%24filter=declarationType+eq+%27DR%27+and+declarationDate+ge+%272000-01-01T00%3A00%3A00.000Z%27+and+declarationDate+lt+%272025-01-01T00%3A00%3A00.000Z%27&%24select=id%2CfemaDeclarationString%2CdisasterNumber%2Cstate%2CdeclarationType%2CdeclarationDate%2CdeclarationRequestDate%2CincidentBeginDate%2CincidentEndDate%2CincidentType%2CdeclarationTitle%2CtribalRequest%2CplaceCode%2CincidentId%2ClastRefresh&%24orderby=id&%24top=10000&%24skip=10000&%24count=true",
+      "started_at": "2026-10-24T21:55:31.080929+00:00",
+      "completed_at": "2026-10-24T21:55:36.222339+00:00",
+      "raw_bytes": 5205592,
+      "raw_sha256": "2e73e1a1b39bcf3208563a34f196372f71aeae730fea896f47f7ac03b1cb3954",
+      "gzip_bytes": 618160,
+      "gzip_sha256": "46664263994a82a7497f2ee6872ca4760b3702c87b31e7c327aa1bb3db070ae5"
+    },
+    {
+      "file": "fema_page_002.json.gz",
+      "url": "https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries?%24filter=declarationType+eq+%27DR%27+and+declarationDate+ge+%272000-01-01T00%3A00%3A00.000Z%27+and+declarationDate+lt+%272025-01-01T00%3A00%3A00.000Z%27&%24select=id%2CfemaDeclarationString%2CdisasterNumber%2Cstate%2CdeclarationType%2CdeclarationDate%2CdeclarationRequestDate%2CincidentBeginDate%2CincidentEndDate%2CincidentType%2CdeclarationTitle%2CtribalRequest%2CplaceCode%2CincidentId%2ClastRefresh&%24orderby=id&%24top=10000&%24skip=20000&%24count=true",
+      "started_at": "2026-10-24T21:55:36.228236+00:00",
+      "completed_at": "2026-10-24T21:55:41.662101+00:00",
+      "raw_bytes": 4930347,
+      "raw_sha256": "acb069d097cd709387cfb44a28406b908f30c1d18358f5a3f2a427ab97537357",
+      "gzip_bytes": 586194,
+      "gzip_sha256": "ee80f1c87fdd0265e2b32e38124044c7b7c67a0c7b9d8defa8a2130380bd90c4"
+    },
+    {
+      "file": "wb_meta_DT.TDS.DECT.EX.ZS.json.gz",
+      "url": "https://api.worldbank.org/v2/indicator/DT.TDS.DECT.EX.ZS?format=json",
+      "started_at": "2026-10-24T21:55:41.667947+00:00",
+      "completed_at": "2026-10-24T21:55:43.072790+00:00",
+      "raw_bytes": 685,
+      "raw_sha256": "01c5c98ba6fdbd7b9b2f70b7027985cf79f086874ec13b7dfc504afb38f2ad56",
+      "gzip_bytes": 383,
+      "gzip_sha256": "442204dda0072aec11046e616648ab47d9605490ccb1b99948ba872f56145811"
+    },
+    {
+      "file": "wb_data_DT.TDS.DECT.EX.ZS.json.gz",
+      "url": "https://api.worldbank.org/v2/country/BGD;KEN/indicator/DT.TDS.DECT.EX.ZS?format=json&date=2000%3A2024&per_page=1000&source=2",
+      "started_at": "2026-10-24T21:55:43.072886+00:00",
+      "completed_at": "2026-10-24T21:55:44.786563+00:00",
+      "raw_bytes": 13311,
+      "raw_sha256": "e76d3f18d5fe6f14fdcf7646c567a53a8be6f55b960b87a829779f0701ec6c1e",
+      "gzip_bytes": 999,
+      "gzip_sha256": "371bfc508e81953fda90c28efffef29f5aa63957b5474086fb89c9f5c79c8f74"
+    },
+    {
+      "file": "wb_meta_DT.TDS.DPPG.XP.ZS.json.gz",
+      "url": "https://api.worldbank.org/v2/indicator/DT.TDS.DPPG.XP.ZS?format=json",
+      "started_at": "2026-10-24T21:55:44.786642+00:00",
+      "completed_at": "2026-10-24T21:55:46.186964+00:00",
+      "raw_bytes": 933,
+      "raw_sha256": "b5db38dea13b9b97b35a2f5c559a3f8c6854771f3b43ef6fb17ab4e712e33672",
+      "gzip_bytes": 469,
+      "gzip_sha256": "4680005a8baa68917e546634898207f3fe1afec144c60c061079f9e4ab371824"
+    },
+    {
+      "file": "wb_data_DT.TDS.DPPG.XP.ZS.json.gz",
+      "url": "https://api.worldbank.org/v2/country/BGD;KEN/indicator/DT.TDS.DPPG.XP.ZS?format=json&date=2000%3A2024&per_page=1000&source=2",
+      "started_at": "2026-10-24T21:55:46.187040+00:00",
+      "completed_at": "2026-10-24T21:55:47.886181+00:00",
+      "raw_bytes": 14558,
+      "raw_sha256": "76238fa31e316d1fb77d7ada1efc35c2f8d15f64a5c2250ee25c13917cca3fcc",
+      "gzip_bytes": 1052,
+      "gzip_sha256": "950a87886387fdfabebaad4465830fae24a2f3ede5c01316111efedffa57d602"
+    }
+  ],
+  "contract_sha256": "309f54e3da24b282101816defba5297480f87a9b834c2c03abb10719d8a3fc38",
+  "fetch_sha256": "1ed003200ab16c1bac63e5a264c2a4d784bb3e023fe433a3e7cb11ccc1407014",
+  "note": "Read-only public API capture, not an atomic cross-page snapshot."
+}

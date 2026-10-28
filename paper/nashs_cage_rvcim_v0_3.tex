@@ -1,0 +1,1378 @@
+\documentclass[11pt,a4paper]{article}
+
+% -----------------------------------------------------------------------------
+% Typography and page design
+% -----------------------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext}
+\usepackage{amsthm}
+\usepackage{newtxmath}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[scaled=0.94]{inconsolata}
+\else
+  \usepackage{fontspec}
+  \setmonofont{lmmono10-regular.otf}[Scale=0.94]
+\fi
+\usepackage{microtype}
+\usepackage[a4paper,margin=25mm,headheight=15pt]{geometry}
+\usepackage{setspace}
+\setstretch{1.06}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{2em}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\definecolor{Forest}{HTML}{173F35}
+\definecolor{Moss}{HTML}{52796F}
+\definecolor{Earth}{HTML}{8A5A44}
+\definecolor{Rust}{HTML}{9B3A2E}
+\definecolor{Mist}{HTML}{EEF3F1}
+\definecolor{Sand}{HTML}{F5F0E7}
+\definecolor{Ink}{HTML}{172026}
+\definecolor{Slate}{HTML}{5D6870}
+\color{Ink}
+
+\titleformat{\section}
+  {\Large\bfseries\color{Forest}}{\thesection}{0.65em}{}
+\titleformat{\subsection}
+  {\large\bfseries\color{Earth}}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\color{Ink}}{\thesubsubsection}{0.55em}{}
+\titlespacing*{\section}{0pt}{2.2ex plus .5ex}{0.9ex}
+\titlespacing*{\subsection}{0pt}{1.8ex plus .4ex}{0.6ex}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textsc{Nash's Cage / RVCIM}}
+\fancyhead[R]{\small\textsc{Preprint Draft v0.3}}
+\fancyfoot[L]{\small SpiralReality with Ry\={o} $\therefore$ SpiralArchitect}
+\fancyfoot[R]{\small \thepage\ / \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% -----------------------------------------------------------------------------
+% Mathematics, tables, figures, and references
+% -----------------------------------------------------------------------------
+\usepackage{mathtools,bm}
+\numberwithin{equation}{section}
+\usepackage{booktabs,tabularx,longtable,array,multirow}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.35em,itemsep=0.25em,topsep=0.35em}
+\setlist[enumerate]{leftmargin=1.55em,itemsep=0.25em,topsep=0.35em}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,shapes.geometric,backgrounds}
+\usepackage[most]{tcolorbox}
+\tcbset{boxrule=0.6pt,arc=2mm,left=3mm,right=3mm,top=2mm,bottom=2mm}
+\newtcolorbox{corebox}{colback=Mist,colframe=Forest,title=Core claim,fonttitle=\bfseries}
+\newtcolorbox{boundarybox}{colback=Sand,colframe=Earth,title=Claim boundary,fonttitle=\bfseries}
+\newtcolorbox{warningbox}{colback=Rust!5,colframe=Rust,title=Failure mode,fonttitle=\bfseries}
+\newtcolorbox{provenancebox}{colback=Mist,colframe=Moss,title=Revision provenance,fonttitle=\bfseries}
+
+\usepackage{listings}
+\lstdefinestyle{paperpseudo}{
+  basicstyle=\ttfamily\small,
+  frame=single,
+  rulecolor=\color{Moss},
+  backgroundcolor=\color{Mist!55},
+  breaklines=true,
+  columns=fullflexible,
+  xleftmargin=0.5em,
+  framexleftmargin=0.5em,
+  keywordstyle=\bfseries\color{Forest},
+  commentstyle=\itshape\color{Slate},
+  showstringspaces=false
+}
+
+\usepackage{xurl}
+\usepackage[colorlinks=true,linkcolor=Forest,citecolor=Earth,urlcolor=Moss]{hyperref}
+\hypersetup{
+  pdftitle={Nash's Cage: Robust Viability-Constrained Payoff-Inversion Governance under Unknown Irreversible Boundaries},
+  pdfauthor={SpiralReality with Ryo - SpiralArchitect},
+  pdfsubject={A formal research proposal with an executable F0 reference model for robust viability-constrained climate governance},
+  pdfkeywords={Nash equilibrium, dynamic games, climate governance, viability theory, robust control, institutional capture, tipping points, deep uncertainty}
+}
+\usepackage[backend=bibtex,style=authoryear,natbib=true,maxcitenames=2,maxbibnames=99,doi=true,url=true,isbn=false]{biblatex}
+\addbibresource{references_v0_3.bib}
+\renewcommand*{\bibfont}{\small}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+% -----------------------------------------------------------------------------
+% Theorem-like environments
+% -----------------------------------------------------------------------------
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{designprinciple}[definition]{Design Principle}
+\newtheorem{hypothesis}[definition]{Hypothesis}
+\theoremstyle{plain}
+\newtheorem{proposition}[definition]{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}[definition]{Remark}
+
+% -----------------------------------------------------------------------------
+% Commands
+% -----------------------------------------------------------------------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pp}{\mathbb{P}}
+\newcommand{\ind}{\mathbb{I}}
+\newcommand{\argmax}{\operatorname*{arg\,max}}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\Proj}{\operatorname{Proj}}
+\newcommand{\Viab}{\operatorname{Viab}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\cage}{\mathsf{Cage}}
+\newcommand{\RVCIM}{\textsc{RVCIM}}
+\newcommand{\safe}{\mathcal{X}_{\mathrm{safe}}}
+\newcommand{\irrev}{\mathcal{X}_{\mathrm{irr}}}
+\newcommand{\policy}{\boldsymbol{\pi}}
+\newcommand{\state}{\bm{x}}
+\newcommand{\kpi}{\bm{k}}
+\newcommand{\action}{\bm{a}}
+\newcommand{\capture}{\bm{c}}
+\newcommand{\inst}{\bm{\iota}}
+\newcommand{\narr}{\bm{n}}
+
+\begin{document}
+
+% -----------------------------------------------------------------------------
+% Title page
+% -----------------------------------------------------------------------------
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\vspace*{1.6cm}
+{\small\bfseries\color{Moss}\MakeUppercase{Conceptual Paper / Preprint Draft}}\\[1.1cm]
+{\fontsize{31}{36}\selectfont\bfseries\color{Forest} Nash's Cage}\\[0.55cm]
+{\fontsize{17}{22}\selectfont\color{Earth}
+Robust Viability-Constrained Payoff-Inversion Governance\\
+under Unknown Irreversible Boundaries}\\[1.6cm]
+
+{\Large\textsc{SpiralReality}}\\[0.35cm]
+{\large Conceptual architecture with Ry\={o} $\therefore$ SpiralArchitect}\\[1.5cm]
+
+\begin{tcolorbox}[width=0.84\textwidth,colback=Mist,colframe=Forest,boxrule=0.8pt]
+\centering\large\bfseries
+Civilization is optimizing inside an unknown viability boundary.
+\end{tcolorbox}
+
+\vfill
+{\large Research revision v0.3}\\[0.2cm]
+{\large 28 October 2026}\\[1cm]
+{\small This manuscript is a formal research proposal, not a claim of empirical validation or a finished institutional design.}
+\end{titlepage}
+\hypersetup{pageanchor=true}
+\setcounter{page}{1}
+
+% -----------------------------------------------------------------------------
+% Abstract and navigation
+% -----------------------------------------------------------------------------
+\begin{abstract}
+Climate governance is commonly framed as a cooperation problem in which individually rational actors underprovide a global public good. That framing is useful but incomplete. It does not, by itself, represent endogenous institutional delay, strategic metric manipulation, symbolic compliance, unequal externalization capacity, uncertain recovery boundaries, or the possibility that governance capacity deteriorates while physical risk accumulates. This paper introduces \emph{Nash's Cage}: a partially observable, capture-prone stochastic dynamic game in which self-interested agents optimize short-horizon payoffs while externalizing physical and social constraints, thereby shrinking a robust viability region faster than institutions can observe, coordinate, and respond.
+
+We formalize a companion architecture, the \emph{Robust Viability-Constrained Cage-Inversion Model} (\RVCIM). It combines heterogeneous utilities, manipulable observations, endogenous institutions, capture, model ambiguity, a robust viability kernel, and a braking-time measure termed \emph{controllability reserve}. Its local propositions are conditional: monitoring cannot alter incentives through channels assumed absent; capture can offset nominal correction; non-positive reserve removes a timing certificate rather than proving realized failure; and a positive payoff differential makes cooperation strictly preferred among feasible alternatives, without ensuring joint execution. Viability and justice are proposed as constraints, not established by model performance.
+
+This revision makes \emph{joint executability} an explicit input contract: authority, actor-level cash and credit, shared resources, deadlines, continued service, and review must be compatible along the same non-anticipating protection pathway. It distinguishes physical scarcity, liquidity timing, uncertainty about others' performance, and incentive conflict. Existing synthetic failures and bounded public-data audits motivate these distinctions; they do not independently validate the resulting hypothesis. Prior work on coordination, liquidity, disaster finance, capabilities, and agenda setting already establishes much of this terrain. Our proposed contribution is a testable integration, not discovery of those mechanisms. An equal-nominal-transfer timing comparison is the central prospective test; waiting-induced loss and revisability are separate candidates. The architecture remains F0, with no claim of empirical superiority, a universal Earth controller, or a restored pre-damage world.
+\end{abstract}
+
+\noindent\textbf{Keywords:} dynamic games; climate governance; viability theory; robust control; institutional capture; tipping points; deep uncertainty; control barrier functions; soundscape ecology; just transition.
+
+\vspace{0.8em}
+\begin{boundarybox}
+The term \emph{Nash's Cage} does not imply that every Nash equilibrium is socially harmful, that climate politics reduces to a two-player Prisoner's Dilemma, or that automation can replace democratic judgment. It names a narrower model class: stable strategic configurations in which local best responses reproduce collective physical degradation and degrade the future capacity to change course.
+\end{boundarybox}
+
+\begin{provenancebox}
+Revision v0.3, dated 28 October 2026, derives from the preserved repository v0.2 at commit \texttt{bdff9dae}. The v0.1 and v0.2 sources, PDFs, and their bibliography remain unchanged. Their historical provenance qualifications still apply; this revision does not reconstruct unavailable earlier bytes. It integrates the October theory notes, frozen cross-domain audit, and prior-work catalogue. Manuscript v0.3 is distinct from the earlier experimental feasibility engine also named v0.3. No new policy experiment is reported here. Local tests and frozen-fixture replay check consistency, not empirical truth. The same-tree manifest is not an independent signature or proof of authenticity.
+\end{provenancebox}
+
+{\small\tableofcontents}
+\newpage
+
+% -----------------------------------------------------------------------------
+\section{Introduction}
+% -----------------------------------------------------------------------------
+
+A Nash equilibrium is a profile from which no player benefits by unilateral deviation, given the strategies of the others \citep{nash1950}. Stability in this sense is not equivalent to collective optimality. Common-pool resource problems, public-goods games, repeated dilemmas, and climate cooperation studies show that individually defensible choices can maintain collectively inferior outcomes \citep{hardin1968,axelrod1984,ostrom1990,milinski2008,nordhaus2015}. Yet the climate problem is more difficult than the canonical matrix game: actors are heterogeneous, actions are continuous and path dependent, observations are delayed, institutional rules change endogenously, and some actors can spend resources to reshape the rules by which they are evaluated.
+
+The empirical context motivates, but does not prove, the model. The Paris Agreement's Article 15 mechanism is expressly expert-based, facilitative, non-adversarial, and non-punitive \citep{unfccc2015,unfcccpaicc}. UNEP's 2025 assessment estimated end-of-century warming of roughly 2.3--2.5\,\textdegree C under full implementation of current nationally determined contributions and 2.8\,\textdegree C under current policies \citep{unep2025}. The 2025 Production Gap Report found that planned 2030 fossil-fuel production remained more than twice the level associated with a 1.5\,\textdegree C pathway \citep{productiongap2025}. The WMO reported a global mean atmospheric carbon dioxide concentration of 423.9 ppm in 2024 \citep{wmo2025}. These observations are consistent with a gap between symbolic commitment and physical trajectory, but they do not by themselves identify a single causal mechanism. \RVCIM is proposed as a testable mechanism class.
+
+\begin{corebox}
+\textbf{Diagnostic thesis.} A candidate governance failure is weak, delayed, or manipulable coupling from observation to institutions, incentives, and physical response. But favorable incentives are insufficient if protection is not jointly executable. A protection pathway must first be distinguished from a promise, and an available pathway from one that actors will choose and sustain.
+\end{corebox}
+
+The paper develops six components of a research architecture, without claiming priority for their constituent theories.
+
+\begin{enumerate}
+  \item It defines Nash's Cage as a partially observable, institutionally endogenous dynamic game rather than a static metaphor.
+  \item It distinguishes physical safety, robust viability, and operational braking reserve, allowing a state to appear safe while already lacking a certified path to stop.
+  \item It defines \emph{payoff coupling strength}, linking KPI changes to the utility difference between cooperation and defection.
+  \item It models regulatory capture as an adversarial action vector that attacks sensors, models, actuators, delay, narratives, finance, and justice.
+  \item It specifies \RVCIM, in which viability and justice are hard constraints, automatic triggers are accountable rather than discretionary, and policy pathways remain adaptive under deep uncertainty.
+  \item It makes joint execution, displaced burdens, and revisability explicit in an auditable pathway contract, and separates prospective mechanism tests from the exploratory evidence that suggested them.
+\end{enumerate}
+
+% -----------------------------------------------------------------------------
+\section{Foundations and Scope}
+% -----------------------------------------------------------------------------
+
+\subsection{From bad equilibrium to a dynamic cage}
+
+The Prisoner's Dilemma is a useful local motif: if temptation exceeds mutual cooperation, mutual defection, and unilateral cooperation in the familiar ordering, defection is individually dominant while mutual cooperation is Pareto superior. Climate interactions, however, can also resemble assurance games, chicken, repeated public-goods games, bargaining games, common-pool resource games, and coalition games. Accordingly, Nash's Cage does not assert one universal payoff matrix. It asserts a dynamic property: for a decisive set of actors, the locally preferred actions reproduce degradation and resist unilateral exit.
+
+Repeated interaction can sustain cooperation when future consequences, reputation, reciprocity, and credible punishment matter \citep{axelrod1984,ostrom1990}. Climate governance often weakens this ``shadow of the future'' through election cycles, quarterly reporting, capital turnover, jurisdictional leakage, and non-binding commitments. Climate clubs and coordinated trade measures have therefore been proposed as methods for changing free-riding incentives \citep{nordhaus2015}. \RVCIM generalizes the same intuition: the object of design is not moral exhortation but the intertemporal payoff field.
+
+\subsection{Partial observability and endogenous institutions}
+
+Dynamic noncooperative games explicitly represent evolving states and strategic feedback \citep{basar1999}. Partially observable decision processes distinguish the true state from the information available to the decision-maker \citep{kaelbling1998}. In planetary governance, this distinction is essential: no actor observes the complete Earth-system state, the full distribution of future thresholds, or the true degree of institutional fragility. Moreover, the observation process is not neutral. Reporting boundaries, measurement choices, lobbying, accounting rules, and narrative framing can be strategic actions.
+
+Institutions are therefore modeled as endogenous state variables and actuators, not fixed constraints. Regulatory capture research emphasizes that regulated interests can influence agencies, information, standards, and enforcement \citep{carpentermoss2014}. Greenwashing research similarly treats symbolic environmental communication as an organizational response shaped by incentives and monitoring conditions \citep{delmasburbano2011}. In the present model, symbolic action and capture are explicit elements of the action space.
+
+\subsection{Viability, safety, and deep uncertainty}
+
+Viability theory studies whether a controlled dynamical system can remain within a constraint set over time \citep{aubin2011}. Control barrier functions encode safety conditions that can be enforced while pursuing performance objectives \citep{ames2017,ames2019}. Robust and adaptive decision frameworks address uncertainty in models, distributions, and future conditions; dynamic adaptive policy pathways emphasize sequencing, signposts, and switching rules rather than commitment to a single forecast \citep{haasnoot2013,kwakkel2016}.
+
+The analogy to social governance must be used carefully. Institutions are not deterministic motors, citizens are not control inputs, and political legitimacy cannot be reduced to a quadratic program. The transfer is structural: safety should constrain optimization; uncertain boundaries require robustness; delay belongs inside the model; and a system should preserve the option to change course.
+
+\subsection{Earth-system boundaries and irreversible risk}
+
+Earth-system and planetary-boundary research identifies interacting biophysical processes that delimit a safe operating space \citep{rockstrom2023,richardson2023}. Climate tipping elements may exhibit threshold behavior, self-amplifying change, and hysteresis \citep{scheffer2009,armstrong2022}. The IPCC assesses increasingly severe, interconnected, and in some cases irreversible risks with additional warming \citep{ipcc2022,ipcc2023}. These literatures do not provide a single exact global cliff. They instead motivate the central uncertainty of this paper: the shape and distance of the true recovery boundary are only partially known.
+
+UNEP's September 2026 \emph{Limiting Overshoot} assessment states that exceedance of 1.5\,\textdegree C is now expected, and that its magnitude and duration must be minimized while pursuing a return \citep{unep2026overshoot}. This is not reduced here to an isolated annual temperature anomaly. Nor does a return of global temperature restore lost lives, ecosystems, livelihoods, or institutions. For this architecture, a release rule must therefore distinguish ending an emergency power from ending continuing protection, compensation, and repair. A temperature target is not a sufficient statistic for the state left by its trajectory.
+
+\subsection{Prior contributions and the remaining research question}
+\label{sec:priorwork}
+
+Coordination failure is not introduced by this paper. \citet{cooperjohn1988} analyze strategic complementarities and inefficient equilibria; a feasible combination need not be the selected outcome. \citet{holmstromtirole1998} distinguish private and public liquidity provision under different liquidity shocks. Their conditional theory does not make public funding unlimited, or turn finance into physical capacity. \citet{morrisshin2002} show why information can affect strategic coordination, rather than only improve measurement. Neither a delay nor an information intervention identifies one of these mechanisms on its own.
+
+Disaster-finance practice already combines financial timing with institutional execution. \citet{ghesquieremahul2010} discuss administrative and legal readiness, budget transfers, coordination, procurement, and audit alongside liquidity and risk financing. Polycentric governance \citep{ostrom2010}, administrative burden \citep{moynihan2015}, adaptive pathways \citep{haasnoot2013}, and constrained predictive control \citep{mayne2000} also precede the present synthesis. Their contributions constrain novelty claims: neither institutional plurality, transaction costs, sequencing, nor keeping future options open is new here. Engineering guarantees do not transfer to social institutions merely because similar notation is used.
+
+\citet{sen1980} distinguishes resources and utility from what a person is able to do. We use that distinction to ask whether protection is actually usable, not to derive a universal capability score. \citet{bachrachbaratz1962,bachrachbaratz1963} make agenda boundaries and nondecisions objects of inquiry. \citet{debnam1975} challenges the conceptual distinctions and empirical utility of that framework. We retain this criticism: non-application, exclusion, silence, and missing records are not by themselves evidence of intentional suppression.
+
+The contribution proposed here is a domain-bounded, auditable contract linking recipient-level protection to actor-specific commitments, financial timing, shared capacity, alternative routes, continuation, and correction. Its value must be tested against simpler existing arrangements. The repository catalogue records the contribution, limitations, and actual reading scope of each source; this is a selective synthesis, not a systematic review, a priority claim, or a replication of the cited studies.
+
+% -----------------------------------------------------------------------------
+\section{Model Primitives}
+% -----------------------------------------------------------------------------
+
+\subsection{State, agents, and action space}
+
+Let time be discrete, $t=0,1,\ldots$, and let $\mathcal N=\{1,\ldots,N\}$ denote heterogeneous actors. An actor may represent a state, firm, financial institution, regulator, local government, sectoral coalition, or organized public. The full state is
+\begin{equation}
+  \state_t = (\bm{s}_t,\bm{z}_t,\inst_t,\narr_t),
+  \label{eq:fullstate}
+\end{equation}
+where $\bm{s}_t$ is the physical state, $\bm{z}_t$ contains actor-specific stocks and dependencies, $\inst_t$ is the institutional state, and $\narr_t$ is the cognitive and legitimacy state.
+
+\begin{table}[H]
+\centering
+\caption{Layered state representation. The variables are illustrative rather than exhaustive.}
+\label{tab:layers}
+\begin{tabularx}{\textwidth}{@{}L{0.18\textwidth}L{0.26\textwidth}Y@{}}
+\toprule
+\textbf{Layer} & \textbf{Representative variables} & \textbf{Interpretation} \\
+\midrule
+Physical & $C_t,B_t,X_t,L_t,W_t$ & Atmospheric forcing; biosphere integrity; tail-event intensity; infrastructure stress; water, food, and coupled life-support states. \\
+Agent & $E_{i,t},F_{i,t},D_{i,t},G_{i,t}$ & Emissions; fossil dependence or production; direct decarbonization; symbolic compliance. \\
+Institution & $P_t,Q_t,M_t,\tau_t,J_t$ & Penalty strength; transition support; monitoring fidelity; policy delay; justice and compensation capacity. \\
+Cognition & $\Phi_t,A_t^{\mathrm{ware}},T_t^{\mathrm{rust}}$ & Dominant narrative frame; public awareness; trust and legitimacy. \\
+Irreversibility & $\mathcal V_t,CR_t,\rho_t$ & Viability region; controllability reserve; robust recovery probability. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Actor $i$ chooses
+\begin{equation}
+  \action_{i,t}=(e_{i,t},f_{i,t},d_{i,t},g_{i,t},\ell_{i,t},r_{i,t},h_{i,t}),
+  \label{eq:action}
+\end{equation}
+where the components denote emissions, fossil production or dependence, direct decarbonization, symbolic action, capture or delay effort, ecological restoration, and adaptation. Including $g_{i,t}$ and $\ell_{i,t}$ is essential: a model that treats performative compliance and rule-shaping as exogenous noise omits strategies that may be cheaper than physical transformation.
+
+The physical dynamics are
+\begin{equation}
+  \bm{s}_{t+1}=F_{\theta}(\bm{s}_t,\action_t,\bm{\xi}_t),
+  \qquad \theta\in\Theta_t,
+  \label{eq:physicaldynamics}
+\end{equation}
+with aggregate action $\action_t=(\action_{1,t},\ldots,\action_{N,t})$, disturbance $\bm{\xi}_t$, and model index $\theta$. Illustrative components are
+\begin{align}
+C_{t+1} &= C_t + \sum_i e_{i,t} - \operatorname{Sink}_{\theta}(B_t,C_t,\text{heat},\text{drought},\text{fire}), \\
+B_{t+1} &= B_t - \alpha C_t - \beta U_t^{\mathrm{land}}-\gamma U_t^{\mathrm{pollution}}
+           -\delta U_t^{\mathrm{noise/light}} + \sum_i r_{i,t}.
+\end{align}
+The sink is endogenous: degradation can reduce future absorptive capacity. Tail risk is represented as
+\begin{equation}
+  q_{j,t}^{\mathrm{tail}}=\Pp_{\theta}\!\left(X_{j,t}>\Theta_j^{\mathrm{design}}\mid \bm{s}_t\right),
+  \label{eq:tailrisk}
+\end{equation}
+not merely by a change in the mean. Cascades may be modeled through an interdependency graph among power, water, food, health, logistics, communications, finance, and governance.
+
+\subsection{Utility, horizons, and externalization}
+
+Let $\Pi_i^{\mathrm{feas}}$ denote actor $i$'s feasible policies. A generic discounted objective is
+\begin{align}
+U_i(\policy_i,\policy_{-i};\theta)
+=\E_{\theta}\sum_{k=0}^{H_i}\beta_i^k\Big[&
+G_i^{\mathrm{econ}}(e_i,f_i)
++B_i^{\mathrm{free}}(\action_{-i})
++B_i^{\mathrm{sym}}(g_i,\narr)
++Q_i(d_i,r_i;\inst,\kpi) \nonumber\\
+&-C_i^{\mathrm{trans}}(d_i,r_i,h_i)
+-P_i(e_i,f_i;\inst,\kpi)
+-D_i(\bm{s}) \nonumber\\
+&-C_i^{\mathrm{audit}}(g_i,\ell_i;M)
+-C_i^{\mathrm{legal}}(\action_i;\inst)
+-C_i^{\mathrm{cap}}(\ell_i)
+\Big].
+\label{eq:utility}
+\end{align}
+Short political and financial horizons are represented by small $H_i$ or low $\beta_i$. Climate damage borne by the actor is
+\begin{equation}
+D_i(\bm{s}_t)=E_i^{\mathrm{exposure}}V_i^{\mathrm{vulnerability}}
+\eta_i^{\mathrm{internalization}}D(\bm{s}_t),
+\qquad
+\chi_i^{\mathrm{externalization}}=1-\eta_i^{\mathrm{internalization}}.
+\label{eq:externalization}
+\end{equation}
+Powerful actors may lower $\eta_i^{\mathrm{internalization}}$ through insurance, relocation, price pass-through, legal privilege, supply-chain displacement, or temporal deferral. Benefits are internalized; losses are displaced across jurisdiction, class, species, or generation.
+
+\subsection{Observation, KPI construction, and manipulation}
+
+The true state is not directly observed. Raw observations satisfy
+\begin{equation}
+  \bm{y}_t=O_{\theta}(\state_t,\action_t)+\bm{\varepsilon}_t+\bm{\mu}_t,
+  \label{eq:observation}
+\end{equation}
+where $\bm{\varepsilon}_t$ is measurement and model error and $\bm{\mu}_t$ is strategic manipulation. The institutional KPI vector is produced by a fusion operator
+\begin{equation}
+  \kpi_t=\mathcal H(\bm{y}_{0:t};\mathcal M_t),
+  \label{eq:kpi}
+\end{equation}
+where $\mathcal M_t$ contains models, baselines, accounting rules, and metadata. A stylized integrity score is
+\begin{equation}
+\mathsf{DI}_t=
+\frac{M_t^{\mathrm{fidelity}}M_t^{\mathrm{independence}}M_t^{\mathrm{comparability}}}
+{1+O_t^{\mathrm{opacity}}+U_t^{\mathrm{manipulability}}+F_t^{\mathrm{political}}}.
+\label{eq:dataintegrity}
+\end{equation}
+More data do not necessarily imply more truth. A sufficiently opaque or incomparable reporting regime can increase audit cost while preserving strategic ambiguity.
+
+\subsection{Institutional and narrative dynamics}
+
+Let $\Gamma$ map KPI deviations into pre-legislated adjustments to taxes, subsidies, supply caps, permits, trade rules, public finance, restoration, and compensation. Institutional dynamics are
+\begin{equation}
+\inst_{t+1}=\Proj_{\mathfrak I}\left[
+\inst_t+\Gamma(\kpi_t-\bar{\kpi}_t)-\capture_t-\bm{\varphi}_t
+\right],
+\label{eq:institution}
+\end{equation}
+where $\capture_t$ is strategic capture and $\bm{\varphi}_t$ is ordinary friction or capacity loss. Capture is decomposed as
+\begin{equation}
+\capture_t=(c_t^{K},c_t^{I},c_t^{\tau},c_t^{N},c_t^{J},c_t^{F}),
+\label{eq:capture}
+\end{equation}
+attacking the sensor/KPI layer, institutional actuator, response time, narrative, justice reserve, and financial transmission.
+
+Narratives evolve according to
+\begin{equation}
+\narr_{t+1}=\Psi(\narr_t,\kpi_t,\text{events}_t,\text{media}_t,
+\text{interests}_t,\text{lived impacts}_t).
+\label{eq:narrative}
+\end{equation}
+Actors optimize against perceived states
+\begin{equation}
+  \widetilde{\state}_{i,t}=\mathcal P_i(\bm{y}_{0:t},\kpi_t,\narr_t,\text{interests}_i),
+  \qquad
+  \action_{i,t}\in\argmax_{\action_i}U_i(\action_i\mid \widetilde{\state}_{i,t},\inst_t).
+\label{eq:perception}
+\end{equation}
+Physical reality is therefore mediated by observation and meaning before it becomes action.
+
+% -----------------------------------------------------------------------------
+\section{Nash's Cage: Definition and Local Results}
+% -----------------------------------------------------------------------------
+
+\subsection{Cooperation, defection, and decisive actors}
+
+For a specified governance problem, partition feasible policies into cooperative and defective sets, $\Pi_i^C$ and $\Pi_i^D$. The partition is empirical and context-dependent: direct verified emissions reduction may be cooperative, while boundary laundering may be defective even when legally compliant. Define
+\begin{equation}
+\Delta_i(\state_t)=
+\sup_{\policy_i\in\Pi_i^C}U_i(\policy_i,\policy_{-i})
+-
+\sup_{\policy_i\in\Pi_i^D}U_i(\policy_i,\policy_{-i}).
+\label{eq:payoffdiff}
+\end{equation}
+Thus $\Delta_i<0$ means that defection is preferred. A set $\mathcal D\subseteq\mathcal N$ is \emph{decisive} if its joint control over emissions, production, finance, technology, enforcement, or demand exceeds a problem-specific critical weight.
+
+Orient KPI components so that positive deviations represent worsening conditions, and let $\bm d_t\in\R_+^m$ be a normalized policy-relevant deterioration direction. The directional coupling from observation to incentives is
+\begin{align}
+\Lambda_i(t;\bm d_t)
+&=D_{\bm d_t}\Delta_i
+=(\nabla_{\kpi}\Delta_i)^{\top}\bm d_t \\
+&=(\nabla_{\inst}\Delta_i)^{\top}
+\frac{\partial \inst}{\partial \kpi}\bm d_t
++ (\nabla_{\narr}\Delta_i)^{\top}
+\frac{\partial \narr}{\partial \kpi}\bm d_t.
+\label{eq:payoffcoupling}
+\end{align}
+The first term is formal policy transmission; the second captures reputational and legitimacy pathways. We write $\Lambda_i$ when the direction is clear. An observation system with high fidelity but $\Lambda_i\approx0$ can document failure without changing it.
+
+\begin{definition}[Nash's Cage]
+Over a window $[t,t+H]$, a system is in a Nash's Cage with respect to a decisive set $\mathcal D$ when the following conditions jointly hold to a policy-relevant degree:
+\begin{enumerate}[label=(C\arabic*)]
+  \item $\Delta_i<0$ for all or a controlling share of $i\in\mathcal D$;
+  \item a robust viability margin is non-increasing or deteriorating;
+  \item payoff coupling $\Lambda_i$ is weak, delayed, or strategically neutralized;
+  \item effective capture is at least as strong as the institutional correction it opposes; and
+  \item symbolic compliance grows faster than verified physical improvement.
+\end{enumerate}
+\end{definition}
+
+A simple performative gap is
+\begin{equation}
+\mathsf{PG}_t=
+\left\|\bm{g}_t\right\|
+-\kappa\left\|\Delta\bm{s}_t^{\mathrm{verified,+}}\right\|,
+\label{eq:performativegap}
+\end{equation}
+where $\Delta\bm{s}^{\mathrm{verified,+}}$ denotes verified improvement in physical states and $\kappa$ maps units. Its purpose is diagnostic, not moral: it asks whether communication and accounting are decoupling from physical response.
+
+\subsection{Conditional propositions}
+
+\begin{proposition}[Performative monitoring]
+Suppose, locally, that $\Delta_i$ depends on the KPI only through institutional and narrative channels, all maps are differentiable, and
+\[
+\frac{\partial \inst}{\partial \kpi}=0,
+\qquad
+\frac{\partial \narr}{\partial \kpi}=0.
+\]
+Then $\Lambda_i(t;\bm d)=0$ for every direction $\bm d$. Increasing observation fidelity alone cannot locally change the actor's cooperation--defection payoff differential.
+\end{proposition}
+
+\begin{proof}
+Apply the chain rule to \cref{eq:payoffcoupling}. Both transmission terms vanish. The conclusion is local and conditional; new information may still matter if it changes beliefs, narratives, litigation, or institutional design through a path excluded by the assumptions.
+\end{proof}
+
+\begin{proposition}[Capture dominance]
+Let $\bm{v}$ be an enforcement direction in institutional state space. If
+\begin{equation}
+\left\langle \bm{v},\Gamma(\kpi_t-\bar{\kpi}_t)\right\rangle
+\le
+\left\langle \bm{v},\capture_t+\bm{\varphi}_t\right\rangle,
+\label{eq:capturedominance}
+\end{equation}
+then the institutional update in that direction is non-positive before projection. A worsening KPI need not strengthen enforcement.
+\end{proposition}
+
+\begin{proof}
+Take the inner product of \cref{eq:institution} before projection with $\bm{v}$. The net directional increment is the left-hand trigger minus capture and friction. Under \cref{eq:capturedominance}, it is non-positive.
+\end{proof}
+
+\begin{proposition}[Payoff inversion]
+Fix the strategies of other actors and the institutional state. Suppose cooperative and defective feasible sets are nonempty and their utility maxima exist. If $\Delta_i>0$ for each actor in a decisive coalition $\mathcal D$, cooperation is strictly preferred by those actors over the stated alternatives. At $\Delta_i=0$, cooperation may also be chosen as a best response. Strict positivity is therefore sufficient for strict preference, not necessary for observed cooperation, and does not establish joint executability, equilibrium selection, or physical viability.
+\end{proposition}
+
+\begin{proof}
+Compare the two attained maxima in \cref{eq:payoffdiff}. A positive difference strictly ranks the cooperative maximum above the defective one; equality permits a tie. The comparison holds others' strategies fixed. Their subsequent responses, incompatible shared-resource demands, physical lags, and model error can defeat joint execution or recovery even after these individual rankings change.
+\end{proof}
+
+% -----------------------------------------------------------------------------
+\section{Joint Executability of Protection}
+\label{sec:executability}
+% -----------------------------------------------------------------------------
+
+\subsection{Four mechanisms, not one friction parameter}
+
+A favorable payoff comparison does not imply that an action can be financed, authorized, staffed, or completed in time. Conversely, resources and authority do not imply willingness to act. We distinguish four candidate explanations before examining an intervention's result.
+
+\begin{table}[H]
+\centering\small
+\caption{Mechanisms to distinguish prospectively. The rows can coexist; an unresolved mixture is not a diagnosis.}
+\label{tab:mechanisms}
+\begin{tabularx}{\textwidth}{@{}L{0.20\textwidth}Y Y@{}}
+\toprule
+\textbf{Mechanism} & \textbf{Missing condition} & \textbf{Discriminating evidence} \\
+\midrule
+Physical scarcity & Staff, equipment, energy, or service capacity, including substitutes. & A payment or promise alone cannot supply an absent input. Track shared capacity and displacement. \\
+Liquidity timing & Spendable cash or usable credit at a required intermediate time. & Trace an early shortfall despite an eventual entitlement; measure both recipient and payer balances. \\
+Performance uncertainty & A credible expectation that another required actor will perform. & A commitment change with funding and payoffs separately accounted for; otherwise a bundled effect remains unidentified. \\
+Incentive conflict & Acting remains unattractive even if others perform. & A prespecified payoff change rather than reassurance alone; record actual feasible alternatives. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Legal authority, rights, and existing protection constrain every row. They are not residuals to be removed when a model fails. An actor may have an enforceable duty even when a proposed additional incentive is unattractive; the classification is explanatory, not permission to evade that duty.
+
+\subsection{A pathway-level input contract}
+
+Restrict a case to a declared place, service, and horizon. Describe each action by its responsible actor, authority and applicable rule version, prerequisites, start and completion clocks, payer, physical inputs, substitutes, and review or release conditions. Enrollment, authorization, payment, service delivery, protection, and continued protection are separate events. Contractual deadlines, operational review times, and physical or medical limits must also remain distinct. An unknown irreversible threshold cannot supply an invented safe waiting period.
+
+Let $L_i(t)$ be actor $i$'s available funds at the initial time and $\underline L_i(s)$ its declared protected minimum. Under policy $\pi$, institutional arrangement $m$, and scenario $\theta$, intermediate financial slack is
+\begin{equation}
+\ell_i(s;\pi,m,\theta)=L_i(t)+
+\sum_{\tau=t}^{s}\mathrm{In}_i(\tau)-
+\sum_{\tau=t}^{s}\mathrm{Out}_i(\tau)-\underline L_i(s).
+\label{eq:liquidityslack}
+\end{equation}
+Approval is not cash. Include credit only where it is actually drawable, with repayment obligations, and do not count the same credit twice. Transfers between actors are not additive social resource costs at every intermediary. Protected minima and rights floors require a public justification; this equation does not choose them.
+
+Let $\Pi_{\mathrm{NA}}$ contain policies using only each actor's available history, not future shocks or evaluator-only truth. Write the conceptual deadline-constrained execution set as
+\begin{equation}
+\mathcal E_m^H(t)=\left\{\pi\in\Pi_{\mathrm{NA}}:
+\begin{array}{l}
+\text{for all }\theta\in\Theta\text{ and required times }s\in[t,t+H],\\
+\text{authority, existing protection, and rights are respected;}\\
+\ell_i(s;\pi,m,\theta)\ge0\text{ for each necessary actor;}\\
+\text{shared-resource, capacity, and conservation constraints hold;}\\
+\text{actions meet their declared deadlines, with required service,}\\
+\text{continuation, reassessment, and transition conditions.}
+\end{array}\right\}.
+\label{eq:executionset}
+\end{equation}
+The same non-anticipating policy must work across the declared ambiguity set. This is an input specification, not a computed real-world robust certificate. A finite search finding no candidate does not establish that $\mathcal E_m^H(t)$ is empty; missing inputs imply \emph{unconfirmed}, not impossible. Membership also does not establish the intervention's physical efficacy. Alternative routes may avoid particular intermediaries, so universal participation is not required.
+
+\subsection{Redistribution, opportunity costs, and a conditional prediction}
+
+Moving a transfer $M$ from payer $j$ to recipient $i$ earlier changes their slack by $+M$ and $-M$ during the advanced interval, if all other flows are held fixed and there is no new credit, outside funding, or extra cost. The combined change is zero, but feasibility can improve if the payer can bear the interval and the recipient cannot. Burden transfer is therefore neither automatically failure nor proof of improvement. Inspect displaced protection, financing and administration costs, and sustainability at both ends. The criterion is not that nobody may bear any additional burden; redistribution and existing duties remain possible.
+
+If an option is free, may be ignored, and leaves the objective, resources, rights, and other actors' responses unchanged, then $\mathcal E_0\subseteq\mathcal E_1$ implies
+\begin{equation}
+\sup_{\pi\in\mathcal E_1}V(\pi)\ge\sup_{\pi\in\mathcal E_0}V(\pi).
+\end{equation}
+This elementary set-inclusion result is not a new theorem. A paid linkage scheme, constrained budget, or fixed decision rule need not satisfy its premises. For example, with divisible homogeneous service, ample demand, budget $B$, unit cost $c$, capacity $K$, setup cost $0\le F<B$, and on-time delivery fractions $q_0,q_1$, a one-period reduction gives
+\begin{equation}
+A_0=q_0\min\{K,B/c\},\qquad A_1=q_1\min\{K,(B-F)/c\}.
+\end{equation}
+If both arms are budget-bound and $q_0>0$, $A_1>A_0$ exactly when $q_1/q_0>B/(B-F)$. For $q_0=0$, use the original difference, not a ratio. This is delivered service, not a clinical benefit estimate, and omits heterogeneity, credit, repeated use, and maintenance. It explains why paid coordination need not dominate direct provision; it does not establish a real coefficient.
+
+\begin{hypothesis}[Joint executability: prospective timing comparison]
+\label{hyp:timing}
+With existing protection retained, moving an equal nominal transfer before required expenditure increases the rate of completing a declared protective service by its operational deadline in a prespecified liquidity-constrained group $C$, provided necessary authority, physical inputs, and time are available and the payer can sustain the advance. Let $\Delta_g$ be the early-minus-late effect on that rate in pre-intervention group $g$, and let $U$ be a group without the intermediate shortfall. Test separately $\Delta_C>\delta_C$ and $\Delta_C-\Delta_U>\delta_I$, for positive meaningful margins fixed before outcomes. The relative contrast alone is insufficient: both groups could worsen. Setup and financing costs, shared-capacity displacement, continued service, and actual protection outcomes are additional separately reported outcomes, not erased by a favorable execution-rate result.
+\end{hypothesis}
+
+This prediction is suggested by the earlier development work, not confirmed by it. A precise null or contrary interaction would count against this specified prediction. An imprecise estimate is unresolved, not supporting evidence. Credit, in-kind provision, permanent services, and independent rescue routes may already remove the shortfall. Equal nominal transfers are not equal total intervention costs; any fixed-resource policy comparison must separately specify whose envelope is held equal and how extra costs reduce other uses.
+
+\subsection{Separate candidate: losing a feasible path while waiting}
+
+A further candidate is that an initially executable pathway disappears while actors wait for a credible commitment or a prespecified incentive change. To test it, establish initial feasibility, record who waits for whose action, identify the capacity or time lost during that interval, and distinguish external deterioration from waiting-related loss. A credible commitment without behavioral change is adverse to the performance-uncertainty branch but can be consistent with incentive conflict. The latter requires its own prespecified payoff contrast. Guarantees that also unlock credit do not isolate beliefs from liquidity. Mixed mechanisms remain unidentified unless the design separates them. This candidate must not be added after a failed timing test as an unfalsifiable rescue explanation.
+
+% -----------------------------------------------------------------------------
+\section{Unknown Irreversible Boundaries}
+% -----------------------------------------------------------------------------
+
+\subsection{Safety is not viability}
+
+Let $\safe\subseteq\mathcal X$ be a constraint set: states that satisfy specified physical, social, and justice conditions at the present time. For a known model $\theta$, the viability kernel is
+\begin{equation}
+\mathcal V_{\theta}=
+\left\{
+\state_0\in\safe:
+\exists\policy\in\Pi^{\mathrm{feas}}
+\text{ such that }
+\state_t\in\safe\ \forall t\ge0
+\right\}.
+\label{eq:viability}
+\end{equation}
+A state can lie in $\safe$ yet outside $\mathcal V_{\theta}$: current conditions have not violated the constraint, but no feasible future policy can prevent eventual exit. This distinction replaces the image of one visible ``point of no return'' with a control-dependent boundary.
+
+The true model is unknown. Let $\Theta_t$ be an ambiguity set containing plausible physical, technological, economic, and institutional dynamics, plus an explicit structural-error allowance. For a measurable set $\mathcal A$, define the first-passage delay from decision time $t$ by
+\begin{equation}
+\tau_{\mathcal A}^{(t)}=
+\inf\{h\in\mathbb N_0:\state_{t+h}\in\mathcal A\},
+\qquad \inf\varnothing=+\infty.
+\label{eq:firstpassage}
+\end{equation}
+Define the robust viability set over horizon $H$ as
+\begin{equation}
+\mathcal V_t^{\mathrm{rob}}=
+\left\{
+\state_t\in\safe:
+\exists\policy\in\Pi^{\mathrm{feas}}
+\text{ such that }
+\sup_{\theta\in\Theta_t}
+\Pp_{\theta}\!\left(
+\min\{\tau_{\safe^{c}}^{(t)},\tau_{\irrev}^{(t)}\}\le H
+\mid\state_t,\policy
+\right)
+\le\varepsilon
+\right\}.
+\label{eq:robustviability}
+\end{equation}
+The same admissible policy must keep the probability of leaving the safe set or entering a policy-defined functionally irreversible region below the risk tolerance across the ambiguity set.
+
+\subsection{Functional irreversibility}
+
+Irreversibility is separated into four classes:
+\begin{enumerate}
+  \item \textbf{Physical}: recovery is impossible on human policy timescales.
+  \item \textbf{Hysteretic}: the return threshold differs from the collapse threshold.
+  \item \textbf{Practical}: recovery is physically possible but exceeds feasible time, energy, finance, or infrastructure.
+  \item \textbf{Institutional}: recovery is physically possible but governance, trust, coordination, or legal capacity is insufficient.
+\end{enumerate}
+Thus
+\begin{equation}
+\irrev=
+\mathcal X_{\mathrm{phys}}
+\cup\mathcal X_{\mathrm{hyst}}
+\cup\mathcal X_{\mathrm{practical}}
+\cup\mathcal X_{\mathrm{institutional}}.
+\end{equation}
+A robust recovery score is
+\begin{equation}
+\rho_t(H)=
+\sup_{\policy\in\Pi^{\mathrm{feas}}}
+\inf_{\theta\in\Theta_t}
+\Pp_{\theta}
+\left(
+\state_{t+H}\in\safe,
+\tau_{\irrev}^{(t)}>H
+\mid \state_t,\policy
+\right).
+\label{eq:recoverability}
+\end{equation}
+If $\rho_t(H)<\rho_{\min}$, the system is functionally irreversible relative to the chosen horizon, capabilities, ambiguity set, and safety definition. This is not a metaphysical claim that no future civilization could reverse the state; it is an operational statement about feasible control now.
+
+\subsection{Controllability reserve}
+
+The critical event may occur before a visible boundary is crossed: the system loses enough time that even a correct response cannot take effect before exit. Let
+\begin{equation}
+T_{\mathrm{exit}}^{L}(t)=
+\inf_{\theta\in\Theta_t}
+Q_{q_L}^{\theta}\!\left[\tau_{\irrev}^{(t)}\mid\state_t\right]
+\label{eq:texit}
+\end{equation}
+and
+\begin{align}
+T_{\mathrm{response}}^{U}(t)=
+\sup_{\theta\in\Theta_t}Q_{q_U}^{\theta}\big[&
+T_{\mathrm{detect}}+T_{\mathrm{verify}}+T_{\mathrm{political}}
++T_{\mathrm{legal}} \nonumber\\
+&+T_{\mathrm{finance}}+T_{\mathrm{infrastructure}}
++T_{\mathrm{biophysical}}
+\big].
+\label{eq:tresponse}
+\end{align}
+The controllability reserve is
+\begin{equation}
+\boxed{
+CR_t=T_{\mathrm{exit}}^{L}(t)-T_{\mathrm{response}}^{U}(t).
+}
+\label{eq:cr}
+\end{equation}
+The quantiles $q_L$ and $q_U$ encode a chosen risk posture; they are not universal constants.
+
+\begin{proposition}[Delay-induced loss of certified braking capacity]
+If $CR_t\le0$ and no admissible faster response lies outside the modeled response set, then the system lacks a robust certificate that intervention can take effect before entry into $\irrev$. Under a separately declared precautionary decision rule, this condition triggers precautionary or emergency escalation even if the observed state remains inside $\safe$.
+\end{proposition}
+
+\begin{proof}
+By \cref{eq:cr}, the conservative time to exit is no greater than the conservative response time. Therefore the model cannot certify that the response completes first. The timing result establishes loss of certification; escalation follows from the declared precautionary rule, not from the inequality alone. Neither establishes that irreversible entry will occur in the realized world.
+\end{proof}
+
+Reserve is multidimensional. Let normalized components represent physical, observability, actuation, coordination, and justice/legitimacy capacity:
+\begin{equation}
+CR_t^{\mathrm{sys}}=
+\min\{\widetilde R_t^P,\widetilde R_t^O,
+\widetilde R_t^A,\widetilde R_t^C,\widetilde R_t^J\}.
+\label{eq:systemreserve}
+\end{equation}
+The minimum, rather than an average, reflects a bottleneck claim: excellent sensing does not compensate for absent enforcement; strong enforcement does not compensate for zero legitimacy; legitimacy does not restore an already exhausted physical reserve.
+
+\subsection{Endogenous optimism and doom}
+
+Civil systems often behave as if $\rho_t>0$ because finance, investment, insurance, electoral legitimacy, and consumption depend on an operative future. Let an optimism distortion satisfy
+\begin{equation}
+\widehat\rho_t=\rho_t+o_t+\epsilon_t^{\rho},
+\label{eq:optimism}
+\end{equation}
+where $o_t$ may be psychological, institutional, or strategic. Optimism is not the only dangerous distortion. Certainty of doom can shorten horizons, reduce cooperation, and produce disengagement. \RVCIM therefore adopts neither ``recovery is assured'' nor ``collapse is certain.'' It treats uncertainty about high-consequence irreversibility as a reason to preserve options and braking capacity.
+
+% -----------------------------------------------------------------------------
+\section{The RVCIM Governance Architecture}
+% -----------------------------------------------------------------------------
+
+\subsection{Viability and justice as hard constraints}
+
+A conventional weighted welfare objective can make an irreplaceable loss appear compensable by sufficiently large economic benefit. \RVCIM instead uses constrained or lexicographic optimization:
+\begin{equation}
+\policy^{\star}
+=\operatorname{lexmin}_{\policy}
+\left(
+\mathcal R_{\mathrm{irr}}(\policy),
+\mathcal R_{\mathrm{justice}}(\policy),
+-\mathcal W_{\mathrm{durable}}(\policy)
+\right),
+\label{eq:lexicographic}
+\end{equation}
+or, in a thresholded implementation,
+\begin{align}
+\max_{\policy\in\Pi^{\mathrm{feas}}}\quad
+&\mathcal W_{\mathrm{durable}}(\policy) \\
+\text{subject to}\quad
+&\sup_{\theta\in\Theta_t}\Pp_{\theta}(\tau_{\irrev}^{(t)}\le H\mid\policy)\le\varepsilon, \\
+&R_t^J\ge J_{\min}, \\
+&\mathcal L_{\mathrm{nonfungible}}(\policy)=0.
+\label{eq:hardconstraints}
+\end{align}
+Species extinction, destruction of irreplaceable ecosystems, or intolerable distributional harm are not assumed tradable against aggregate income.
+
+\subsection{Robust barrier conditions}
+
+Let $h_{j,\theta}(\state)\ge0$ encode safety condition $j$ under model $\theta$. A governance action is admissible only if
+\begin{equation}
+\sup_{\theta\in\Theta_t}
+\Pp_{\theta}
+\left[
+\min_j h_{j,\theta}(\state_{t+1})<0
+\mid\state_t,\inst_t
+\right]
+\le\varepsilon_t.
+\label{eq:barrierchance}
+\end{equation}
+A stronger margin-preservation condition is
+\begin{equation}
+\inf_{\theta\in\Theta_t}\min_j h_{j,\theta}(\state_{t+1})
+\ge
+(1-\kappa_t)
+\inf_{\theta\in\Theta_t}\min_j h_{j,\theta}(\state_t).
+\label{eq:barriermargin}
+\end{equation}
+These equations are institutional design analogies to robust safety control, not claims that democratic governance admits exact barrier certificates.
+
+\subsection{Payoff inversion controller}
+
+The controller must change the utility differential, not merely issue a signal. The relevant chain is
+\begin{equation}
+\kpi_t\longrightarrow\inst_{t+1}\longrightarrow\Delta_i(t+1)
+\longrightarrow\action_{i,t+1}\longrightarrow\bm{s}_{t+2}.
+\label{eq:controlchain}
+\end{equation}
+A sufficient local design target for the decisive coalition is
+\begin{equation}
+\begin{aligned}
+\Delta_i={}&
+\underbrace{B_i^{\mathrm{transition}}+B_i^{\mathrm{market}}+B_i^{\mathrm{legitimacy}}}_{\text{cooperation gains}}
++
+\underbrace{C_i^{\mathrm{avoided\ penalty}}}_{\text{credible enforcement}}
+\\[-0.15em]
+&-
+\underbrace{C_i^{\mathrm{transition}}}_{\text{conversion burden}}
+-
+\underbrace{B_i^{\mathrm{fossil}}+B_i^{\mathrm{free}}+B_i^{\mathrm{greenwash}}+B_i^{\mathrm{delay}}}_{\text{defection gains}}
+>0.
+\end{aligned}
+\label{eq:inversioncondition}
+\end{equation}
+The design must both raise the expected cost of defection and lower the feasible cost of cooperation. Penalty without transition support creates backlash; subsidy without enforcement preserves free-riding.
+
+\subsection{Trigger modes}
+
+\begin{table}[H]
+\centering
+\caption{Reserve-based control modes. Thresholds must be domain-specific and pre-legislated.}
+\label{tab:modes}
+\begin{tabularx}{\textwidth}{@{}L{0.16\textwidth}L{0.26\textwidth}Y@{}}
+\toprule
+\textbf{Mode} & \textbf{Entry condition} & \textbf{Illustrative response} \\
+\midrule
+0: Adaptive normal & $\underline{CR}_t>m_1$ & Monitoring, low-regret investment, adaptive pathway maintenance, routine redistribution. \\
+1: Precaution & $0<\underline{CR}_t\le m_1$ or boundary uncertainty above tolerance & Stronger carbon and methane controls, tighter supply caps, higher audit frequency, stricter proof burden for one-way actions. \\
+2: Emergency braking & $\underline{CR}_t\le0$ or high probability of near-term negative reserve & Temporary moratoria on new irreversible commitments, accelerated demand reduction, finance reallocation, rapid transition and justice buffers. \\
+3: Loss minimization & $\rho_t(H)<\rho_{\min}$ & Protect life-support systems, relocation, compensation, biodiversity refugia, cultural preservation, and safeguarding of still-viable subsystems. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Every trigger requires a release rule. Otherwise emergency governance can itself be captured and made permanent.
+
+\subsection{One-way doors and burden of proof}
+
+For normalized factors $I,S,D,U\in[0,1]$ representing irreversibility, scale, duration, and uncertainty, define a One-Way Door index
+\begin{equation}
+\mathsf{OWD}(a)=
+I(a)\,S(a)\,D(a)\,U(a),
+\label{eq:owd}
+\end{equation}
+As $\mathsf{OWD}$ rises, the acceptable risk $\varepsilon(a)$ falls. High-OWD actions are permitted only when the proponent demonstrates robust safety relative to the status quo:
+\begin{equation}
+\sup_{\theta\in\Theta_t}
+\Pp_{\theta}(\tau_{\irrev}^{(t)}\le H\mid a)
+\le\varepsilon(a),
+\qquad
+\varepsilon'(\mathsf{OWD})<0.
+\label{eq:burdenproof}
+\end{equation}
+The status quo is not a zero-risk baseline. A new action may be precautionary when inaction has higher irreversible risk.
+
+\subsection{Accountable automation and institutional separation}
+
+Automation here means rule-bound transmission, not removal of politics. The policy rule is democratically authorized in advance; implementation becomes less discretionary after the trigger fires. An override is admissible only with
+\begin{equation}
+\mathsf{Override}=
+\mathsf{PublicReason}+\mathsf{Expiry}+\mathsf{IndependentReview}
++\mathsf{Compensation}+\mathsf{AuditTrail}.
+\label{eq:override}
+\end{equation}
+Appeal must not create free delay; disputed liabilities can be placed in escrow.
+
+The architecture separates six functions:
+\begin{equation}
+\boxed{
+\mathsf{Sensor}\neq\mathsf{Modeler}\neq\mathsf{Trigger}
+\neq\mathsf{JusticeAllocator}\neq\mathsf{Auditor}\neq\mathsf{Appeal}.
+}
+\label{eq:separation}
+\end{equation}
+No single actor should control measurement, model selection, KPI computation, enforcement, audit, and exception review.
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  node distance=10mm and 12mm,
+  box/.style={draw=Forest,rounded corners=2mm,thick,minimum height=12mm,minimum width=27mm,align=center,fill=Mist},
+  act/.style={draw=Earth,rounded corners=2mm,thick,minimum height=12mm,minimum width=27mm,align=center,fill=Sand},
+  risk/.style={draw=Rust,rounded corners=2mm,thick,minimum height=10mm,minimum width=25mm,align=center,fill=Rust!5},
+  arrow/.style={-{Stealth[length=2.2mm]},thick,color=Ink},
+  attack/.style={-{Stealth[length=2mm]},dashed,thick,color=Rust}
+]
+\node[box] (world) {Physical and\\social state $\state_t$};
+\node[box,right=of world] (sense) {Independent\\sensor fusion $\bm y_t$};
+\node[box,right=of sense] (kpi) {Robust KPI and\\reserve estimate $\kpi_t,CR_t$};
+\node[act,right=of kpi] (trigger) {Pre-legislated\\trigger engine $\Gamma$};
+\node[act,right=of trigger] (payoff) {Payoff field\\$\Delta_i,\Lambda_i$};
+\node[act,right=of payoff] (agents) {Agent actions\\$\action_{i,t+1}$};
+
+\draw[arrow] (world) -- (sense);
+\draw[arrow] (sense) -- (kpi);
+\draw[arrow] (kpi) -- (trigger);
+\draw[arrow] (trigger) -- (payoff);
+\draw[arrow] (payoff) -- (agents);
+\draw[arrow] (agents.south) |- ++(0,-12mm) -| (world.south);
+
+\node[risk,below=18mm of kpi] (capture) {Capture attacks\\sensor, model, delay,\\narrative, finance, justice};
+\node[box,below=18mm of trigger] (immune) {Anti-capture immune system:\\plural models, adversarial audit,\\open metadata, liability, justice buffer};
+\draw[attack] (capture) -- (sense);
+\draw[attack] (capture) -- (kpi);
+\draw[attack] (capture) -- (trigger);
+\draw[attack] (capture) -- (payoff);
+\draw[arrow] (immune) -- (capture);
+\end{tikzpicture}%
+}
+\caption{Closed-loop architecture. The red dashed paths represent strategic attacks; the lower control path represents anti-capture defenses.}
+\label{fig:architecture}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\section{Protection, Selection Boundaries, and Revisability}
+\label{sec:revisability}
+% -----------------------------------------------------------------------------
+
+Existing institutions must remain in the baseline, including ordinary social insurance, direct protective duties, and alternative routes. But respecting an institution as an observed variable does not make its budget or eligibility boundary normatively final. A fixed-budget comparison identifies a bounded decision problem; it does not justify that budget allocation. The distinctions in \cref{sec:priorwork} motivate recording proposals, agenda access, eligibility, non-application, rejection, appeals, and rule changes without inferring either consent or oppression from silence.
+
+Building on the resource--capability distinction, we make a separate \emph{normative proposal}: protection should be evaluated alongside the recipient's ability to question its conditions and seek correction. This is not unconditional maximization of choices, permission to harm others' life-support conditions, a discretionary veto over existing protective duties, or a reduction of ecological value to human capability. Nor can a statistical result settle the legitimacy of an allocation.
+
+The corresponding \emph{empirical candidate} is narrower: an accessible route from contestation to independent reassessment and correction may reduce persistent exclusion or erroneous intervention. Evaluate access costs, retaliation concerns, processing time, unresolved cases, protection outcomes, and the burden on other services. Appeal counts alone are ambiguous: more claims may reflect more harm or improved access; few claims need not mean few problems. The relevant denominator extends beyond accepted applicants, and some excluded needs may remain unobserved.
+
+Immediate rescue must not wait for a completed research audit or unanimous agreement. Independent review, correction, compensation, and release of exceptional powers must coexist with timely protection. These safeguards already appear in earlier RVCIM drafts. This revision makes their recipient-level observation requirements explicit rather than claiming to invent appeal or anti-capture governance.
+
+% -----------------------------------------------------------------------------
+\section{Observation Architecture and Ecological Sensing}
+% -----------------------------------------------------------------------------
+
+\subsection{A dashboard of non-fungible signals}
+
+A practical KPI vector should contain physically and institutionally distinct signals rather than one composite score:
+\begin{equation}
+\kpi_t=
+\left(
+K_t^{E},K_t^{\mathrm{tail}},K_t^{\mathrm{infra}},K_t^{\mathrm{prod/finance}},
+K_t^{\mathrm{bio}},K_t^{J},K_t^{\mathrm{capture}},K_t^{\tau}
+\right).
+\label{eq:dashboard}
+\end{equation}
+Representative components are real emissions and budget consumption; threshold exceedance frequency; infrastructure failure duration; fossil-production and financial-backflow gaps; ecosystem integrity; justice burden; detected capture; and response delay. The dashboard is not aggregated when aggregation would allow one improvement to compensate for an irreplaceable loss.
+
+\subsection{Soundscape as one ensemble sensor}
+
+Soundscape ecology distinguishes biophony, geophony, and anthrophony and provides a scalable method for observing ecological change \citep{pijanowski2011}. The Acoustic Complexity Index (ACI) measures temporal changes in intensity within frequency bins \citep{pieretti2011}. A schematic form is
+\begin{equation}
+\mathsf{ACI}=\sum_f
+\frac{\sum_t |I_{f,t+1}-I_{f,t}|}
+{\sum_t I_{f,t}+\epsilon}.
+\label{eq:aci}
+\end{equation}
+The Normalized Difference Soundscape Index (NDSI) contrasts selected biophony and anthrophony bands:
+\begin{equation}
+\mathsf{NDSI}=\frac{B-A}{B+A+\epsilon}.
+\label{eq:ndsi}
+\end{equation}
+Automated soundscape analysis has been used to track faunal recovery across tropical forest restoration gradients \citep{muller2023}. However, meta-analysis shows that acoustic indices are context-dependent proxies rather than universal measures of biodiversity \citep{alcocer2022}. Therefore
+\begin{equation}
+\widehat B_t=
+\mathcal F_{\mathrm{eco}}
+\left(
+\text{soundscape},\text{eDNA},\text{remote sensing},
+\text{field survey},\text{camera traps},\text{local knowledge}
+\right),
+\label{eq:ecosensorfusion}
+\end{equation}
+with uncertainty $\sigma_{B,t}$ and site-specific validation. The trigger should use posterior degradation probability, not raw loudness:
+\begin{equation}
+\Pp(B_t<B_{\mathrm{baseline}}-\delta\mid\bm y_{0:t})>p_{\mathrm{crit}}
+\Longrightarrow \text{review or response}.
+\label{eq:ecotrigger}
+\end{equation}
+Randomized sensor placement, hidden audit sensors, continuous sampling, playback anomaly detection, and protected access for sensitive species locations are part of the measurement design.
+
+% -----------------------------------------------------------------------------
+\section{Red-Team: How the New OS Will Be Gamed}
+% -----------------------------------------------------------------------------
+
+A governance model that assumes compliance after adoption is incomplete. Regulated actors adapt. Let the attack policy be
+\begin{equation}
+\policy_i^{\mathrm{hack}}\in\argmax_{m_i}
+\left[
+B_i^{\mathrm{rent}}+B_i^{\mathrm{delay}}+B_i^{\mathrm{legitimacy}}
++B_i^{\mathrm{access}}
+-C_i^{\mathrm{penalty}}-C_i^{\mathrm{audit}}-C_i^{\mathrm{legal}}
+\right].
+\label{eq:hackutility}
+\end{equation}
+The target is often not physical improvement but maximal legal score at minimal transformation cost.
+
+\begin{longtable}{@{}L{0.17\textwidth}L{0.34\textwidth}L{0.41\textwidth}@{}}
+\caption{Representative attack--defense pairs.}\label{tab:redteam}\\
+\toprule
+\textbf{Attack surface} & \textbf{Realistic adaptation} & \textbf{Defense} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Attack surface} & \textbf{Realistic adaptation} & \textbf{Defense} \\
+\midrule
+\endhead
+Boundary laundering & Outsource or sell high-emission assets; reduce territorial or Scope 1 emissions while value-chain or consumption emissions rise. & Combine organizational, product, facility, consumption, and ownership accounting; retain transition responsibility after divestment for a defined period. \\
+\addlinespace
+Offset substitution & Purchase low-cost credits and present finance as direct abatement. & Separate reduction, removal, and contribution claims; restrict credits to verified residual emissions; impose additionality, durability, and double-counting liability. \\
+\addlinespace
+KPI cherry-picking & Improve carbon intensity while absolute emissions rise; emphasize renewable investment while fossil production expands. & Use mandatory KPI bundles, hard non-fungible floors, fixed core metrics plus rotating audit metrics, and absolute as well as intensity measures. \\
+\addlinespace
+Financial instrument gaming & Select easy sustainability targets, weak coupon penalties, or redemption before assessment. & Require material penalties, no early escape before target dates, independent baselines, absolute outcome metrics, and consequences beyond coupon adjustment. \\
+\addlinespace
+Trade circumvention & Re-route goods, alter product classification, split shipments, or supply low-emission lots only to regulated markets. & Facility-level product passports, beneficial-ownership tracking, anti-circumvention rules, and conservative default factors when traceability is absent. \\
+\addlinespace
+Soundscape theatre & Place sensors in favorable patches, shift disturbance outside sampling windows, or play recorded biophony. & Stratified randomized placement, continuous and surprise sampling, cross-sensor fusion, playback anomaly detection, and ecological composition metrics. \\
+\addlinespace
+Adaptation substitution & Claim adaptation expenditure while mitigation declines or carbon lock-in grows. & Score adaptation net of induced emissions, lock-in, burden transfer, and maladaptation; do not allow adaptation to offset mitigation backsliding. \\
+\addlinespace
+Justice backlash engineering & Concentrate transition costs on low-income households or dependent regions, then mobilize resulting opposition. & Couple every price or supply trigger to dividends, affordability floors, worker protection, regional investment, participation, and loss-and-damage finance. \\
+\addlinespace
+Legal delay & Use review, litigation, transition periods, and exceptions to postpone enforcement while rents continue. & Automatic default rules, expiry, escrowed liabilities, time-limited appeals, and explicit delay costs. \\
+\addlinespace
+Narrative capture & Reframe ``transition'' as indefinite preparation; use future technology promises to justify present expansion. & Evidence-backed claim standards, boundary disclosure, delivered-outcome accounting, legal liability, and zero credit for undelivered removals. \\
+\addlinespace
+Data flooding & Publish voluminous, incomparable reports that increase audit cost and hide material information. & Machine-readable minimum schemas, open metadata, facility-level data, independent assurance, auditor rotation, and public replication. \\
+\addlinespace
+Emergency-power capture & Use safety triggers to centralize authority indefinitely or suppress contestation. & Predefined release rules, judicial review, sunset clauses, rights floors, transparent models, and compensation for erroneous triggers. \\
+\bottomrule
+\end{longtable}
+
+The attack catalogue implies six general defenses:
+\begin{equation}
+\mathsf{AntiCapture}=
+\mathsf{Triangulation}+\mathsf{Automation}+\mathsf{Liability}
++\mathsf{AntiDelay}+\mathsf{Justice}+\mathsf{AdversarialAudit}.
+\label{eq:anticapture}
+\end{equation}
+The effective capture term may be represented as
+\begin{equation}
+\capture_t^{\mathrm{eff}}=
+\frac{\capture_t^{\mathrm{attempted}}}
+{1+\mathsf{AntiCapture}_t+R_t^J+\mathsf{LegalExposure}_t}.
+\label{eq:effectivecapture}
+\end{equation}
+This expression is schematic; its empirical content would require domain-specific estimation.
+
+% -----------------------------------------------------------------------------
+\section{Empirical Anchors and Claim Boundaries}
+% -----------------------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{Selected empirical anchors. They motivate variables and failure modes but do not validate the full model.}
+\label{tab:anchors}
+\begin{tabularx}{\textwidth}{@{}L{0.27\textwidth}YL{0.25\textwidth}@{}}
+\toprule
+\textbf{Observation} & \textbf{Evidence} & \textbf{Model relevance} \\
+\midrule
+Non-punitive Paris compliance architecture & Article 15 and the PAICC specify a facilitative, non-adversarial, non-punitive mechanism \citep{unfccc2015,unfcccpaicc}. & Illustrates weak direct penalty coupling; does not imply that transparency and facilitation have zero value. \\
+\addlinespace
+Persistent policy-temperature gap & UNEP 2025 estimated 2.3--2.5\,\textdegree C under full NDC implementation and 2.8\,\textdegree C under current policy \citep{unep2025}. & Motivates separating commitments from physical trajectory. \\
+\addlinespace
+Fossil-production inconsistency & Governments collectively planned more than twice the 2030 production consistent with a 1.5\,\textdegree C pathway \citep{productiongap2025}. & Motivates a supply-side state and production-gap trigger. \\
+\addlinespace
+Record atmospheric concentrations & WMO reported 423.9 ppm globally averaged CO$_2$ in 2024 \citep{wmo2025}. & Anchors the physical state variable; concentration is not a complete welfare metric. \\
+\addlinespace
+Multiple Earth-system boundaries & Recent boundary assessments integrate climate, biosphere, water, nutrients, and justice \citep{rockstrom2023,richardson2023}. & Supports coupled constraints rather than a single temperature KPI. \\
+\addlinespace
+Context-sensitive acoustic indicators & Soundscape monitoring can track ecological recovery, while acoustic indices have limited universal proxy validity \citep{muller2023,alcocer2022}. & Supports ensemble sensing and explicit uncertainty rather than a single acoustic score. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{What prior interventions support, and what they do not}
+
+Faster public procurement payment can relieve firms' financing constraints, but the Quickpay study also reports displacement of employment at other firms, with near-zero net employment gains in tight local labor markets \citep{barrotnanda2020}. The relevant evaluation boundary therefore includes users of shared resources outside the treated group. In Kenya, changing the timing of insurance payments substantially increased take-up \citep{casaburiwillis2018}; the contract terms and multiple mechanisms prevent treating this as a pure equal-cost liquidity experiment, and enrollment is not eventual contractual performance. Supply-network evidence on specific inputs supplies a different warning: funds do not automatically create substitutable physical capacity \citep{barrotsauvagnat2016}.
+
+Existing protection can work. Disaster-related public transfers extend beyond dedicated disaster aid \citep{deryugina2017}. Research on Katrina victims finds income recovery alongside persistent relocation \citep{deryugina2018}; one cannot assume monotonic collapse of every capacity after a disaster. Conversely, long-run mortality estimates for tropical cyclones \citep{younghsiang2024} cannot be canceled by income recovery in a different population, period, and design. None of these studies identifies this project's proposed household payment-delay-to-harm mechanism.
+
+Early-transfer evidence also requires precise comparisons. The main comparison in \citet{pople2026} is anticipatory recipients versus non-recipients, not an equal-amount randomized comparison of early and late receipt. A separate WFP evaluation summary describes randomized equal transfers before and after flooding \citep{wfp2026}. Our recorded reading of the latter is the publisher's overview, not its full methods and tables; no effect size or mediated liquidity share is imported. These are precedents and constraints on our design, not validations of \cref{hyp:timing}.
+
+\subsection{Existing development results: failures retained}
+\label{sec:development}
+
+The repository's earlier lanes are different instruments, not exchangeable replications. In the synthetic feasibility baseline, irreversible entries were 98/192 for a simple threshold, 93/192 for a hysteretic threshold, and 70/192 for reserve control. Under common optimistic bias, ten paired cases favored hysteresis over reserve. Zero budget, zero capacity, and fully missing observations each failed in every evaluation episode under the declared fallback. These are model-specific failures, not proofs of universal impossibility.
+
+The sustained-plan baseline reduced entries from 17/48 to 7/48, but the new screen kept emergency operation active for an average 66.958 of 72 steps and exhausted its budget. Finite candidate failure did not prove the absence of every feasible policy. In the synthetic heat comparison, retaining existing protection yielded lower residual exposure with information plus linkage in 26 of 72 primary conditions, higher exposure in 22, and equal exposure in 24. These are signs of condition-mean differences, not 72 independent field sites, a policy success rate, or significance tests. The study used 32 shared seeds per condition; its high-friction baseline partly encodes zero expected effectiveness. There is no aggregate winner established by these counts.
+
+The fuel-carbon accounting lane classified 17 of 21 rows as reconciled, one as rejected, and three as unknown. It did not identify operational fuel stocks or the effect of preserving an electricity service through substitution. The heat public-record audit retained missing opportunity denominators, response clocks, and links from contracts to actual wages. Unknown is not absent protection. These results generated the present hypothesis and cannot serve as an independent confirmatory test of it. Source paths and study-specific denominators remain in the repository's dated proposal and result notes.
+
+\subsection{Frozen public-data audit: the observable unit matters}
+\label{sec:descriptive}
+
+An exploratory CPU audit acquired OpenFEMA and World Bank API responses on 25 October 2026 JST, before this manuscript revision. It added no policy intervention or new synthetic simulation. The frozen snapshot, contract, code, hashes, and output tables accompany the paper under \path{artifacts/cross_domain_audit_v01} and \path{experiments/cross_domain_audit_v01}.
+
+For major disasters declared in 2000--2024, 29,471 designated-area rows reduce to 1,542 declaration identifiers. Median incident-start-to-declaration time is 40 calendar days, with quartiles 17 and 65; computing the same statistic on area rows gives 37 days. The latter reweights declarations by designated areas. The request-date denominator is 1,541 because one is missing. Negative date differences and suspicious source dates are retained, not corrected by inference. These are three administrative clocks among declared cases, not a denominator of all affected people, a payment clock, or evidence of 40 unprotected days. Existing local and permanent services may precede a federal declaration \citep{fema2026data}.
+
+For Bangladesh and Kenya, 2000--2024 observations for two external-debt-service ratios provide 100 country--year--indicator cells without missing values. Both denominators are export receipts, not government revenue or cash. The Bangladesh change between the 2000--2004 and 2020--2024 mean ratios is +3.15 percentage points for total external debt service but -0.91 for public and publicly guaranteed service. This difference warns against an unrestricted fiscal-capacity proxy; it does not identify crowding-out of adaptation or recipient nonpayment. The two countries were selected because of the cited transfer and insurance studies, not as a representative global sample \citep{worldbanktotal,worldbankpublic}.
+
+Offline replay and independent arithmetic checks establish reproducibility of these descriptions, not correctness of each administrative date or causal identification. The two datasets are not joined into a mechanism estimate. Documented source reading, synthetic development results, administrative descriptions, and future hypotheses remain separate evidence classes. RVCIM remains F0 even though the administrative records themselves are real.
+
+The paper advances an architecture, not the following stronger claims:
+\begin{itemize}
+  \item It does not prove that the Paris Agreement was intentionally designed to fail.
+  \item It does not identify one exact global recovery boundary.
+  \item It does not assume that every actor is selfish, identical, or perfectly rational.
+  \item It does not imply that punishment alone is optimal, or that all cooperation should be centralized.
+  \item It does not treat soundscape indices as a universal biodiversity truth machine.
+  \item It does not show that an automatic controller can resolve distributive conflict without politics.
+\end{itemize}
+
+% -----------------------------------------------------------------------------
+\section{A Falsifiable Research Program}
+% -----------------------------------------------------------------------------
+
+\subsection{Minimal simulation environment}
+
+A first implementation should be an agent-based partially observable stochastic game, not a full integrated assessment model. Let actors vary in economic dependence, power, exposure, externalization capacity, horizon, trust, and capture ability. Compare at least four governance arms:
+\begin{enumerate}
+  \item \textbf{Weak-coupling baseline}: observation and voluntary reporting with low $\partial\inst/\partial\kpi$.
+  \item \textbf{Nominal trigger}: deterministic institutional response without capture defense.
+  \item \textbf{Robust reserve controller}: ambiguity-aware triggers using $CR_t$ and viability constraints.
+  \item \textbf{Full RVCIM}: robust triggers plus justice buffers, model plurality, adversarial audit, and accountable override.
+\end{enumerate}
+
+Key experimental sweeps include physical uncertainty, observation noise, common-mode model error, capture budget, policy delay, capital turnover, trust decay, and unequal transition burden. Outcomes include
+\begin{align}
+R_{\mathrm{irr}}(H)&=\Pp(\tau_{\irrev}^{(t)}\le H), \\
+CR_{\min}&=\min_{t\le H}CR_t^{\mathrm{sys}}, \\
+\mathsf{PG}_{\mathrm{cum}}&=\sum_{t\le H}\mathsf{PG}_t, \\
+\mathsf{CA}&=1-\frac{\|\capture^{\mathrm{eff}}\|}{\|\capture^{\mathrm{attempted}}\|+\epsilon}, \\
+\mathsf{JS}&=R_t^J-\mathsf{BacklashRisk}_t.
+\end{align}
+False-positive and false-negative trigger rates must both be measured. For irreversible risks, a false negative may have much greater cost, but excessive false positives can destroy legitimacy and thus future control capacity.
+
+\subsection{Hypotheses}
+
+\begin{hypothesis}[Coupling]
+Holding physical dynamics, actor preferences, and capture fixed, increasing the credible KPI-to-payoff coupling $\Lambda_i$ for decisive actors reduces defective action relative to a monitoring-only baseline.
+\end{hypothesis}
+
+\begin{hypothesis}[Capture decay]
+A nominal trigger initially improves outcomes but its effect decays under repeated strategic adaptation when capture is unmodeled; adversarial audit and function separation reduce that decay.
+\end{hypothesis}
+
+\begin{hypothesis}[Reserve advantage]
+Under delayed and uncertain tipping dynamics, reserve-based triggers reduce entry into $\irrev$ relative to damage-threshold triggers, at the cost of a higher false-positive rate.
+\end{hypothesis}
+
+\begin{hypothesis}[Justice durability]
+Transition policies with automatic justice buffers produce lower backlash, higher coordination reserve, and greater long-run policy persistence than otherwise identical punitive policies.
+\end{hypothesis}
+
+\begin{hypothesis}[Sensor ensemble]
+A multimodal ecological observation ensemble is more robust to manipulation and domain shift than a single KPI, but remains vulnerable to common-mode model error.
+\end{hypothesis}
+
+\begin{hypothesis}[Adaptive path value]
+Policies with staged commitments, signposts, and reversible early actions retain more option value under deep uncertainty than fixed long-horizon plans with equivalent expected benefits.
+\end{hypothesis}
+
+\subsection{Stress tests}
+
+At minimum, evaluate scenarios in which: the boundary is 30\% closer than the median model; no reliable early warning appears; all models share a common bias; KPI data are accurate but institutions fail to act; institutions act but backlash forces repeal; an industry coordinates manipulation; two physical thresholds cascade; and emergency powers are captured. A design that succeeds only when all actors report honestly and all models are well calibrated is not an anti-capture architecture.
+
+\subsection{Next study: distinguish mechanisms before scaling}
+
+The next study should operationalize \cref{hyp:timing}, not merely enlarge a simulation grid. First require a bounded input contract linking entitlement, drawable funds, expenditure, physical service, and follow-up. Preserve existing protection and viable alternatives. Classify pre-intervention liquidity shortfall separately from physical scarcity, performance uncertainty, and incentive conflict; where this cannot be done, report an unidentified mixture rather than choose the most favorable explanation after the result.
+
+Separate an equal-nominal-transfer timing estimand from a fixed-total-resource policy comparison. Follow recipient and payer, non-recipients competing for capacity, delivery deadlines, continued service, and unpaid obligations. Freeze the population, horizon, allocation unit, meaningful effect margin, uncertainty analysis, and stopping rules before confirmatory outcomes. An ethical design cannot withhold legally required or immediately necessary protection to create a control group. Shadow observation or a synthetic falsification study can prepare the contract but cannot establish the real-world effect. The waiting and revisability candidates require separate designs and must not replace the primary prediction after a negative result.
+
+% -----------------------------------------------------------------------------
+\section{Executable Reference and Feasibility Contract}
+% -----------------------------------------------------------------------------
+
+The repository companion turns the minimal research program into a small, inspectable experiment. Its purpose is to establish that the paper's formal pieces can be composed into one deterministic software loop and subjected to failure tests. Execution is an audit surface, not an evidentiary shortcut.
+
+\subsection{Feasibility ladder and admissible claims}
+
+The distinction between implementation and validation is organized as a four-level ladder. Progress at one level does not silently confer the claims of the next.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Feasibility ladder for the manuscript and companion implementation.}
+\label{tab:feasibility}
+\begin{tabularx}{\textwidth}{@{}L{0.08\textwidth}L{0.24\textwidth}Y Y@{}}
+\toprule
+\textbf{Level} & \textbf{Object} & \textbf{Admissible claim} & \textbf{Additional evidence required to advance} \\
+\midrule
+F0 & Executable structural toy & The declared mechanisms compose into a coherent, inspectable, replayable loop under recorded conditions. & Deterministic tests, explicit assumptions, traceable outputs, hash-addressed receipts, and a reviewed external anchor for authenticity claims; the same-tree manifest checks internal consistency only. \\
+\addlinespace
+F1 & Stylized calibrated model & A narrow mechanism reproduces selected regularities under documented assumptions. & Parameter provenance, identification argument, alternative mechanisms, sensitivity analysis, and held-out tests. \\
+\addlinespace
+F2 & Sectoral or jurisdictional shadow model & The system may support bounded, non-actuating analysis in a declared domain. & Scoped legal authority, live-data validation, distribution-shift monitoring, independent review, and prospective evaluation. \\
+\addlinespace
+F3 & Reversible institutional pilot & A specific mechanism is operationally feasible under declared safeguards. & Rights floor, appeal, compensation, rollback and release rules, accountable ownership, and measured real-world outcomes. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+This release is F0. A successful run, an ordered comparison table, or a lower toy irreversible-entry rate cannot be promoted into a climate forecast, a causal policy estimate, or evidence that an institutional design is legitimate.
+
+The current manifest and receipt system detects missing or byte-modified declared files relative to metadata committed in the same tree. It is not a signature, transparency-log inclusion proof, independent build receipt, or proof that the prose attached to a hash is historically true. Provenance statements in this release are therefore operator-attested except where repository history supplies an independent earlier anchor.
+
+\subsection{Paper-to-code correspondence}
+
+Table~\ref{tab:papertocode} makes the correspondence explicit enough to audit, while also stating where the implementation compresses the formal object.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Correspondence between formal objects and the reference implementation.}
+\label{tab:papertocode}
+\begin{tabularx}{\textwidth}{@{}L{0.19\textwidth}L{0.31\textwidth}Y@{}}
+\toprule
+\textbf{Paper object} & \textbf{Implementation surface} & \textbf{F0 interpretation} \\
+\midrule
+$\state_t,\bm{s}_t$ & \texttt{WorldState} & Normalized physical pressure, biosphere, institution, trust, justice, policy, support, and audit state. \\
+$\action_{i,t},\Delta_i$ & \texttt{actor\_actions()} & Heterogeneous payoff-sensitive cooperation, defection, capture, restoration, and symbolic action. \\
+$\bm y_t,\kpi_t$ & \texttt{observe\_pressure()} & Noisy observation with manipulation and audit correction. \\
+$\Theta_t$ & \texttt{Environment.model\_boundaries} & A finite model ensemble with common-mode bias and structural allowance. \\
+$CR_t,\rho_t$ & \texttt{estimate\_reserve()} & Conservative estimated exit time minus endogenous response time. \\
+$\Gamma$ & \texttt{select\_mode()}, \texttt{schedule\_policy()}, \texttt{advance\_policy()} & Requested trigger mode, pending transition and delay, eventual active mode, and release logic. The trace exposes \texttt{requested\_mode}, \texttt{active\_mode}, \texttt{pending\_mode}, their names, and \texttt{pending\_delay} separately. \\
+$\capture_t^{\mathrm{eff}}$ & \texttt{effective\_capture\_value()} & Attempted capture after audit, function separation, justice, and policy exposure. \\
+$\mathsf{PG}_t$ & Trace and episode accumulators & Symbolic action minus scaled verified physical improvement. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The preserved v0.2 code compares weak coupling, nominal trigger, robust reserve, and full \RVCIM. Within an episode, arms receive paired environmental draws. Pairing does not equalize all capabilities, and evaluator-only state enters part of this original loop. It is therefore a structural reference, not a clean causal comparison of trigger designs. The separate feasibility and sustained-response lanes narrow those issues under their own contracts. Neither they nor the original code implement the full pathway set in \cref{eq:executionset} or the revisability proposal in \cref{sec:revisability}.
+
+\subsection{Reference implementation contract}
+
+The executable contract is intentionally narrow and fail-closed:
+\begin{enumerate}
+  \item \textbf{Runtime.} The simulator uses Python 3.10 or newer and only the standard library. The checked-in source is the readable source of truth; execution does not depend on hidden payload assembly.
+  \item \textbf{Declared input.} A run resolves \path{simulation/configs/minimal.json}, selected arms, episode count, seed, and command-line overrides into \path{resolved_config.json}. Unknown configuration keys are rejected.
+  \item \textbf{Paired randomness.} The episode seed determines one common environment for all selected arms. Arm ordering cannot change the sampled exogenous episode.
+  \item \textbf{Observable outputs.} Every complete run writes \path{summary.csv}, \path{episodes.csv}, \path{trace.csv}, \path{comparison.md}, \path{resolved_config.json}, and \path{receipt.json}. The receipt records the claim boundary, command, declared environment, source identity, configuration identity, and output hashes. The trace records requested, pending, and active modes in distinct columns. A request may remain pending while the active mode and its policy targets are delayed.
+  \item \textbf{Verification.} Receipt verification resolves recorded paths relative to the receipt, recomputes SHA-256 identities, and returns non-zero for a missing or modified file. Repository verification also checks same-tree manifest consistency and the committed reference receipt, then replays the declared reference command and byte-compares its deterministic outputs. Successful replay establishes byte consistency under the exercised source and configuration; it does not establish semantic correctness, historical provenance, or authenticity.
+  \item \textbf{Failure visibility.} False-positive and false-negative requested-trigger classifications are reported together. \texttt{emergency\_request\_rate} counts steps on which the trigger requests emergency-or-higher mode; it does not measure time spent in an active emergency mode. Skipped executable tests, absent release artifacts, and hash mismatches are failures, not successful partial results. Manuscript buildability is qualified separately with an explicit TeX toolchain and must not be inferred from Python CI.
+\end{enumerate}
+
+The reference command is:
+
+\begin{lstlisting}[style=paperpseudo,language=bash]
+python3 -m simulation run \
+  --config simulation/configs/minimal.json \
+  --episodes 64 --seed 7 \
+  --out artifacts/reference_run --overwrite
+
+python3 -m simulation verify \
+  --receipt artifacts/reference_run/receipt.json
+\end{lstlisting}
+
+\begin{boundarybox}
+\textbf{What F0 does not establish.} The normalized parameters are selected to expose an inspectable mechanism gradient. They do not estimate climate sensitivity, tipping distributions, institutional response, actor preferences, or real intervention effects. The executable establishes correspondence, byte replayability under the recorded source, configuration, seed, and compatible runtime, and falsifiable interfaces---not the correctness of mode semantics, historical provenance, authenticity, empirical truth, policy rank, safety, legality, or democratic legitimacy.
+\end{boundarybox}
+
+% -----------------------------------------------------------------------------
+\section{Limitations and Open Problems}
+% -----------------------------------------------------------------------------
+
+First, the cooperative/defective partition is partly normative. An action can reduce emissions while violating justice or biodiversity constraints. The paper therefore requires plural hard constraints rather than a single climate score, but disagreements over those constraints remain political.
+
+Second, robust worst-case methods can become excessively conservative. Ambiguity sets may contain implausible models, and powerful actors may weaponize uncertainty to block beneficial transformation. The response is not to ignore uncertainty but to combine hard safety constraints with safe learning, staged trials, explicit information value, and periodic model-set revision.
+
+Third, institutional actuators do not behave like physical actuators. Enforcement depends on legitimacy, legal authority, implementation capacity, and interpretation. Equations such as \cref{eq:institution,eq:barrierchance} are formal abstractions that must be instantiated separately in each jurisdiction.
+
+Fourth, automatic triggers create constitutional risk. Rules justified by an unknown boundary can be used to normalize emergency powers. Release conditions, rights floors, transparent models, independent appeal, compensation, and legislative renewal are therefore part of the controller, not optional safeguards.
+
+Fifth, the robust viability kernel may be computationally intractable in high-dimensional coupled systems. Approximations, surrogate models, scenario discovery, and decomposition will be necessary. Model plurality can reduce single-model dependence but does not eliminate correlated error.
+
+Sixth, physical stabilization after payoff inversion may be slow. A governance reform can be successful in strategic terms while concentrations, ice loss, or ecological damage continue due to lag. Evaluation must distinguish policy coupling, action change, and delayed physical response.
+
+Seventh, the pathway contract may itself be costly, selective, or captured. Accepted applications alone cannot identify unmet need; full-population needs and counterfactual commitments may remain unobserved. A richer ledger can increase burden without improving protection. Its incremental value must be compared with simpler existing practice, and its own boundaries must be open to correction.
+
+Finally, the literature synthesis is selective and includes abstract-level readings explicitly marked in the source ledger. The new hypotheses arose after seeing development outcomes. The public-data audits do not identify their causal mechanisms, and no complete institutional or Earth-system digital twin has been calibrated. This paper has not demonstrated empirical superiority or established the academic novelty of its integration.
+
+% -----------------------------------------------------------------------------
+\section{Conclusion}
+% -----------------------------------------------------------------------------
+
+Nash's Cage names a system in which local rationality, physical externalization, short horizons, partial observation, and institutional capture jointly stabilize collective degradation. The architecture is dangerous not only because the physical state worsens, but because it can shrink the future set of feasible recoveries. The decisive threshold may therefore precede visible collapse: remaining safe time becomes shorter than institutional and biophysical braking time.
+
+\RVCIM responds by changing the order of operations. It does not maximize short-term welfare and then price the damage. It first constrains irreversible risk and injustice, then optimizes within the remaining viable region. It does not assume that a better dashboard is governance. It measures the full chain from observation to actuator, payoff, behavior, and physical response. It does not assume reform survives contact with regulated actors. Capture is a strategic state variable, and anti-capture design is an institutional immune system.
+
+The manuscript's core proposition is deliberately conservative:
+\begin{corebox}
+When the irreversible boundary is unknown, governance should preserve the ability to brake rather than infer safety from the absence of visible collapse.
+\end{corebox}
+
+The next question is consequently more specific than whether a dashboard improves or an emergency order fires. Which protection pathways are actually available before their deadlines, who can carry the intermediate burdens, what is displaced, and can mistakes and exclusions be corrected? Observation may matter through several channels; favorable incentives still require executable action; the end of an emergency does not erase its losses or continuing obligations. The proposed tests can fail. The contribution includes failures, existing institutional successes, and unresolved mechanisms.
+
+% -----------------------------------------------------------------------------
+\appendix
+\section{Repository Evidence Map}
+\label{app:evidence}
+
+The companion repository is \url{https://github.com/RyoSpiralArchitect/Nash-s_Cage}.
+Use the Git revision distributed with this PDF, rather than assuming that the moving default branch contains identical material. The manuscript revision does not alter the following frozen results. The research index records source versions and actual reading scope.
+
+\begin{itemize}
+  \item Research index and prior work: \path{docs/research/README.ja.md} and \path{docs/research/prior-work/README.ja.md}.
+  \item Theory and original result denominators: \path{docs/proposals/2026-10-24-joint-executability/PROPOSAL.ja.md}, with its companion \path{SOURCES.ja.md}.
+  \item Synthetic result records: \path{docs/FEASIBILITY_V03_RESULTS.ja.md}, \path{docs/SUSTAINED_V04_RESULTS.ja.md}, and \path{docs/HEAT_INSTITUTION_V01_RESULTS.ja.md}.
+  \item Accounting and public-audit boundaries: \path{docs/POWER_ACCOUNTING_RESULTS.ja.md} and \path{experiments/heat_public_audit_v01/CONTRACT.ja.md}.
+  \item Cross-domain interpretation and reproduction: \path{docs/research/2026-10-25-cross-domain-executability/ANALYSIS.ja.md} and its \path{REPRODUCIBILITY.ja.md}.
+  \item Frozen administrative summaries and receipts: \path{artifacts/cross_domain_audit_v01/analysis_20261025/summary.json}; source queries and hashes: \path{artifacts/cross_domain_audit_v01/snapshot_20261025/manifest.json}.
+  \item This revision's source-check and build records: \path{docs/research/2026-10-28-manuscript-v03/}.
+\end{itemize}
+
+% -----------------------------------------------------------------------------
+\section{Notation Summary}
+% -----------------------------------------------------------------------------
+
+\begin{longtable}{@{}L{0.20\textwidth}L{0.72\textwidth}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$\state_t$ & Full physical, agent, institutional, and narrative state. \\
+$\bm{s}_t$ & Physical and ecological state. \\
+$\action_{i,t}$ & Actor $i$'s emissions, fossil, decarbonization, symbolic, capture, restoration, and adaptation actions. \\
+$\inst_t$ & Institutional actuators and capacities. \\
+$\narr_t$ & Narrative, awareness, trust, and legitimacy state. \\
+$\bm y_t$ & Raw multimodal observations. \\
+$\kpi_t$ & Institutional KPI and reserve dashboard. \\
+$\capture_t$ & Capture vector attacking metrics, institutions, delay, narrative, justice, and finance. \\
+$\Theta_t$ & Ambiguity set of plausible system models. \\
+$\safe$ & Present-time safe and just constraint set. \\
+$\mathcal V_t^{\mathrm{rob}}$ & Robust viability set under feasible common policies. \\
+$\irrev$ & Functionally irreversible state set. \\
+$\tau_{\mathcal A}^{(t)}$ & First-passage delay from decision time $t$ into set $\mathcal A$. \\
+$\rho_t(H)$ & Robust recoverability over horizon $H$. \\
+$CR_t$ & Remaining lower-bound exit time minus upper-bound response time. \\
+$\Delta_i$ & Cooperation payoff minus defection payoff. \\
+$\Lambda_i$ & KPI-to-payoff coupling strength. \\
+$\mathsf{PG}_t$ & Symbolic action minus scaled verified physical improvement. \\
+$R_t^J$ & Justice and legitimacy reserve. \\
+$\mathsf{OWD}(a)$ & One-Way Door index for action $a$. \\
+$\ell_i(s;\pi,m,\theta)$ & Actor-specific financial slack above a declared protected minimum. \\
+$\mathcal E_m^H(t)$ & Conceptual non-anticipating, deadline-constrained joint execution set. \\
+\bottomrule
+\end{longtable}
+
+% -----------------------------------------------------------------------------
+\section{Minimal Control Loop}
+% -----------------------------------------------------------------------------
+
+\begin{lstlisting}[style=paperpseudo]
+At each decision time t:
+
+1. Observe:
+   y_t <- independent multi-sensor observations
+
+2. Update uncertainty:
+   Theta_t <- update plausible models + structural-error allowance
+
+3. Estimate state and reserves:
+   k_t, V_rob_t, rho_t, CR_t <- robust inference(y_0:t, Theta_t)
+
+4. Red-team the observation:
+   k_robust <- sensor fusion - manipulation allowance + audit correction
+
+5. Select requested mode:
+   if rho_t < rho_min:
+       requested_mode <- loss minimization
+   else if lower_bound(CR_t) <= 0:
+       requested_mode <- emergency braking
+   else if CR_t is low or boundary uncertainty is high:
+       requested_mode <- precaution
+   else:
+       requested_mode <- adaptive normal
+
+6. Select policy:
+   maximize durable welfare + information value + option value
+   subject to:
+       irreversible-risk <= epsilon
+       justice reserve >= J_min
+       prohibited non-fungible loss == 0
+
+7. Schedule and advance actuators:
+   pending_mode, pending_delay <- schedule(requested_mode)
+   active_mode <- advance pending transition when its delay elapses
+   apply price, cap, permit, finance, restoration, dividend, compensation
+   according to active_mode
+
+8. Audit adaptation:
+   search for metric, boundary, delay, narrative, finance, and justice hacks
+
+9. Publish:
+   observations, models, uncertainty, requested/pending/active mode,
+   burdens, beneficiaries, override and release conditions
+
+10. Require review_interval < controllability_reserve; otherwise increase review cadence.
+\end{lstlisting}
+
+% -----------------------------------------------------------------------------
+\section{Cage-Inversion Constitutional Invariants}
+% -----------------------------------------------------------------------------
+
+\begin{enumerate}
+  \item \textbf{Unknown is not zero.} Missing evidence is not a safety certificate.
+  \item \textbf{No silent loss of controllability.} Reserve deterioration must itself be a trigger.
+  \item \textbf{No compensation across irreplaceable boundaries.} Non-fungible losses cannot be converted into generic credits.
+  \item \textbf{One-way actions carry the proof burden.} Irreversibility raises the required confidence of safety.
+  \item \textbf{Delay has a price.} Appeal and review cannot be costless defection strategies.
+  \item \textbf{Justice is a floor.} Aggregate benefit cannot erase intolerable burden concentration.
+  \item \textbf{No single epistemic controller.} Measurement, modeling, triggering, auditing, and appeal are separated.
+  \item \textbf{Override is temporary and expensive.} Exceptions require public reasons, expiry, review, compensation, and traceability.
+  \item \textbf{Every emergency trigger has a release rule.} Safety governance cannot become an unbounded permanent exception.
+\end{enumerate}
+
+% -----------------------------------------------------------------------------
+\printbibliography[heading=bibintoc,title={References}]
+
+\end{document}

@@ -166,6 +166,13 @@ POWER_ROLES = {
 }
 REQUIRED_FILES = REQUIRED_FILES | frozenset(POWER_ROLES)
 EXPECTED_ROLES.update(POWER_ROLES)
+MANUSCRIPT_V03_ROLES = {
+    "paper/nashs_cage_rvcim_v0_3.tex": "research revision manuscript v0.3 TeX",
+    "paper/nashs_cage_rvcim_v0_3.pdf": "research revision manuscript v0.3 PDF",
+    "paper/references_v0_3.bib": "bibliography for research revision manuscript v0.3",
+}
+REQUIRED_FILES = REQUIRED_FILES | frozenset(MANUSCRIPT_V03_ROLES)
+EXPECTED_ROLES.update(MANUSCRIPT_V03_ROLES)
 PDF_FILES = frozenset(relative for relative in REQUIRED_FILES if relative.endswith(".pdf"))
 TEXT_FILES = REQUIRED_FILES - PDF_FILES
 EXECUTABLE_GLOBS = (
@@ -471,6 +478,22 @@ def verify_operational_semantics(root: Path) -> list[str]:
 
     makefile = texts.get("Makefile")
     if makefile is not None:
+        for target, version in (("paper", "0_3"), ("paper-v02", "0_2")):
+            recipe = make_recipe(makefile, target)
+            expected = (
+                "mkdir -p .tmp/paper\n"
+                "cd paper && latexmk -xelatex -interaction=nonstopmode "
+                "-halt-on-error -outdir=../.tmp/paper "
+                f"nashs_cage_rvcim_v{version}.tex"
+            )
+            normalized = None if recipe is None else "\n".join(
+                line.strip() for line in recipe.splitlines() if line.strip()
+            )
+            if normalized != expected:
+                failures.append(
+                    f"make {target} must build manuscript v{version.replace('_', '.')} "
+                    "in fixed .tmp/paper without overwriting committed PDFs"
+                )
         experiment = make_recipe(makefile, "experiment")
         if experiment is None:
             failures.append("Makefile must define experiment")

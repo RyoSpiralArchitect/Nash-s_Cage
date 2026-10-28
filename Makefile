@@ -3,7 +3,7 @@ CONFIG ?= simulation/configs/minimal.json
 EPISODES ?= 64
 SEED ?= 7
 
-.PHONY: help explain verify-release verify-reference-replay verify-feasibility verify-sustained verify-power compile test smoke experiment feasibility sustained power-accounting refresh-reference verify-artifact verify paper paper-clean clean
+.PHONY: help explain verify-release verify-reference-replay verify-feasibility verify-sustained verify-power compile test smoke experiment feasibility sustained power-accounting refresh-reference verify-artifact verify paper paper-v02 paper-clean clean
 
 help:
 	@printf '%s\n' \
@@ -17,7 +17,8 @@ help:
 	  '  make refresh-reference  Maintainer-only refresh of the committed reference fixture' \
 	  '  make explain          Print the F0 claim boundary and paper-to-code map' \
 	  '  make test             Run the standard-library unit tests' \
-	  '  make paper            Build the regenerated manuscript v0.2' \
+	  '  make paper            Build the research revision manuscript v0.3' \
+	  '  make paper-v02        Build the preserved regenerated manuscript v0.2' \
 	  '  make verify-release   Verify committed files against RELEASE_MANIFEST.json' \
 	  '  make verify-artifact  Verify the committed reference receipt' \
 	  '  make verify-reference-replay  Regenerate and compare deterministic outputs' \
@@ -86,6 +87,10 @@ verify-artifact:
 verify: verify-release compile test smoke verify-artifact verify-reference-replay verify-feasibility verify-sustained verify-power
 
 paper:
+	mkdir -p .tmp/paper
+	cd paper && latexmk -xelatex -interaction=nonstopmode -halt-on-error -outdir=../.tmp/paper nashs_cage_rvcim_v0_3.tex
+
+paper-v02:
 	mkdir -p .tmp/paper
 	cd paper && latexmk -xelatex -interaction=nonstopmode -halt-on-error -outdir=../.tmp/paper nashs_cage_rvcim_v0_2.tex
 

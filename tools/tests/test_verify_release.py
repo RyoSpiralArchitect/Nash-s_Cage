@@ -69,8 +69,8 @@ class ReleaseVerificationTests(unittest.TestCase):
         )
         self.assertEqual([], failures)
 
-    def test_release_closure_has_exactly_sixty_one_records(self) -> None:
-        self.assertEqual(61, len(verify_release.REQUIRED_FILES))
+    def test_release_closure_has_exactly_sixty_four_records(self) -> None:
+        self.assertEqual(64, len(verify_release.REQUIRED_FILES))
         self.assertEqual(
             verify_release.REQUIRED_FILES,
             frozenset(verify_release.EXPECTED_ROLES),
@@ -84,6 +84,59 @@ class ReleaseVerificationTests(unittest.TestCase):
                 if "sustained" not in relative.lower()
             },
         )
+
+    def test_each_v03_manuscript_file_is_required(self) -> None:
+        for relative in verify_release.MANUSCRIPT_V03_ROLES:
+            with self.subTest(relative=relative), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                manifest = self.copy_release(root)
+                (root / relative).unlink()
+                failures = verify_release.verify(root, manifest)
+                self.assertIn(f"{relative}: missing regular file", failures)
+
+    def test_each_v03_manuscript_hash_is_checked(self) -> None:
+        for relative in verify_release.MANUSCRIPT_V03_ROLES:
+            with self.subTest(relative=relative), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                manifest = self.copy_release(root)
+                with (root / relative).open("ab") as handle:
+                    handle.write(b"tamper")
+                failures = verify_release.verify(root, manifest)
+                self.assertTrue(
+                    any(relative in f and "hash mismatch" in f for f in failures),
+                    failures,
+                )
+
+    def test_each_v03_manuscript_manifest_record_is_required(self) -> None:
+        for relative in verify_release.MANUSCRIPT_V03_ROLES:
+            with self.subTest(relative=relative), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                manifest_path = self.copy_release(root)
+                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                del manifest["files"][relative]
+                self.write_manifest(manifest_path, manifest)
+                failures = verify_release.verify(root, manifest_path)
+                self.assertTrue(
+                    any("missing required records" in f and relative in f for f in failures),
+                    failures,
+                )
+
+    def test_manuscript_make_targets_and_output_destination_are_checked(self) -> None:
+        for old, new, target in (
+            (" nashs_cage_rvcim_v0_3.tex", " nashs_cage_rvcim_v0_2.tex", "paper"),
+            (" nashs_cage_rvcim_v0_2.tex", " nashs_cage_rvcim_v0_3.tex", "paper-v02"),
+            ("-outdir=../.tmp/paper", "-outdir=.", "paper"),
+        ):
+            with self.subTest(new=new), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                manifest = self.copy_release(root)
+                path = root / "Makefile"
+                original = path.read_text(encoding="utf-8")
+                self.assertIn(old, original)
+                path.write_text(original.replace(old, new, 1), encoding="utf-8")
+                self.refresh_manifest_record(root, manifest, "Makefile")
+                failures = verify_release.verify(root, manifest)
+                self.assertTrue(any(f"make {target} must build" in f for f in failures), failures)
 
     def test_modified_file_fails(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
