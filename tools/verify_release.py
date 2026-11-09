@@ -173,6 +173,13 @@ MANUSCRIPT_V03_ROLES = {
 }
 REQUIRED_FILES = REQUIRED_FILES | frozenset(MANUSCRIPT_V03_ROLES)
 EXPECTED_ROLES.update(MANUSCRIPT_V03_ROLES)
+MANUSCRIPT_V04_ROLES = {
+    "paper/nashs_cage_rvcim_v0_4.tex": "research revision manuscript v0.4 TeX",
+    "paper/nashs_cage_rvcim_v0_4.pdf": "research revision manuscript v0.4 PDF",
+    "paper/references_v0_4.bib": "bibliography for research revision manuscript v0.4",
+}
+REQUIRED_FILES = REQUIRED_FILES | frozenset(MANUSCRIPT_V04_ROLES)
+EXPECTED_ROLES.update(MANUSCRIPT_V04_ROLES)
 PDF_FILES = frozenset(relative for relative in REQUIRED_FILES if relative.endswith(".pdf"))
 TEXT_FILES = REQUIRED_FILES - PDF_FILES
 EXECUTABLE_GLOBS = (
@@ -478,7 +485,7 @@ def verify_operational_semantics(root: Path) -> list[str]:
 
     makefile = texts.get("Makefile")
     if makefile is not None:
-        for target, version in (("paper", "0_3"), ("paper-v02", "0_2")):
+        for target, version in (("paper", "0_4"), ("paper-v03", "0_3"), ("paper-v02", "0_2")):
             recipe = make_recipe(makefile, target)
             expected = (
                 "mkdir -p .tmp/paper\n"

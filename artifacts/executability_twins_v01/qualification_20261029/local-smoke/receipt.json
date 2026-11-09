@@ -1,0 +1,31 @@
+{
+  "claim_level": "F0_INPUT_CONTRACT_ASSAY",
+  "format": "executability-twins-receipt/v1",
+  "inputs": {
+    "CONTRACT.ja.md": "d40413dd4953a6f45b3a27db175f3fde84cd5480de74264302ba658ea929a131",
+    "README.md": "3fe2ad639470d2f54a7f589a7bfa8ccd18415007c763a35ca3b9e9d71b5a4ccf",
+    "model.py": "98e84a5d21b1360c5aa7f810907ddd79a864f9fd012de5f2f3ad1cec98314a53",
+    "plan.json": "a66477b4d7d44c75e36b7b33568effa02f91dfb84014846be69315bee60dae2c",
+    "run.py": "68c6887e0b2d3eeef4941a9db39c562c62bfb4371eb03a583ded171a605ca814",
+    "test_model.py": "28c932ea0cb37b81716a3b6f6b69d16a7ebe970559186a5aae1a402369d3e629",
+    "test_run.py": "0925fa238a86bd5ad18c95c31bf2b93f16c705784d70993f6c47afec44979baa"
+  },
+  "outputs": {
+    "classes.jsonl.gz": "439e3f72e589048ceb23f9437815921cecde7e748e9e698d9c728f343d2b594c",
+    "plan.json": "a66477b4d7d44c75e36b7b33568effa02f91dfb84014846be69315bee60dae2c",
+    "registration.json": "b4f0e4f69ab2743d06b86f04898507b219f7531976937a4670a06237e7ca45d6",
+    "summary.json": "df1a9aa26f138cc73c072614659ab5633b60102abfaad21c4d805d4193acaefa",
+    "witnesses.json": "db01d9048dc251b368e8eb38814ed226ff1965e238b77dcf9e9fe7417a69ce7c",
+    "worlds.jsonl.gz": "0ef0997e68369613a672f445b0f95e140e32547a826eff9c4c4895eb427f0aa0"
+  },
+  "phase": "smoke",
+  "runtime": {
+    "elapsed_seconds": 0.008559,
+    "machine": "arm64",
+    "processes": 1,
+    "python": "3.13.13",
+    "system": "Darwin"
+  },
+  "started_utc": "2026-10-28T19:26:06.364574+00:00",
+  "trust": "Internal consistency and optional replay; not authenticity or empirical validity."
+}

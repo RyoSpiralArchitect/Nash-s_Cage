@@ -2,6 +2,14 @@
 
 This directory contains an operator-attested preserved v0.1 manuscript and an operator-attested regenerated v0.2 executability revision. The repository distinguishes those attestations from identities independently anchored in repository history.
 
+The current research manuscript is **v0.4 (10 November 2026)**:
+[`nashs_cage_rvcim_v0_4.pdf`](nashs_cage_rvcim_v0_4.pdf),
+[TeX](nashs_cage_rvcim_v0_4.tex), and [dedicated bibliography](references_v0_4.bib).
+It preserves v0.1--v0.3 and adds waiting authority, effective contestability,
+the already completed finite executability assay, and a separate unexecuted study design.
+See the [revision and validation record](../docs/research/2026-11-10-manuscript-v04/README.ja.md).
+The historical provenance discussion below concerns v0.1/v0.2, not a new attestation of their origin.
+
 ## Files
 
 - `nashs_cage_rvcim_v0_1.tex`: operator-attested exact preserved upload, dated 30 July 2026; its hash is also present in earlier repository payload history.
@@ -29,6 +37,9 @@ From the repository root:
 ```bash
 make paper
 ```
+
+This builds v0.4. Use `make paper-v03` or `make paper-v02` for the preserved research revisions.
+The direct command below is specifically the historical v0.2 build.
 
 Or directly:
 

@@ -1,0 +1,377 @@
+{
+  "added_service_opportunities_per_arm_world": 2,
+  "arm_world_count": 147456,
+  "bounds_are": "Componentwise extrema over compatible declared worlds; not confidence intervals.",
+  "claim_level": "F0_INPUT_CONTRACT_ASSAY",
+  "common_protected_floor_per_arm_world": 1,
+  "counts_are": "Catalogue counts; no probability weights, p-values, or real independent units.",
+  "format": "executability-twins-summary/v1",
+  "full_input_decidability_is": "By construction in this deterministic model; not validation.",
+  "phase": "enumeration",
+  "pre_action_label_counts": {
+    "C": 3072,
+    "INELIGIBLE_AUTHORITY_OR_PHYSICAL": 24576,
+    "U": 9216
+  },
+  "reports": [
+    {
+      "MODEL_ALL_FAIL": 3,
+      "MODEL_ALL_PASS": 0,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 1,
+      "class_denominator": 4,
+      "contrast": "timing",
+      "optimistic_false_positive_worlds": 9120,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 18432,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> U": 3072,
+        "U -> C": 3072,
+        "U -> U": 6144
+      },
+      "optimistic_missed_qualifying_worlds": 0,
+      "optimistic_positive_worlds": 9216,
+      "view": "administrative",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 9216,
+      "worlds_with_unknown_liquidity_label": 18432
+    },
+    {
+      "MODEL_ALL_FAIL": 2,
+      "MODEL_ALL_PASS": 0,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 2,
+      "class_denominator": 4,
+      "contrast": "assurance",
+      "optimistic_false_positive_worlds": 0,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 18432,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> U": 3072,
+        "U -> C": 3072,
+        "U -> U": 6144
+      },
+      "optimistic_missed_qualifying_worlds": 464,
+      "optimistic_positive_worlds": 0,
+      "view": "administrative",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 18432,
+      "worlds_with_unknown_liquidity_label": 18432
+    },
+    {
+      "MODEL_ALL_FAIL": 2,
+      "MODEL_ALL_PASS": 0,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 2,
+      "class_denominator": 4,
+      "contrast": "combined",
+      "optimistic_false_positive_worlds": 9072,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 18432,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> U": 3072,
+        "U -> C": 3072,
+        "U -> U": 6144
+      },
+      "optimistic_missed_qualifying_worlds": 160,
+      "optimistic_positive_worlds": 9216,
+      "view": "administrative",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 18432,
+      "worlds_with_unknown_liquidity_label": 18432
+    },
+    {
+      "MODEL_ALL_FAIL": 14,
+      "MODEL_ALL_PASS": 0,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 2,
+      "class_denominator": 16,
+      "contrast": "timing",
+      "optimistic_false_positive_worlds": 4512,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> C": 1536,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 18432,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> U": 4608,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 0,
+      "optimistic_positive_worlds": 4608,
+      "view": "recipient_finance",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 4608,
+      "worlds_with_unknown_liquidity_label": 18432
+    },
+    {
+      "MODEL_ALL_FAIL": 10,
+      "MODEL_ALL_PASS": 0,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 6,
+      "class_denominator": 16,
+      "contrast": "assurance",
+      "optimistic_false_positive_worlds": 0,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> C": 1536,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 18432,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> U": 4608,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 464,
+      "optimistic_positive_worlds": 0,
+      "view": "recipient_finance",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 13824,
+      "worlds_with_unknown_liquidity_label": 18432
+    },
+    {
+      "MODEL_ALL_FAIL": 8,
+      "MODEL_ALL_PASS": 0,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 8,
+      "class_denominator": 16,
+      "contrast": "combined",
+      "optimistic_false_positive_worlds": 4512,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> C": 1536,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 18432,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> U": 4608,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 208,
+      "optimistic_positive_worlds": 4608,
+      "view": "recipient_finance",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 18432,
+      "worlds_with_unknown_liquidity_label": 18432
+    },
+    {
+      "MODEL_ALL_FAIL": 190,
+      "MODEL_ALL_PASS": 0,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 2,
+      "class_denominator": 192,
+      "contrast": "timing",
+      "optimistic_false_positive_worlds": 288,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 24576,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 0,
+      "optimistic_positive_worlds": 384,
+      "view": "operating",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 384,
+      "worlds_with_unknown_liquidity_label": 0
+    },
+    {
+      "MODEL_ALL_FAIL": 185,
+      "MODEL_ALL_PASS": 0,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 7,
+      "class_denominator": 192,
+      "contrast": "assurance",
+      "optimistic_false_positive_worlds": 544,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 24576,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 48,
+      "optimistic_positive_worlds": 960,
+      "view": "operating",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 1344,
+      "worlds_with_unknown_liquidity_label": 0
+    },
+    {
+      "MODEL_ALL_FAIL": 182,
+      "MODEL_ALL_PASS": 0,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 10,
+      "class_denominator": 192,
+      "contrast": "combined",
+      "optimistic_false_positive_worlds": 1616,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 24576,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 0,
+      "optimistic_positive_worlds": 1920,
+      "view": "operating",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 1920,
+      "worlds_with_unknown_liquidity_label": 0
+    },
+    {
+      "MODEL_ALL_FAIL": 1528,
+      "MODEL_ALL_PASS": 0,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 8,
+      "class_denominator": 1536,
+      "contrast": "timing",
+      "optimistic_false_positive_worlds": 96,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 24576,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 0,
+      "optimistic_positive_worlds": 192,
+      "view": "payer_and_shared",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 192,
+      "worlds_with_unknown_liquidity_label": 0
+    },
+    {
+      "MODEL_ALL_FAIL": 1486,
+      "MODEL_ALL_PASS": 0,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 50,
+      "class_denominator": 1536,
+      "contrast": "assurance",
+      "optimistic_false_positive_worlds": 496,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 24576,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 48,
+      "optimistic_positive_worlds": 912,
+      "view": "payer_and_shared",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 1200,
+      "worlds_with_unknown_liquidity_label": 0
+    },
+    {
+      "MODEL_ALL_FAIL": 1496,
+      "MODEL_ALL_PASS": 0,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 40,
+      "class_denominator": 1536,
+      "contrast": "combined",
+      "optimistic_false_positive_worlds": 656,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 24576,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 0,
+      "optimistic_positive_worlds": 960,
+      "view": "payer_and_shared",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 960,
+      "worlds_with_unknown_liquidity_label": 0
+    },
+    {
+      "MODEL_ALL_FAIL": 9192,
+      "MODEL_ALL_PASS": 24,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 0,
+      "class_denominator": 9216,
+      "contrast": "timing",
+      "optimistic_false_positive_worlds": 0,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 24576,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 0,
+      "optimistic_positive_worlds": 96,
+      "view": "continuation",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 0,
+      "worlds_with_unknown_liquidity_label": 0
+    },
+    {
+      "MODEL_ALL_FAIL": 9018,
+      "MODEL_ALL_PASS": 46,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 152,
+      "class_denominator": 9216,
+      "contrast": "assurance",
+      "optimistic_false_positive_worlds": 232,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 24576,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 48,
+      "optimistic_positive_worlds": 648,
+      "view": "continuation",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 608,
+      "worlds_with_unknown_liquidity_label": 0
+    },
+    {
+      "MODEL_ALL_FAIL": 9064,
+      "MODEL_ALL_PASS": 0,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 152,
+      "class_denominator": 9216,
+      "contrast": "combined",
+      "optimistic_false_positive_worlds": 304,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 24576,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 0,
+      "optimistic_positive_worlds": 608,
+      "view": "continuation",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 608,
+      "worlds_with_unknown_liquidity_label": 0
+    },
+    {
+      "MODEL_ALL_FAIL": 36768,
+      "MODEL_ALL_PASS": 96,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 0,
+      "class_denominator": 36864,
+      "contrast": "timing",
+      "optimistic_false_positive_worlds": 0,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 24576,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 0,
+      "optimistic_positive_worlds": 96,
+      "view": "full_model_inputs",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 0,
+      "worlds_with_unknown_liquidity_label": 0
+    },
+    {
+      "MODEL_ALL_FAIL": 36400,
+      "MODEL_ALL_PASS": 464,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 0,
+      "class_denominator": 36864,
+      "contrast": "assurance",
+      "optimistic_false_positive_worlds": 0,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 24576,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 0,
+      "optimistic_positive_worlds": 464,
+      "view": "full_model_inputs",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 0,
+      "worlds_with_unknown_liquidity_label": 0
+    },
+    {
+      "MODEL_ALL_FAIL": 36560,
+      "MODEL_ALL_PASS": 304,
+      "UNIDENTIFIED_WITHIN_CATALOGUE": 0,
+      "class_denominator": 36864,
+      "contrast": "combined",
+      "optimistic_false_positive_worlds": 0,
+      "optimistic_label_confusions": {
+        "C -> C": 3072,
+        "INELIGIBLE_AUTHORITY_OR_PHYSICAL -> INELIGIBLE_AUTHORITY_OR_PHYSICAL": 24576,
+        "U -> U": 9216
+      },
+      "optimistic_missed_qualifying_worlds": 0,
+      "optimistic_positive_worlds": 304,
+      "view": "full_model_inputs",
+      "world_denominator": 36864,
+      "worlds_in_unidentified_classes": 0,
+      "worlds_with_unknown_liquidity_label": 0
+    }
+  ],
+  "scope": "Complete declared finite catalogue; not a population sample or empirical effect.",
+  "world_count": 36864
+}

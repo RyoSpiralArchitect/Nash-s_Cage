@@ -14,12 +14,15 @@ The catalogue distinguishes prior contributions, study limitations, what we actu
 and this project's interpretations. It includes existing institutional practices and critical
 literature, not only supporting papers. Adding sources does not advance the F0 claim level.
 
-The current [manuscript v0.3](paper/nashs_cage_rvcim_v0_3.pdf)
-integrates joint executability, financial timing, shared-resource burdens, and
-recipient-level revisability. Its [source](paper/nashs_cage_rvcim_v0_3.tex),
-[revision and build record](docs/research/2026-10-28-manuscript-v03/README.ja.md),
-and [additional source checks](docs/research/2026-10-28-manuscript-v03/SOURCE_NOTES.ja.md)
-separate prior contributions from this project's prospective hypotheses.
+The current [manuscript v0.4](paper/nashs_cage_rvcim_v0_4.pdf)
+distinguishes financing a wait from being able to contest or change its conditions.
+It integrates the frozen finite executability results and a dated COP31 source reading,
+without treating either as empirical validation of the new candidate.
+Its [source](paper/nashs_cage_rvcim_v0_4.tex),
+[revision and build record](docs/research/2026-11-10-manuscript-v04/README.ja.md),
+and [next-study design](docs/research/2026-11-10-manuscript-v04/NEXT_STUDY.ja.md)
+separate normative choices, observation contracts, and testable predictions.
+The next study is designed, not implemented or run. Manuscripts v0.1--v0.3 remain preserved.
 
 ## Start in one minute
 
