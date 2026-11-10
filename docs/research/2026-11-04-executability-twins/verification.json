@@ -1,0 +1,37 @@
+{
+  "format": "executability-twins-enumeration-verification/v1",
+  "claim_level": "F0_INPUT_CONTRACT_ASSAY",
+  "trust": "Operator record, not an external attestation or empirical validation.",
+  "run_started_utc": "2026-11-03T18:35:41.936910+00:00",
+  "launches_excluding_replay": 1,
+  "source_registration_sha256": "b4f0e4f69ab2743d06b86f04898507b219f7531976937a4670a06237e7ca45d6",
+  "qualified_inputs_equal": 7,
+  "remote_platform": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "python": "3.14.4"
+  },
+  "run_processes": 2,
+  "replay_processes": 1,
+  "replay_return": {
+    "claim_level": "F0_INPUT_CONTRACT_ASSAY",
+    "phase": "enumeration",
+    "replayed": true,
+    "verified": true
+  },
+  "local_copy": "All seven file SHA-256 values compared against Furnace after run; frozen verifier passed locally without re-executing the campaign.",
+  "receipt_sha256": "1f81e90467f6ab2dbe8f179e64073a0b34f2a13d63347d8efe80cb0562235f4c",
+  "recount": {
+    "report_sha256": "fdcae9d8e03019d43110abc450a574de1343efcb896b197564affbc9c2561524",
+    "checker_sha256": "0bb929532fe2973e72a165494d5b0f01e5dbe4b6af2523bc44ff4c9d514f18fd",
+    "uses_simulator_code": false,
+    "recomputes_from_saved_outcomes": true,
+    "independent_implementation_of_world_dynamics": false
+  },
+  "exploratory_u_gain_cross_check": {
+    "filter": "pre_action_label == U and early.target_completed > usual.target_completed",
+    "worlds": 288,
+    "worlds_with_early_other_completed_less_than_usual": 288,
+    "worlds_with_capacity_1_other_first_and_payer_cash_1": 288
+  }
+}

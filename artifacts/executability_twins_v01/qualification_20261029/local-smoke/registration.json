@@ -1,0 +1,16 @@
+{
+  "claim_level": "F0_INPUT_CONTRACT_ASSAY",
+  "created_utc": "2026-10-28T19:26:06.254783+00:00",
+  "format": "executability-twins-freeze/v1",
+  "inputs": {
+    "CONTRACT.ja.md": "d40413dd4953a6f45b3a27db175f3fde84cd5480de74264302ba658ea929a131",
+    "README.md": "3fe2ad639470d2f54a7f589a7bfa8ccd18415007c763a35ca3b9e9d71b5a4ccf",
+    "model.py": "98e84a5d21b1360c5aa7f810907ddd79a864f9fd012de5f2f3ad1cec98314a53",
+    "plan.json": "a66477b4d7d44c75e36b7b33568effa02f91dfb84014846be69315bee60dae2c",
+    "run.py": "68c6887e0b2d3eeef4941a9db39c562c62bfb4371eb03a583ded171a605ca814",
+    "test_model.py": "28c932ea0cb37b81716a3b6f6b69d16a7ebe970559186a5aae1a402369d3e629",
+    "test_run.py": "0925fa238a86bd5ad18c95c31bf2b93f16c705784d70993f6c47afec44979baa"
+  },
+  "scope": "Local pre-execution freeze; not third-party preregistration.",
+  "trust": "Internal consistency and optional replay; not authenticity or empirical validity."
+}

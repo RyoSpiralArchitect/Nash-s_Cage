@@ -1,0 +1,31 @@
+{
+  "format": "executability-twins-qualification/v1",
+  "status": "SMOKE_QUALIFIED_FULL_ENUMERATION_NOT_RUN",
+  "claim_level": "F0_INPUT_CONTRACT_ASSAY",
+  "date_jst": "2026-10-29",
+  "base_commit": "222976a2c7a0a3e622e380fcc280ddaad7733bf4",
+  "provenance": "Operator-recorded tool observations; not authenticated external provenance.",
+  "source_archive_sha256": "993fd6a6f1e4d4931a6d87e51466be3f1854f2ff33c3a0f39b1dfe80584adb6a",
+  "source_members_verified_against_registration": 7,
+  "registration_sha256": "b4f0e4f69ab2743d06b86f04898507b219f7531976937a4670a06237e7ca45d6",
+  "local_receipt_sha256": "137407eec9dfb2ef310f78bdc009f2c87fad60d25ca5963b4127519bd90ee1b1",
+  "furnace_receipt_sha256": "27001b235eb2bb564a39575177b5f1fbe738c2af32df48121a4981d05d6322a4",
+  "local_tests_passed": 27,
+  "furnace_tests_passed": 27,
+  "worlds": 12,
+  "arm_worlds": 48,
+  "byte_identical_non_receipt_files": 6,
+  "replay_checks": [
+    "Furnace two-process smoke replayed on Furnace with one process",
+    "Furnace smoke replayed on Mac with one process",
+    "Mac one-process smoke replayed on Mac with two processes"
+  ],
+  "legacy_make_verify": "PASS",
+  "new_lane_ci": "NOT_CONNECTED",
+  "independent_model_implementation": "NOT_PERFORMED",
+  "new_experiment_commit_push_pr_merge": "NOT_PERFORMED",
+  "full_enumeration": "NOT_RUN",
+  "real_world_input_audit": "NOT_READY",
+  "furnace_copy": "/home/ryospiralarchitect/scratch/nash-executability-twins-v01.EWmHMI",
+  "furnace_copy_kind": "Fresh isolated Git branch, no commit or origin; not a clone of repository history"
+}

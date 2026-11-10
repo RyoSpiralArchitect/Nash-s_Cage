@@ -14,12 +14,18 @@ The catalogue distinguishes prior contributions, study limitations, what we actu
 and this project's interpretations. It includes existing institutional practices and critical
 literature, not only supporting papers. Adding sources does not advance the F0 claim level.
 
-The current [manuscript v0.3](paper/nashs_cage_rvcim_v0_3.pdf)
-integrates joint executability, financial timing, shared-resource burdens, and
-recipient-level revisability. Its [source](paper/nashs_cage_rvcim_v0_3.tex),
-[revision and build record](docs/research/2026-10-28-manuscript-v03/README.ja.md),
-and [additional source checks](docs/research/2026-10-28-manuscript-v03/SOURCE_NOTES.ja.md)
-separate prior contributions from this project's prospective hypotheses.
+The current [manuscript v0.5](paper/nashs_cage_rvcim_v0_5.pdf)
+integrates the completed waiting-contestability assay: a paid access package improves
+on-time completion in 212 designed worlds, worsens it in 6,370, and leaves it unchanged
+in 11,850. Its large setup cost and replacement of an existing payment route mean this
+is not a test of adding rights alone, nor an estimate of real institutional effects.
+The [source](paper/nashs_cage_rvcim_v0_5.tex),
+[revision and build record](docs/research/2026-11-10-manuscript-v05/README.ja.md),
+and [frozen results](docs/research/2026-11-10-waiting-contestability/RESULTS.ja.md)
+separate normative choices, model outcomes, and still-untested empirical hypotheses.
+Manuscripts v0.1--v0.4 and the pre-execution study design remain preserved.
+The waiting assay has a separate Linux CI replay/recount job; it is not part of
+the root `make verify` closure described below.
 
 ## Start in one minute
 

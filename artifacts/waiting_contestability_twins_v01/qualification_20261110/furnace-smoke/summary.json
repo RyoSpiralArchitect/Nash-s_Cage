@@ -1,0 +1,535 @@
+{
+  "arm_world_count": 36,
+  "bounds_are": "Componentwise; delivery-time differences undefined if either service never arrives.",
+  "claim_level": "F0_INPUT_CONTRACT_ASSAY",
+  "counts_are": "Designed catalogue counts, not population frequencies or causal estimates.",
+  "format": "waiting-contestability-summary/v1",
+  "full_input_decidability_is": "By construction; evaluator-only view is not an operational guarantee.",
+  "phase": "smoke",
+  "reports": [
+    {
+      "class_denominator": 5,
+      "contrast": "effective",
+      "mixed_classes": {
+        "can_request": 1,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 1,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 1,
+        "target_on_time": 1,
+        "target_time": 1,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 1
+      },
+      "view": "administrative",
+      "world_denominator": 12,
+      "worlds_in_mixed_classes": {
+        "can_request": 7,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 7,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 7,
+        "target_on_time": 7,
+        "target_time": 7,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 7
+      }
+    },
+    {
+      "class_denominator": 5,
+      "contrast": "nominal",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      },
+      "view": "administrative",
+      "world_denominator": 12,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      }
+    },
+    {
+      "class_denominator": 6,
+      "contrast": "effective",
+      "mixed_classes": {
+        "can_request": 1,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 1,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 1,
+        "target_on_time": 2,
+        "target_time": 2,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 2
+      },
+      "view": "authority",
+      "world_denominator": 12,
+      "worlds_in_mixed_classes": {
+        "can_request": 2,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 2,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 2,
+        "target_on_time": 7,
+        "target_time": 7,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 7
+      }
+    },
+    {
+      "class_denominator": 6,
+      "contrast": "nominal",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      },
+      "view": "authority",
+      "world_denominator": 12,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      }
+    },
+    {
+      "class_denominator": 9,
+      "contrast": "effective",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 1,
+        "target_time": 1,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 1
+      },
+      "view": "access",
+      "world_denominator": 12,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 3,
+        "target_time": 3,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 3
+      }
+    },
+    {
+      "class_denominator": 9,
+      "contrast": "nominal",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      },
+      "view": "access",
+      "world_denominator": 12,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      }
+    },
+    {
+      "class_denominator": 11,
+      "contrast": "effective",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 1,
+        "target_time": 1,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 1
+      },
+      "view": "consequences",
+      "world_denominator": 12,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 2,
+        "target_time": 2,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 2
+      }
+    },
+    {
+      "class_denominator": 11,
+      "contrast": "nominal",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      },
+      "view": "consequences",
+      "world_denominator": 12,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      }
+    },
+    {
+      "class_denominator": 12,
+      "contrast": "effective",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      },
+      "view": "full_model_evaluator_only",
+      "world_denominator": 12,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      }
+    },
+    {
+      "class_denominator": 12,
+      "contrast": "nominal",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      },
+      "view": "full_model_evaluator_only",
+      "world_denominator": 12,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      }
+    }
+  ],
+  "scope": "Engineering cases only",
+  "totals": {
+    "effective": {
+      "can_request": {
+        "negative": 0,
+        "positive": 10,
+        "undefined": 0,
+        "zero": 2
+      },
+      "continued": {
+        "negative": 1,
+        "positive": 1,
+        "undefined": 0,
+        "zero": 10
+      },
+      "eligibility_lost": {
+        "negative": 1,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 11
+      },
+      "other_completed": {
+        "negative": 4,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 8
+      },
+      "payer_cost": {
+        "negative": 0,
+        "positive": 9,
+        "undefined": 0,
+        "zero": 3
+      },
+      "pending_review": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "recipient_cost": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "requested": {
+        "negative": 0,
+        "positive": 10,
+        "undefined": 0,
+        "zero": 2
+      },
+      "target_on_time": {
+        "negative": 1,
+        "positive": 5,
+        "undefined": 0,
+        "zero": 6
+      },
+      "target_time": {
+        "negative": 5,
+        "positive": 0,
+        "undefined": 2,
+        "zero": 5
+      },
+      "total_cost": {
+        "negative": 0,
+        "positive": 9,
+        "undefined": 0,
+        "zero": 3
+      },
+      "unpaid": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "unused_safe_alternative": {
+        "negative": 5,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 7
+      }
+    },
+    "nominal": {
+      "can_request": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "continued": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "eligibility_lost": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "other_completed": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "payer_cost": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "pending_review": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "recipient_cost": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "requested": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "target_on_time": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "target_time": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 1,
+        "zero": 11
+      },
+      "total_cost": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "unpaid": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      },
+      "unused_safe_alternative": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 12
+      }
+    }
+  },
+  "world_count": 12
+}

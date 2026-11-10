@@ -1,0 +1,66 @@
+{
+  "format": "executability-twins-plan/v1",
+  "claim_level": "F0_INPUT_CONTRACT_ASSAY",
+  "base_commit": "222976a2c7a0a3e622e380fcc280ddaad7733bf4",
+  "max_processes": 2,
+  "arms": ["usual", "early", "assured", "early_assured"],
+  "constants": {
+    "grant": 1,
+    "service_cost": 1,
+    "other_service_cost": 1,
+    "protected_floor": 1,
+    "assurance_credit_increment": 1
+  },
+  "domains": {
+    "cash": [0, 1],
+    "credit": [0, 1],
+    "credit_fee": [0, 1],
+    "authority": [0, 1],
+    "capacity": [0, 1, 2],
+    "credible": [0, 1],
+    "incentive": [0, 1],
+    "payer_cash": [1, 2],
+    "payer_replenishment": [0, 1],
+    "priority": ["target_first", "other_first"],
+    "continuation_due": [0, 1, 2],
+    "continuation_income": [0, 1],
+    "assurance_cost": [0, 1],
+    "guarantee_credit": [0, 1]
+  },
+  "views": [
+    {"name": "administrative", "fields": ["authority", "cash"]},
+    {"name": "recipient_finance", "fields": ["authority", "cash", "credit", "credit_fee"]},
+    {"name": "operating", "fields": ["authority", "cash", "credit", "credit_fee", "capacity", "credible", "incentive"]},
+    {"name": "payer_and_shared", "fields": ["authority", "cash", "credit", "credit_fee", "capacity", "credible", "incentive", "payer_cash", "payer_replenishment", "priority"]},
+    {"name": "continuation", "fields": ["authority", "cash", "credit", "credit_fee", "capacity", "credible", "incentive", "payer_cash", "payer_replenishment", "priority", "continuation_due", "continuation_income"]},
+    {"name": "full_model_inputs", "fields": ["cash", "credit", "credit_fee", "authority", "capacity", "credible", "incentive", "payer_cash", "payer_replenishment", "priority", "continuation_due", "continuation_income", "assurance_cost", "guarantee_credit"]}
+  ],
+  "optimistic_fill": {
+    "cash": 0, "credit": 0, "credit_fee": 0, "authority": 1,
+    "capacity": 2, "credible": 1, "incentive": 1,
+    "payer_cash": 2, "payer_replenishment": 1, "priority": "target_first",
+    "continuation_due": 0, "continuation_income": 1,
+    "assurance_cost": 0, "guarantee_credit": 0
+  },
+  "smoke_base": {
+    "cash": 0, "credit": 0, "credit_fee": 0, "authority": 1,
+    "capacity": 2, "credible": 1, "incentive": 1,
+    "payer_cash": 2, "payer_replenishment": 1, "priority": "target_first",
+    "continuation_due": 1, "continuation_income": 1,
+    "assurance_cost": 0, "guarantee_credit": 0
+  },
+  "smoke_cases": [
+    {"name": "timing_shortfall", "changes": {}},
+    {"name": "hidden_credit", "changes": {"credit": 1}},
+    {"name": "physical_shortfall", "changes": {"capacity": 0}},
+    {"name": "no_authority", "changes": {"authority": 0}},
+    {"name": "performance_uncertainty", "changes": {"credible": 0}},
+    {"name": "incentive_conflict", "changes": {"incentive": 0}},
+    {"name": "payer_displacement", "changes": {"payer_cash": 1}},
+    {"name": "shared_capacity", "changes": {"capacity": 1}},
+    {"name": "continuation_shortfall", "changes": {"continuation_due": 2, "continuation_income": 0}},
+    {"name": "bundled_guarantee", "changes": {"credible": 0, "guarantee_credit": 1}},
+    {"name": "costly_assurance", "changes": {"assurance_cost": 1, "payer_cash": 1}},
+    {"name": "adequate_cash", "changes": {"cash": 1}}
+  ]
+}

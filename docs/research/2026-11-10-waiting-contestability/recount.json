@@ -1,0 +1,176 @@
+{
+  "arm_worlds": 55296,
+  "class_contrast_rows": 49608,
+  "scope": "Retained-event accounting and recount; not independent simulation or real effects.",
+  "status": "RECOUNT_MATCH",
+  "target_gain_partition": {
+    "gain_both": 56,
+    "gain_continuation_or_debt_only": 50,
+    "gain_other_lost_only": 56,
+    "gain_other_retained_continued_no_extra_debt": 50
+  },
+  "totals": {
+    "effective": {
+      "can_request": {
+        "negative": 576,
+        "positive": 9792,
+        "undefined": 0,
+        "zero": 8064
+      },
+      "continued": {
+        "negative": 8530,
+        "positive": 22,
+        "undefined": 0,
+        "zero": 9880
+      },
+      "eligibility_lost": {
+        "negative": 2496,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 15936
+      },
+      "other_completed": {
+        "negative": 5472,
+        "positive": 48,
+        "undefined": 0,
+        "zero": 12912
+      },
+      "payer_cost": {
+        "negative": 0,
+        "positive": 6177,
+        "undefined": 0,
+        "zero": 12255
+      },
+      "pending_review": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "recipient_cost": {
+        "negative": 1664,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 16768
+      },
+      "requested": {
+        "negative": 416,
+        "positive": 7072,
+        "undefined": 0,
+        "zero": 10944
+      },
+      "target_on_time": {
+        "negative": 6370,
+        "positive": 212,
+        "undefined": 0,
+        "zero": 11850
+      },
+      "target_time": {
+        "negative": 500,
+        "positive": 0,
+        "undefined": 14396,
+        "zero": 3536
+      },
+      "total_cost": {
+        "negative": 1301,
+        "positive": 5876,
+        "undefined": 0,
+        "zero": 11255
+      },
+      "unpaid": {
+        "negative": 3774,
+        "positive": 1896,
+        "undefined": 0,
+        "zero": 12762
+      },
+      "unused_safe_alternative": {
+        "negative": 552,
+        "positive": 678,
+        "undefined": 0,
+        "zero": 17202
+      }
+    },
+    "nominal": {
+      "can_request": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "continued": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "eligibility_lost": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "other_completed": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "payer_cost": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "pending_review": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "recipient_cost": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "requested": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "target_on_time": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "target_time": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 3966,
+        "zero": 14466
+      },
+      "total_cost": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "unpaid": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "unused_safe_alternative": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      }
+    }
+  },
+  "witness_pairs": 51,
+  "worlds": 18432
+}
