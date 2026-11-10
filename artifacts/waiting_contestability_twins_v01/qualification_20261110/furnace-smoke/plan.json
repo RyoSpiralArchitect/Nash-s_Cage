@@ -1,0 +1,311 @@
+{
+  "format": "waiting-contestability-plan/v1",
+  "claim_level": "F0_INPUT_CONTRACT_ASSAY",
+  "axes": {
+    "schedule": [
+      "early",
+      "late",
+      "patient"
+    ],
+    "alternative": [
+      "absent",
+      "safe",
+      "unsafe"
+    ],
+    "expiry": [
+      2,
+      4
+    ],
+    "review_delay": [
+      0,
+      2
+    ],
+    "access_cost": [
+      0,
+      1
+    ],
+    "recipient_cash": [
+      0,
+      1
+    ],
+    "eligibility_penalty": [
+      0,
+      1
+    ],
+    "capacity": [
+      1,
+      2
+    ],
+    "payer_cash": [
+      2,
+      3
+    ],
+    "review_cost": [
+      0,
+      1
+    ],
+    "maintenance": [
+      0,
+      1
+    ],
+    "existing_access": [
+      0,
+      1
+    ],
+    "wrong_info": [
+      0,
+      1
+    ]
+  },
+  "views": [
+    {
+      "name": "administrative",
+      "fields": [
+        "schedule",
+        "recipient_cash",
+        "payer_cash"
+      ]
+    },
+    {
+      "name": "authority",
+      "fields": [
+        "schedule",
+        "recipient_cash",
+        "payer_cash",
+        "existing_access"
+      ]
+    },
+    {
+      "name": "access",
+      "fields": [
+        "schedule",
+        "recipient_cash",
+        "payer_cash",
+        "existing_access",
+        "access_cost",
+        "review_delay",
+        "wrong_info"
+      ]
+    },
+    {
+      "name": "consequences",
+      "fields": [
+        "schedule",
+        "expiry",
+        "review_delay",
+        "access_cost",
+        "recipient_cash",
+        "eligibility_penalty",
+        "capacity",
+        "payer_cash",
+        "review_cost",
+        "maintenance",
+        "existing_access",
+        "wrong_info"
+      ]
+    },
+    {
+      "name": "full_model_evaluator_only",
+      "fields": [
+        "schedule",
+        "alternative",
+        "expiry",
+        "review_delay",
+        "access_cost",
+        "recipient_cash",
+        "eligibility_penalty",
+        "capacity",
+        "payer_cash",
+        "review_cost",
+        "maintenance",
+        "existing_access",
+        "wrong_info"
+      ]
+    }
+  ],
+  "max_processes": 1,
+  "world_count": 18432,
+  "horizon": 6,
+  "smoke": [
+    {
+      "schedule": "late",
+      "alternative": "safe",
+      "expiry": 2,
+      "review_delay": 0,
+      "access_cost": 0,
+      "recipient_cash": 0,
+      "eligibility_penalty": 0,
+      "capacity": 2,
+      "payer_cash": 3,
+      "review_cost": 0,
+      "maintenance": 0,
+      "existing_access": 0,
+      "wrong_info": 0
+    },
+    {
+      "schedule": "late",
+      "alternative": "absent",
+      "expiry": 2,
+      "review_delay": 0,
+      "access_cost": 0,
+      "recipient_cash": 0,
+      "eligibility_penalty": 0,
+      "capacity": 2,
+      "payer_cash": 3,
+      "review_cost": 0,
+      "maintenance": 0,
+      "existing_access": 0,
+      "wrong_info": 1
+    },
+    {
+      "schedule": "late",
+      "alternative": "unsafe",
+      "expiry": 2,
+      "review_delay": 0,
+      "access_cost": 0,
+      "recipient_cash": 0,
+      "eligibility_penalty": 0,
+      "capacity": 2,
+      "payer_cash": 3,
+      "review_cost": 0,
+      "maintenance": 0,
+      "existing_access": 0,
+      "wrong_info": 0
+    },
+    {
+      "schedule": "late",
+      "alternative": "safe",
+      "expiry": 2,
+      "review_delay": 0,
+      "access_cost": 0,
+      "recipient_cash": 0,
+      "eligibility_penalty": 0,
+      "capacity": 1,
+      "payer_cash": 3,
+      "review_cost": 0,
+      "maintenance": 0,
+      "existing_access": 0,
+      "wrong_info": 0
+    },
+    {
+      "schedule": "late",
+      "alternative": "safe",
+      "expiry": 2,
+      "review_delay": 0,
+      "access_cost": 0,
+      "recipient_cash": 0,
+      "eligibility_penalty": 0,
+      "capacity": 2,
+      "payer_cash": 2,
+      "review_cost": 0,
+      "maintenance": 0,
+      "existing_access": 0,
+      "wrong_info": 0
+    },
+    {
+      "schedule": "late",
+      "alternative": "safe",
+      "expiry": 2,
+      "review_delay": 0,
+      "access_cost": 0,
+      "recipient_cash": 0,
+      "eligibility_penalty": 0,
+      "capacity": 2,
+      "payer_cash": 2,
+      "review_cost": 0,
+      "maintenance": 1,
+      "existing_access": 0,
+      "wrong_info": 0
+    },
+    {
+      "schedule": "late",
+      "alternative": "safe",
+      "expiry": 2,
+      "review_delay": 2,
+      "access_cost": 0,
+      "recipient_cash": 0,
+      "eligibility_penalty": 0,
+      "capacity": 2,
+      "payer_cash": 3,
+      "review_cost": 0,
+      "maintenance": 0,
+      "existing_access": 0,
+      "wrong_info": 1
+    },
+    {
+      "schedule": "early",
+      "alternative": "safe",
+      "expiry": 2,
+      "review_delay": 2,
+      "access_cost": 0,
+      "recipient_cash": 0,
+      "eligibility_penalty": 1,
+      "capacity": 2,
+      "payer_cash": 3,
+      "review_cost": 0,
+      "maintenance": 0,
+      "existing_access": 1,
+      "wrong_info": 1
+    },
+    {
+      "schedule": "late",
+      "alternative": "safe",
+      "expiry": 2,
+      "review_delay": 0,
+      "access_cost": 0,
+      "recipient_cash": 0,
+      "eligibility_penalty": 0,
+      "capacity": 2,
+      "payer_cash": 3,
+      "review_cost": 0,
+      "maintenance": 0,
+      "existing_access": 1,
+      "wrong_info": 0
+    },
+    {
+      "schedule": "late",
+      "alternative": "safe",
+      "expiry": 2,
+      "review_delay": 0,
+      "access_cost": 1,
+      "recipient_cash": 0,
+      "eligibility_penalty": 0,
+      "capacity": 2,
+      "payer_cash": 3,
+      "review_cost": 0,
+      "maintenance": 0,
+      "existing_access": 1,
+      "wrong_info": 0
+    },
+    {
+      "schedule": "early",
+      "alternative": "safe",
+      "expiry": 2,
+      "review_delay": 0,
+      "access_cost": 0,
+      "recipient_cash": 0,
+      "eligibility_penalty": 0,
+      "capacity": 2,
+      "payer_cash": 2,
+      "review_cost": 1,
+      "maintenance": 0,
+      "existing_access": 0,
+      "wrong_info": 0
+    },
+    {
+      "schedule": "patient",
+      "alternative": "safe",
+      "expiry": 4,
+      "review_delay": 2,
+      "access_cost": 0,
+      "recipient_cash": 0,
+      "eligibility_penalty": 0,
+      "capacity": 2,
+      "payer_cash": 3,
+      "review_cost": 0,
+      "maintenance": 0,
+      "existing_access": 0,
+      "wrong_info": 0
+    }
+  ]
+}

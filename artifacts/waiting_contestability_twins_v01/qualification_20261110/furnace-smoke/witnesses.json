@@ -1,0 +1,371 @@
+[
+  {
+    "contrast": "effective",
+    "metric": "target_on_time",
+    "observed": {
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "schedule": "late"
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "s000",
+      "s001"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "other_completed",
+    "observed": {
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "schedule": "late"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "s000",
+      "s009"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_time",
+    "observed": {
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "schedule": "late"
+    },
+    "values": [
+      -3,
+      0
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "s000",
+      "s001"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "unused_safe_alternative",
+    "observed": {
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "schedule": "late"
+    },
+    "values": [
+      -1,
+      0
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "s000",
+      "s001"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "can_request",
+    "observed": {
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "schedule": "late"
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "s000",
+      "s008"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "requested",
+    "observed": {
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "schedule": "late"
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "s000",
+      "s008"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_on_time",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "schedule": "late"
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "authority",
+    "world_ids": [
+      "s000",
+      "s001"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_time",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "schedule": "late"
+    },
+    "values": [
+      -3,
+      0
+    ],
+    "view": "authority",
+    "world_ids": [
+      "s000",
+      "s001"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "unused_safe_alternative",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "schedule": "late"
+    },
+    "values": [
+      -1,
+      0
+    ],
+    "view": "authority",
+    "world_ids": [
+      "s000",
+      "s001"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "other_completed",
+    "observed": {
+      "existing_access": 1,
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "schedule": "late"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "authority",
+    "world_ids": [
+      "s008",
+      "s009"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "can_request",
+    "observed": {
+      "existing_access": 1,
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "schedule": "late"
+    },
+    "values": [
+      0,
+      1
+    ],
+    "view": "authority",
+    "world_ids": [
+      "s008",
+      "s009"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "requested",
+    "observed": {
+      "existing_access": 1,
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "schedule": "late"
+    },
+    "values": [
+      0,
+      1
+    ],
+    "view": "authority",
+    "world_ids": [
+      "s008",
+      "s009"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_on_time",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 0,
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "late",
+      "wrong_info": 0
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "access",
+    "world_ids": [
+      "s000",
+      "s002"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_time",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 0,
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "late",
+      "wrong_info": 0
+    },
+    "values": [
+      -3,
+      0
+    ],
+    "view": "access",
+    "world_ids": [
+      "s000",
+      "s002"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "unused_safe_alternative",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 0,
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "late",
+      "wrong_info": 0
+    },
+    "values": [
+      -1,
+      0
+    ],
+    "view": "access",
+    "world_ids": [
+      "s000",
+      "s002"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_on_time",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 2,
+      "eligibility_penalty": 0,
+      "existing_access": 0,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "review_cost": 0,
+      "review_delay": 0,
+      "schedule": "late",
+      "wrong_info": 0
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "s000",
+      "s002"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_time",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 2,
+      "eligibility_penalty": 0,
+      "existing_access": 0,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "review_cost": 0,
+      "review_delay": 0,
+      "schedule": "late",
+      "wrong_info": 0
+    },
+    "values": [
+      -3,
+      0
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "s000",
+      "s002"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "unused_safe_alternative",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 2,
+      "eligibility_penalty": 0,
+      "existing_access": 0,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 3,
+      "recipient_cash": 0,
+      "review_cost": 0,
+      "review_delay": 0,
+      "schedule": "late",
+      "wrong_info": 0
+    },
+    "values": [
+      -1,
+      0
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "s000",
+      "s002"
+    ]
+  }
+]

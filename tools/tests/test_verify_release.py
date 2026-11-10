@@ -69,8 +69,8 @@ class ReleaseVerificationTests(unittest.TestCase):
         )
         self.assertEqual([], failures)
 
-    def test_release_closure_has_exactly_sixty_seven_records(self) -> None:
-        self.assertEqual(67, len(verify_release.REQUIRED_FILES))
+    def test_release_closure_has_exactly_seventy_records(self) -> None:
+        self.assertEqual(70, len(verify_release.REQUIRED_FILES))
         self.assertEqual(
             verify_release.REQUIRED_FILES,
             frozenset(verify_release.EXPECTED_ROLES),
@@ -86,7 +86,7 @@ class ReleaseVerificationTests(unittest.TestCase):
         )
 
     def test_each_research_manuscript_file_is_required(self) -> None:
-        for relative in verify_release.MANUSCRIPT_V03_ROLES | verify_release.MANUSCRIPT_V04_ROLES:
+        for relative in verify_release.MANUSCRIPT_V03_ROLES | verify_release.MANUSCRIPT_V04_ROLES | verify_release.MANUSCRIPT_V05_ROLES:
             with self.subTest(relative=relative), tempfile.TemporaryDirectory() as tmp:
                 root = Path(tmp)
                 manifest = self.copy_release(root)
@@ -95,7 +95,7 @@ class ReleaseVerificationTests(unittest.TestCase):
                 self.assertIn(f"{relative}: missing regular file", failures)
 
     def test_each_research_manuscript_hash_is_checked(self) -> None:
-        for relative in verify_release.MANUSCRIPT_V03_ROLES | verify_release.MANUSCRIPT_V04_ROLES:
+        for relative in verify_release.MANUSCRIPT_V03_ROLES | verify_release.MANUSCRIPT_V04_ROLES | verify_release.MANUSCRIPT_V05_ROLES:
             with self.subTest(relative=relative), tempfile.TemporaryDirectory() as tmp:
                 root = Path(tmp)
                 manifest = self.copy_release(root)
@@ -108,7 +108,7 @@ class ReleaseVerificationTests(unittest.TestCase):
                 )
 
     def test_each_research_manuscript_manifest_record_is_required(self) -> None:
-        for relative in verify_release.MANUSCRIPT_V03_ROLES | verify_release.MANUSCRIPT_V04_ROLES:
+        for relative in verify_release.MANUSCRIPT_V03_ROLES | verify_release.MANUSCRIPT_V04_ROLES | verify_release.MANUSCRIPT_V05_ROLES:
             with self.subTest(relative=relative), tempfile.TemporaryDirectory() as tmp:
                 root = Path(tmp)
                 manifest_path = self.copy_release(root)
@@ -123,7 +123,8 @@ class ReleaseVerificationTests(unittest.TestCase):
 
     def test_manuscript_make_targets_and_output_destination_are_checked(self) -> None:
         for old, new, target in (
-            (" nashs_cage_rvcim_v0_4.tex", " nashs_cage_rvcim_v0_3.tex", "paper"),
+            (" nashs_cage_rvcim_v0_5.tex", " nashs_cage_rvcim_v0_4.tex", "paper"),
+            (" nashs_cage_rvcim_v0_4.tex", " nashs_cage_rvcim_v0_3.tex", "paper-v04"),
             (" nashs_cage_rvcim_v0_3.tex", " nashs_cage_rvcim_v0_2.tex", "paper-v03"),
             (" nashs_cage_rvcim_v0_2.tex", " nashs_cage_rvcim_v0_3.tex", "paper-v02"),
             ("-outdir=../.tmp/paper", "-outdir=.", "paper"),

@@ -1,0 +1,1093 @@
+[
+  {
+    "contrast": "effective",
+    "metric": "target_on_time",
+    "observed": {
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "w00000",
+      "w00032"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "other_completed",
+    "observed": {
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "w00000",
+      "w00009"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "continued",
+    "observed": {
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "w00000",
+      "w00032"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "unpaid",
+    "observed": {
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "w00000",
+      "w00036"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_time",
+    "observed": {
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      null,
+      -1
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "w00000",
+      "w02080"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "total_cost",
+    "observed": {
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "w00000",
+      "w00011"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "unused_safe_alternative",
+    "observed": {
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "w00000",
+      "w02080"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "can_request",
+    "observed": {
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "w00000",
+      "w00002"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "requested",
+    "observed": {
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      1
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "w00000",
+      "w00001"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "eligibility_lost",
+    "observed": {
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "w00000",
+      "w00067"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "payer_cost",
+    "observed": {
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "w00000",
+      "w00011"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "recipient_cost",
+    "observed": {
+      "payer_cash": 2,
+      "recipient_cash": 1,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "w00128",
+      "w00387"
+    ]
+  },
+  {
+    "contrast": "nominal",
+    "metric": "target_time",
+    "observed": {
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      null,
+      0
+    ],
+    "view": "administrative",
+    "world_ids": [
+      "w00000",
+      "w00032"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_on_time",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "authority",
+    "world_ids": [
+      "w00000",
+      "w00032"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "other_completed",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "authority",
+    "world_ids": [
+      "w00000",
+      "w00009"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "continued",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "authority",
+    "world_ids": [
+      "w00000",
+      "w00032"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "unpaid",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "authority",
+    "world_ids": [
+      "w00000",
+      "w00036"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_time",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      null,
+      -1
+    ],
+    "view": "authority",
+    "world_ids": [
+      "w00000",
+      "w02080"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "total_cost",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "authority",
+    "world_ids": [
+      "w00000",
+      "w00032"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "unused_safe_alternative",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "authority",
+    "world_ids": [
+      "w00000",
+      "w02080"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "can_request",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "authority",
+    "world_ids": [
+      "w00000",
+      "w00264"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "requested",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      1
+    ],
+    "view": "authority",
+    "world_ids": [
+      "w00000",
+      "w00001"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "payer_cost",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "authority",
+    "world_ids": [
+      "w00000",
+      "w00032"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "eligibility_lost",
+    "observed": {
+      "existing_access": 1,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "authority",
+    "world_ids": [
+      "w00002",
+      "w00067"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "recipient_cost",
+    "observed": {
+      "existing_access": 1,
+      "payer_cash": 2,
+      "recipient_cash": 1,
+      "schedule": "early"
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "authority",
+    "world_ids": [
+      "w00130",
+      "w00387"
+    ]
+  },
+  {
+    "contrast": "nominal",
+    "metric": "target_time",
+    "observed": {
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "schedule": "early"
+    },
+    "values": [
+      null,
+      0
+    ],
+    "view": "authority",
+    "world_ids": [
+      "w00000",
+      "w00032"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_on_time",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "access",
+    "world_ids": [
+      "w00000",
+      "w00032"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "other_completed",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "access",
+    "world_ids": [
+      "w00000",
+      "w02056"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "continued",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "access",
+    "world_ids": [
+      "w00000",
+      "w00032"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "unpaid",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "access",
+    "world_ids": [
+      "w00000",
+      "w00036"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_time",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      null,
+      -1
+    ],
+    "view": "access",
+    "world_ids": [
+      "w00000",
+      "w02080"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "total_cost",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "access",
+    "world_ids": [
+      "w00000",
+      "w00032"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "unused_safe_alternative",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "access",
+    "world_ids": [
+      "w00000",
+      "w02080"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "requested",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      1
+    ],
+    "view": "access",
+    "world_ids": [
+      "w00000",
+      "w02048"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "payer_cost",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "access",
+    "world_ids": [
+      "w00000",
+      "w00032"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "eligibility_lost",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 1,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "access",
+    "world_ids": [
+      "w00002",
+      "w02114"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "can_request",
+    "observed": {
+      "access_cost": 1,
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "access",
+    "world_ids": [
+      "w00256",
+      "w00264"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "recipient_cost",
+    "observed": {
+      "access_cost": 1,
+      "existing_access": 1,
+      "payer_cash": 2,
+      "recipient_cash": 1,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "access",
+    "world_ids": [
+      "w00386",
+      "w02434"
+    ]
+  },
+  {
+    "contrast": "nominal",
+    "metric": "target_time",
+    "observed": {
+      "access_cost": 0,
+      "existing_access": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      null,
+      0
+    ],
+    "view": "access",
+    "world_ids": [
+      "w00000",
+      "w00032"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "requested",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 1,
+      "eligibility_penalty": 0,
+      "existing_access": 0,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_cost": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      1
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "w00000",
+      "w02048"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "other_completed",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 1,
+      "eligibility_penalty": 0,
+      "existing_access": 0,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_cost": 1,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "w00008",
+      "w02056"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "total_cost",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 1,
+      "eligibility_penalty": 0,
+      "existing_access": 1,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_cost": 1,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "w00010",
+      "w02058"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "payer_cost",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 1,
+      "eligibility_penalty": 0,
+      "existing_access": 1,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_cost": 1,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      1,
+      0
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "w00010",
+      "w02058"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_on_time",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 2,
+      "eligibility_penalty": 0,
+      "existing_access": 0,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_cost": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      -1,
+      0
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "w00032",
+      "w02080"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "continued",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 2,
+      "eligibility_penalty": 0,
+      "existing_access": 0,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_cost": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      -1,
+      0
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "w00032",
+      "w02080"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "target_time",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 2,
+      "eligibility_penalty": 0,
+      "existing_access": 0,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_cost": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      null,
+      -1
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "w00032",
+      "w02080"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "unused_safe_alternative",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 2,
+      "eligibility_penalty": 0,
+      "existing_access": 0,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_cost": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "w00032",
+      "w02080"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "unpaid",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 2,
+      "eligibility_penalty": 0,
+      "existing_access": 0,
+      "expiry": 2,
+      "maintenance": 1,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_cost": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      -1,
+      0
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "w00036",
+      "w02084"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "eligibility_lost",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 1,
+      "eligibility_penalty": 1,
+      "existing_access": 1,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_cost": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "w00066",
+      "w02114"
+    ]
+  },
+  {
+    "contrast": "effective",
+    "metric": "recipient_cost",
+    "observed": {
+      "access_cost": 1,
+      "capacity": 1,
+      "eligibility_penalty": 0,
+      "existing_access": 1,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 2,
+      "recipient_cash": 1,
+      "review_cost": 0,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      -1
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "w00386",
+      "w02434"
+    ]
+  },
+  {
+    "contrast": "nominal",
+    "metric": "target_time",
+    "observed": {
+      "access_cost": 0,
+      "capacity": 2,
+      "eligibility_penalty": 0,
+      "existing_access": 1,
+      "expiry": 2,
+      "maintenance": 0,
+      "payer_cash": 2,
+      "recipient_cash": 0,
+      "review_cost": 1,
+      "review_delay": 0,
+      "schedule": "early",
+      "wrong_info": 0
+    },
+    "values": [
+      0,
+      null
+    ],
+    "view": "consequences",
+    "world_ids": [
+      "w00042",
+      "w04138"
+    ]
+  }
+]

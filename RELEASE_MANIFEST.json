@@ -21,14 +21,14 @@
       "sha256": "e0a3ea0c979e9e4000895025067da9a2374b13254109bfb46cca0b03abe82d63"
     },
     ".github/workflows/verify.yml": {
-      "bytes": 7474,
+      "bytes": 8949,
       "role": "read-only cross-platform verification workflow",
-      "sha256": "dc976f0c2ca2b4d58d5b8a3234e0e0673a52641644794b0af0a6db086840f70a"
+      "sha256": "33883f33b478f0b003199204479f355a8064f267e933c0f8706e173284081b19"
     },
     "Makefile": {
       "role": "verification and experiment orchestration",
-      "bytes": 5251,
-      "sha256": "87255b8b1849334a22718f52d9f851ece9b579b19165f791628040cb099c12f3"
+      "bytes": 5488,
+      "sha256": "a15f2469ea4e360555a5103a6934eb698cf2dc19b9a3a190094f294c31a5f6a8"
     },
     "artifacts/feasibility_v03/comparison.md": {
       "bytes": 2943,
@@ -312,8 +312,8 @@
     },
     "tools/tests/test_verify_release.py": {
       "role": "release-verifier contract tests",
-      "bytes": 32361,
-      "sha256": "f4b71d3fd74c74ef8c5e6da3683959c32ad92b0b2991ade2c4f7beb1fae0d5cd"
+      "bytes": 32558,
+      "sha256": "fa135710224b718b58f7951f23b8a2ec6ac922987810469ed2ae86b55e846021"
     },
     "tools/verify_reference_replay.py": {
       "bytes": 6147,
@@ -322,8 +322,8 @@
     },
     "tools/verify_release.py": {
       "role": "fail-closed release-tree verifier",
-      "bytes": 36769,
-      "sha256": "3f4a099e747e72c402f851e7b15683ca1bdf36a17959418edace6dde953937a0"
+      "bytes": 37175,
+      "sha256": "49062a4c3204684ee8b9c70e412f472f8784a5662091e2b4cba6f2b60c3b16f2"
     },
     "paper/nashs_cage_rvcim_v0_3.tex": {
       "role": "research revision manuscript v0.3 TeX",
@@ -352,6 +352,21 @@
     },
     "paper/references_v0_4.bib": {
       "role": "bibliography for research revision manuscript v0.4",
+      "bytes": 18806,
+      "sha256": "5e15a8d6fafb573b04b7db465baafec3225463947d531c7fe10374e0edccb0ea"
+    },
+    "paper/nashs_cage_rvcim_v0_5.tex": {
+      "role": "research revision manuscript v0.5 TeX",
+      "bytes": 116202,
+      "sha256": "03dcda393bb2ac95ae111f20e4eefdebeffd0bf7cab605e603fbd061c6afdb6d"
+    },
+    "paper/nashs_cage_rvcim_v0_5.pdf": {
+      "role": "research revision manuscript v0.5 PDF",
+      "bytes": 272926,
+      "sha256": "aa3e952030f7b6eaefcb7a17dc71100855e82884a3e6f18a2e9949cc21c800df"
+    },
+    "paper/references_v0_5.bib": {
+      "role": "bibliography for research revision manuscript v0.5",
       "bytes": 18806,
       "sha256": "5e15a8d6fafb573b04b7db465baafec3225463947d531c7fe10374e0edccb0ea"
     }

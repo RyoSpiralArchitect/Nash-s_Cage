@@ -1,0 +1,32 @@
+{
+  "claim_level": "F0_INPUT_CONTRACT_ASSAY",
+  "format": "waiting-contestability-receipt/v1",
+  "inputs": {
+    "CONTRACT.ja.md": "0cd4e4aba2530086ccb367c97d94545d979d2a2e0cbab7822fa99fe7faf1270b",
+    "README.md": "d4733ac5fabbe3e86a9fad6af781b924239dc394618b8b85db500a0947099f24",
+    "audit.py": "97ffa5a1ef73792383a576e68871ec1dacd79245b8f692c16ed7f7b6ad1256b2",
+    "model.py": "c45b4de3ad90baff65cb27cc1738f6ea6c2c37445c1ed10689ace05c389cc014",
+    "plan.json": "25bf660f534ec37d7787526116ef57e4253cfcb0c809cce7e320d5743e2c5338",
+    "run.py": "f7bf38ac31c255a36efd4958df96230fc2f4b18423a2ea09072ce959d4a4ac21",
+    "test_model.py": "faaac8799f9612450d71fdce297d5262d6355d341a0de9783f8ea4833b55589d",
+    "test_run.py": "4a6db31b6aa0d25e75b33bc95a60e694f11dceb6d9fff408276cd5e2767abde9"
+  },
+  "outputs": {
+    "classes.jsonl.gz": "03edae2c18d3f161f2eab3aec7806a04af3ca15e7249d56ecbb607b4df199347",
+    "plan.json": "25bf660f534ec37d7787526116ef57e4253cfcb0c809cce7e320d5743e2c5338",
+    "registration.json": "a59505a4c4ba81ddaf15349aea82ac5348f0fae9ae1f93b899f359f6409cdff4",
+    "summary.json": "56798fc9aa732408a35294a6243b1929bfeb0617c77b247137dfef2287985ce0",
+    "witnesses.json": "2619eb1c3fbd8d3c516e9a3981ffe3c2dd0e11c467a38efbe043c620df96f15c",
+    "worlds.jsonl.gz": "de130400b9fc9b6a626c138af424b6d70301d7e025a11adfd59edb1ae08ff158"
+  },
+  "phase": "smoke",
+  "runtime": {
+    "elapsed_seconds": 0.003073,
+    "machine": "x86_64",
+    "processes": 1,
+    "python": "3.14.4",
+    "system": "Linux"
+  },
+  "started_utc": "2026-11-10T06:31:50.209832+00:00",
+  "trust": "Internal consistency and optional replay; not authenticity or empirical validity."
+}

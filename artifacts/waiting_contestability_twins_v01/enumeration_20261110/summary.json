@@ -1,0 +1,535 @@
+{
+  "arm_world_count": 55296,
+  "bounds_are": "Componentwise; delivery-time differences undefined if either service never arrives.",
+  "claim_level": "F0_INPUT_CONTRACT_ASSAY",
+  "counts_are": "Designed catalogue counts, not population frequencies or causal estimates.",
+  "format": "waiting-contestability-summary/v1",
+  "full_input_decidability_is": "By construction; evaluator-only view is not an operational guarantee.",
+  "phase": "enumeration",
+  "reports": [
+    {
+      "class_denominator": 12,
+      "contrast": "effective",
+      "mixed_classes": {
+        "can_request": 12,
+        "continued": 12,
+        "eligibility_lost": 12,
+        "other_completed": 12,
+        "payer_cost": 8,
+        "pending_review": 0,
+        "recipient_cost": 6,
+        "requested": 12,
+        "target_on_time": 12,
+        "target_time": 12,
+        "total_cost": 10,
+        "unpaid": 12,
+        "unused_safe_alternative": 12
+      },
+      "view": "administrative",
+      "world_denominator": 18432,
+      "worlds_in_mixed_classes": {
+        "can_request": 18432,
+        "continued": 18432,
+        "eligibility_lost": 18432,
+        "other_completed": 18432,
+        "payer_cost": 12288,
+        "pending_review": 0,
+        "recipient_cost": 9216,
+        "requested": 18432,
+        "target_on_time": 18432,
+        "target_time": 18432,
+        "total_cost": 15360,
+        "unpaid": 18432,
+        "unused_safe_alternative": 18432
+      }
+    },
+    {
+      "class_denominator": 12,
+      "contrast": "nominal",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 8,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      },
+      "view": "administrative",
+      "world_denominator": 18432,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 12288,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      }
+    },
+    {
+      "class_denominator": 24,
+      "contrast": "effective",
+      "mixed_classes": {
+        "can_request": 15,
+        "continued": 24,
+        "eligibility_lost": 12,
+        "other_completed": 24,
+        "payer_cost": 16,
+        "pending_review": 0,
+        "recipient_cost": 6,
+        "requested": 21,
+        "target_on_time": 24,
+        "target_time": 24,
+        "total_cost": 18,
+        "unpaid": 24,
+        "unused_safe_alternative": 24
+      },
+      "view": "authority",
+      "world_denominator": 18432,
+      "worlds_in_mixed_classes": {
+        "can_request": 11520,
+        "continued": 18432,
+        "eligibility_lost": 9216,
+        "other_completed": 18432,
+        "payer_cost": 12288,
+        "pending_review": 0,
+        "recipient_cost": 4608,
+        "requested": 16128,
+        "target_on_time": 18432,
+        "target_time": 18432,
+        "total_cost": 13824,
+        "unpaid": 18432,
+        "unused_safe_alternative": 18432
+      }
+    },
+    {
+      "class_denominator": 24,
+      "contrast": "nominal",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 12,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      },
+      "view": "authority",
+      "world_denominator": 18432,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 9216,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      }
+    },
+    {
+      "class_denominator": 192,
+      "contrast": "effective",
+      "mixed_classes": {
+        "can_request": 48,
+        "continued": 186,
+        "eligibility_lost": 66,
+        "other_completed": 156,
+        "payer_cost": 128,
+        "pending_review": 0,
+        "recipient_cost": 10,
+        "requested": 79,
+        "target_on_time": 142,
+        "target_time": 108,
+        "total_cost": 132,
+        "unpaid": 183,
+        "unused_safe_alternative": 118
+      },
+      "view": "access",
+      "world_denominator": 18432,
+      "worlds_in_mixed_classes": {
+        "can_request": 4608,
+        "continued": 17856,
+        "eligibility_lost": 6336,
+        "other_completed": 14976,
+        "payer_cost": 12288,
+        "pending_review": 0,
+        "recipient_cost": 960,
+        "requested": 7584,
+        "target_on_time": 13632,
+        "target_time": 10368,
+        "total_cost": 12672,
+        "unpaid": 17568,
+        "unused_safe_alternative": 11328
+      }
+    },
+    {
+      "class_denominator": 192,
+      "contrast": "nominal",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 88,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      },
+      "view": "access",
+      "world_denominator": 18432,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 8448,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      }
+    },
+    {
+      "class_denominator": 6144,
+      "contrast": "effective",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 816,
+        "eligibility_lost": 384,
+        "other_completed": 1440,
+        "payer_cost": 314,
+        "pending_review": 0,
+        "recipient_cost": 256,
+        "requested": 1152,
+        "target_on_time": 1242,
+        "target_time": 1244,
+        "total_cost": 514,
+        "unpaid": 714,
+        "unused_safe_alternative": 1230
+      },
+      "view": "consequences",
+      "world_denominator": 18432,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 2448,
+        "eligibility_lost": 1152,
+        "other_completed": 4320,
+        "payer_cost": 942,
+        "pending_review": 0,
+        "recipient_cost": 768,
+        "requested": 3456,
+        "target_on_time": 3726,
+        "target_time": 3732,
+        "total_cost": 1542,
+        "unpaid": 2142,
+        "unused_safe_alternative": 3690
+      }
+    },
+    {
+      "class_denominator": 6144,
+      "contrast": "nominal",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 366,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      },
+      "view": "consequences",
+      "world_denominator": 18432,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 1098,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      }
+    },
+    {
+      "class_denominator": 18432,
+      "contrast": "effective",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      },
+      "view": "full_model_evaluator_only",
+      "world_denominator": 18432,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      }
+    },
+    {
+      "class_denominator": 18432,
+      "contrast": "nominal",
+      "mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      },
+      "view": "full_model_evaluator_only",
+      "world_denominator": 18432,
+      "worlds_in_mixed_classes": {
+        "can_request": 0,
+        "continued": 0,
+        "eligibility_lost": 0,
+        "other_completed": 0,
+        "payer_cost": 0,
+        "pending_review": 0,
+        "recipient_cost": 0,
+        "requested": 0,
+        "target_on_time": 0,
+        "target_time": 0,
+        "total_cost": 0,
+        "unpaid": 0,
+        "unused_safe_alternative": 0
+      }
+    }
+  ],
+  "scope": "Full declared finite catalogue",
+  "totals": {
+    "effective": {
+      "can_request": {
+        "negative": 576,
+        "positive": 9792,
+        "undefined": 0,
+        "zero": 8064
+      },
+      "continued": {
+        "negative": 8530,
+        "positive": 22,
+        "undefined": 0,
+        "zero": 9880
+      },
+      "eligibility_lost": {
+        "negative": 2496,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 15936
+      },
+      "other_completed": {
+        "negative": 5472,
+        "positive": 48,
+        "undefined": 0,
+        "zero": 12912
+      },
+      "payer_cost": {
+        "negative": 0,
+        "positive": 6177,
+        "undefined": 0,
+        "zero": 12255
+      },
+      "pending_review": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "recipient_cost": {
+        "negative": 1664,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 16768
+      },
+      "requested": {
+        "negative": 416,
+        "positive": 7072,
+        "undefined": 0,
+        "zero": 10944
+      },
+      "target_on_time": {
+        "negative": 6370,
+        "positive": 212,
+        "undefined": 0,
+        "zero": 11850
+      },
+      "target_time": {
+        "negative": 500,
+        "positive": 0,
+        "undefined": 14396,
+        "zero": 3536
+      },
+      "total_cost": {
+        "negative": 1301,
+        "positive": 5876,
+        "undefined": 0,
+        "zero": 11255
+      },
+      "unpaid": {
+        "negative": 3774,
+        "positive": 1896,
+        "undefined": 0,
+        "zero": 12762
+      },
+      "unused_safe_alternative": {
+        "negative": 552,
+        "positive": 678,
+        "undefined": 0,
+        "zero": 17202
+      }
+    },
+    "nominal": {
+      "can_request": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "continued": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "eligibility_lost": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "other_completed": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "payer_cost": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "pending_review": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "recipient_cost": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "requested": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "target_on_time": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "target_time": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 3966,
+        "zero": 14466
+      },
+      "total_cost": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "unpaid": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      },
+      "unused_safe_alternative": {
+        "negative": 0,
+        "positive": 0,
+        "undefined": 0,
+        "zero": 18432
+      }
+    }
+  },
+  "world_count": 18432
+}
